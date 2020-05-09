@@ -22,29 +22,29 @@ public class TestingWebApplicationTests {
 	@Autowired
 	private TestRestTemplate restTemplate;
 
-	@Test
-	public void testOK() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("X-Client-Id", "3");
-
-		HttpEntity<String> entity = new HttpEntity<>("body", headers);
-
-		Map<String, Map<String, String>> response = this.restTemplate
-				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
-		assertThat(response.get("headers").get("X-Client-Id")).contains("3");
-	}
-
-	@Test
-	public void testNOK() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("X-Client-Id", "4");
-
-		HttpEntity<String> entity = new HttpEntity<>("body", headers);
-
-		Map<String, Map<String, String>> response = this.restTemplate
-				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
-		assertThat(response.get("headers").get("X-Client-Id")).doesNotContain("3");
-	}
+//	@Test
+//	public void testOK() throws Exception {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.set("X-Client-Id", "3");
+//
+//		HttpEntity<String> entity = new HttpEntity<>("body", headers);
+//
+//		Map<String, Map<String, String>> response = this.restTemplate
+//				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
+//		assertThat(response.get("headers").get("X-Client-Id")).contains("3");
+//	}
+//
+//	@Test
+//	public void testNOK() throws Exception {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.set("X-Client-Id", "4");
+//
+//		HttpEntity<String> entity = new HttpEntity<>("body", headers);
+//
+//		Map<String, Map<String, String>> response = this.restTemplate
+//				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
+//		assertThat(response.get("headers").get("X-Client-Id")).doesNotContain("3");
+//	}
 
 }
 //@SpringBootTest
