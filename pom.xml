@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>rest-template-interceptor</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rest-template-interceptor</name>
@@ -28,7 +28,7 @@
 		<developerConnection>scm:git:https://github.com/damianwajser/Rest-Template-Interceptor.git</developerConnection>
 		<url>https://github.com/damianwajser/Rest-Template-Interceptor.git</url>
 		<!-- <tag>spring-rest-commons-options-0.0.10</tag> -->
-		<tag>rest-template-interceptor-0.0.2</tag>
+		<tag>y</tag>
 	</scm>
 	<developers>
 		<developer>
