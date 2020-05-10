@@ -1,0 +1,213 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.damianwajser</groupId>
+	<artifactId>rest-template-interceptor</artifactId>
+	<version>0.0.4-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>rest-template-interceptor</name>
+	<description>DESC</description>
+	<url>http://github.com/damianwajser/rest-template-interceptor</url>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
+		<junit.jupiter.version>5.0.0-M2</junit.jupiter.version>
+		<junit.platform.version>1.0.0-M2</junit.platform.version>
+	</properties>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:https://github.com/damianwajser/Rest-Template-Interceptor.git</connection>
+		<developerConnection>scm:git:https://github.com/damianwajser/Rest-Template-Interceptor.git</developerConnection>
+		<url>https://github.com/damianwajser/Rest-Template-Interceptor.git</url>
+		<!-- <tag>spring-rest-commons-options-0.0.10</tag> -->
+		<tag>y</tag>
+	</scm>
+	<developers>
+		<developer>
+			<id>damianwajser</id>
+			<name>Damian Wajser</name>
+			<email>wajser@gmail.com</email>
+			<roles>
+				<role>Project-Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- TESTS -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>test</scope>
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.junit.vintage</groupId> -->
+<!-- 					<artifactId>junit-vintage-engine</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- END TEST -->
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+			<!-- <version>2.19</version> -->
+			<!-- <dependencies> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.junit.platform</groupId> -->
+			<!-- <artifactId>junit-platform-surefire-provider</artifactId> -->
+			<!-- <version>${junit.platform.version}</version> -->
+			<!-- </dependency> -->
+			<!-- </dependencies> -->
+			<!-- </plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.jacoco</groupId> -->
+			<!-- <artifactId>jacoco-maven-plugin</artifactId> -->
+			<!-- <version>0.7.9</version> -->
+			<!-- <configuration> -->
+			<!-- <skip>${maven.test.skip}</skip> -->
+			<!-- <output>file</output> -->
+			<!-- <append>true</append> -->
+			<!-- </configuration> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>jacoco-initialize</id> -->
+			<!-- <goals> -->
+			<!-- <goal>prepare-agent</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- <execution> -->
+			<!-- <id>jacoco-site</id> -->
+			<!-- <phase>verify</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>report</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.0.2</version>
+						<configuration>
+							<excludes>
+								<excludes>**/test/*</excludes>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+</project>
