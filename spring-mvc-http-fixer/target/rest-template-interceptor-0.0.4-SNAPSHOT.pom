@@ -9,7 +9,7 @@
 
 	<name>rest-template-interceptor</name>
 	<description>DESC</description>
-	<url>http://github.com/damianwajser/spring-commons</url>
+	<url>http://github.com/damianwajser/rest-template-interceptor</url>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
