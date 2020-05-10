@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.github.damianwajser</groupId>
-  <artifactId>rest-template-interceptor</artifactId>
+  <artifactId>spring-mvc-http-fixer</artifactId>
   <versioning>
     <versions>
-      <version>0.0.4-SNAPSHOT</version>
+      <version>0.0.1-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20200510222044</lastUpdated>
+    <lastUpdated>20200510234300</lastUpdated>
   </versioning>
 </metadata>
