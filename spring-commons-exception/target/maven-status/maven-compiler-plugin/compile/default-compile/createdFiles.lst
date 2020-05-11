@@ -1,0 +1,9 @@
+com/github/damianwajser/exceptions/model/ExceptionDetail.class
+com/github/damianwajser/exceptions/impl/authentication/forbidden/PermissionDeniedException.class
+com/github/damianwajser/exceptions/impl/authentication/unauthorize/AuthenticationFailedException.class
+com/github/damianwajser/exceptions/RestException.class
+com/github/damianwajser/exceptions/impl/authentication/unauthorize/UnauthorizeException.class
+com/github/damianwajser/exceptions/impl/authentication/unauthorize/NotAuthenticatedException.class
+com/github/damianwajser/exceptions/impl/badrequest/BadRequestException.class
+com/github/damianwajser/exceptions/impl/authentication/forbidden/ForbiddenException.class
+com/github/damianwajser/exceptions/impl/notfound/NotFoundException.class
