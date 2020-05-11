@@ -1,2 +1,2 @@
-com/github/damianwajser/RestTemplateConfiguration.class
-com/github/damianwajser/RestTemplateInterceptor.class
+com/github/damianwajser/rest/interceptors/RestTemplateInterceptor.class
+com/github/damianwajser/rest/templates/RestTemplateConfiguration.class

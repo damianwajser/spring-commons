@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-commons</name>
@@ -56,12 +56,12 @@
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>rest-template-interceptor</artifactId>
-			<version>0.0.3-SNAPSHOT</version>
+			<version>0.0.5-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-mvc-http-fixer</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<!-- TESTS -->
 
