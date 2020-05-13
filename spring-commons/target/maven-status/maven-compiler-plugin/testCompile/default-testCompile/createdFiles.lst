@@ -1,0 +1,6 @@
+com/github/damianwajser/model/FooObject.class
+com/github/damianwajser/tests/HttpStatusCodeTest.class
+com/github/damianwajser/TestApplication.class
+com/github/damianwajser/tests/HttpHeaderTest.class
+com/github/damianwajser/controllers/HttpHeadersController.class
+com/github/damianwajser/controllers/HttpStatusCodeController.class

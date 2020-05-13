@@ -1,7 +1,6 @@
 com/github/damianwajser/model/FooObject.class
 com/github/damianwajser/controllers/BadRequestController.class
-com/github/damianwajser/TestApplication.class
-com/github/damianwajser/controllers/NotFoundController.class
 com/github/damianwajser/tests/ExceptionCodeTest.class
-com/github/damianwajser/controllers/TestUnauthorizeController.class
+com/github/damianwajser/TestApplication.class
 com/github/damianwajser/controllers/TestForbiddenController.class
+com/github/damianwajser/controllers/NotFoundController.class

@@ -1,0 +1,4 @@
+com/github/damianwajser/model/FooObject.class
+com/github/damianwajser/controllers/BadRequestController.class
+com/github/damianwajser/TestApplication.class
+com/github/damianwajser/tests/ExceptionValidationResponse.class

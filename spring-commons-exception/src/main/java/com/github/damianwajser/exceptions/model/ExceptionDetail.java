@@ -1,5 +1,7 @@
 package com.github.damianwajser.exceptions.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.util.Assert;
@@ -9,6 +11,7 @@ public class ExceptionDetail {
 	private final String errorCode;
 	private final Optional<Object> errorDetail;
 	private final String errorMessage;
+	private Map<String, Object> metaData;
 
 	public ExceptionDetail(String errorCode, String errorMessage, Optional<Object> detail) {
 		Assert.notNull(errorCode, "errorCode dont be null");
@@ -16,7 +19,7 @@ public class ExceptionDetail {
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 		this.errorDetail = detail;
-
+		this.metaData = new HashMap<>();
 	}
 
 	public String getErrorCode() {
@@ -25,6 +28,14 @@ public class ExceptionDetail {
 
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public void setMetaData(String key, Object value) {
+		metaData.put(key, value);
+	}
+
+	public Map<String, Object> getMetaData() {
+		return this.metaData;
 	}
 
 	public Optional<Object> getErrorDetail() {
