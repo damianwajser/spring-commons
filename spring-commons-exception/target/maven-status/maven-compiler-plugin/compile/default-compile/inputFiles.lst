@@ -1,6 +1,0 @@
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/impl/authentication/forbidden/ForbiddenException.java
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/impl/badrequest/BadRequestException.java
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/model/ExceptionDetail.java
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/impl/notfound/NotFoundException.java
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/impl/authentication/forbidden/PermissionDeniedException.java
-/Users/damianwajser/git/mios/spring-commons/spring-commons-exception/src/main/java/com/github/damianwajser/exceptions/RestException.java
