@@ -1,10 +1,10 @@
 package com.github.damianwajser.validator.constraint;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.assertj.core.util.Lists;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,9 +21,9 @@ public abstract class AbstractConstraint {
 	protected Optional<HttpMethod> getCurrentHttpMethod() {
 		return this.getCurrentHttpRequest().map(r -> HttpMethod.resolve(r.getMethod()));
 	}
-	
+
 	protected boolean methodExclude(HttpMethod[] excludes) {
 		HttpMethod method = this.getCurrentHttpMethod().get();
-		return !Lists.list(excludes).contains(method);
+		return !Arrays.asList(excludes).contains(method);
 	}
 }

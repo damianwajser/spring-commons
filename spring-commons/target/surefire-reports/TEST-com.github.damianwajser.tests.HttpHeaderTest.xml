@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="com.github.damianwajser.tests.HttpHeaderTest" time="1.904" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="com.github.damianwajser.tests.HttpHeaderTest" time="1.686" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib"/>
@@ -47,7 +47,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install deploy -Prelease"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -65,6 +65,6 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.github.damianwajser.tests.HttpHeaderTest" name="testNOK" time="1.726"/>
-  <testcase classname="com.github.damianwajser.tests.HttpHeaderTest" name="testOK" time="0.178"/>
+  <testcase classname="com.github.damianwajser.tests.HttpHeaderTest" name="testNOK" time="1.505"/>
+  <testcase classname="com.github.damianwajser.tests.HttpHeaderTest" name="testOK" time="0.181"/>
 </testsuite>

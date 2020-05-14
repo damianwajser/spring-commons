@@ -1,0 +1,5 @@
+com.github.damianwajser.exceptions
+com.github.damianwajser.exceptions.impl.authentication.forbidden
+com.github.damianwajser.exceptions.impl.badrequest
+com.github.damianwajser.exceptions.impl.notfound
+com.github.damianwajser.exceptions.model

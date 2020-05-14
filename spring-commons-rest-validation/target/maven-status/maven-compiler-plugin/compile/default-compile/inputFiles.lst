@@ -1,1 +1,3 @@
 /Users/damianwajser/git/mios/spring-commons/spring-commons-rest-validation/src/main/java/com/github/damianwajser/validator/annotation/NotEmpty.java
+/Users/damianwajser/git/mios/spring-commons/spring-commons-rest-validation/src/main/java/com/github/damianwajser/validator/constraint/AbstractConstraint.java
+/Users/damianwajser/git/mios/spring-commons/spring-commons-rest-validation/src/main/java/com/github/damianwajser/validator/constraint/NotEmptyConstraint.java
