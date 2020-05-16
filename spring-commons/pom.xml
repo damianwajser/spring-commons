@@ -30,5 +30,15 @@
 			<artifactId>spring-commons-exception-handler</artifactId>
 			<version>${spring-commons-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.damianwajser</groupId>
+			<artifactId>spring-commons-rest-validation</artifactId>
+			<version>${spring-commons-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.damianwajser</groupId>
+			<artifactId>spring-commons-logstash-logger</artifactId>
+			<version>${spring-commons-version}</version>
+		</dependency>
 	</dependencies>
 </project>

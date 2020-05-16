@@ -18,7 +18,8 @@
 		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>0.0.11-SNAPSHOT</spring-commons-version>
+		<spring-commons-version>0.0.13-SNAPSHOT</spring-commons-version>
+		<logstash.version>6.3</logstash.version>
 	</properties>
 	<modules>
 		<module>spring-commons-exception</module>
@@ -26,6 +27,7 @@
 		<module>spring-commons-exception-handler</module>
 		<module>spring-mvc-http-fixer</module>
 		<module>rest-template-interceptor</module>
+		<module>spring-commons-logstash-logger</module>
 		<module>spring-commons</module>
     </modules>
 
@@ -193,6 +195,9 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>2.9.1</version>
+						<configuration>
+     						<source>8</source>
+   						</configuration>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>
