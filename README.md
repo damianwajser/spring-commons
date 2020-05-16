@@ -62,6 +62,7 @@ public class Application {
 | logstash.appName | ms-users | spring-commons-logstash-logger | the name of microservice | test
 logstash.destination | localhost:5000 | spring-commons-logstash-logger | host and port of logstash server| localhost:5000
 | logstash.trace.id.key | any string | spring-commons-logstash-logger | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
+| spring.jackson.property-naming-strategy | com.fasterxml.jackson.databind. PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller | N/A
 ## License
 
 The Spring Framework is released under version 2.0 of the
