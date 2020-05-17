@@ -65,7 +65,7 @@ logstash.destination | localhost:5000 | spring-commons-logstash-logger | host an
 | spring.jackson.property-naming-strategy | com.fasterxml.jackson.databind. PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller | N/A
 
 ## Modules
-### spring-commons-exception
+### **spring-commons-exception**
 Collection of exceptions for the most common cases when rest apis are built, and override the http code. In addition, they request additional information for errors. They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message. For example:
 |Exception|Http Code |
 |--|--|
