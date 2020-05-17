@@ -18,7 +18,7 @@
 		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>0.0.15-SNAPSHOT</spring-commons-version>
+		<spring-commons-version>0.0.16</spring-commons-version>
 		<logstash.version>6.3</logstash.version>
 	</properties>
 	<modules>
