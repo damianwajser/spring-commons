@@ -53,6 +53,7 @@ tmp/
 .metadata
 .classpath
 **/.classpath
+*/.classpath
 **/**/.classpath
 .project
 *.tmp
