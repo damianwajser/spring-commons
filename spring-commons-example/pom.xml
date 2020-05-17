@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons</artifactId>
-			<version>0.0.13-SNAPSHOT</version>
+			<version>0.0.15-SNAPSHOT</version>
 		</dependency>
 		<!-- TESTS -->
 		<dependency>

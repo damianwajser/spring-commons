@@ -14,12 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.github.damianwajser.configuration.MDCProperties;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public abstract class MDCFilter implements Filter, MDCProperties {
 
 	@Value("${logstash.trace.id.key:X-Trace-Id}")
