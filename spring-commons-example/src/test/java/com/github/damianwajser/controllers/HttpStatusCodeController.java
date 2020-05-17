@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.damianwajser.model.FooObject;
+import com.github.damianwajser.FooObject;
 
 @RestController
 public class HttpStatusCodeController {
