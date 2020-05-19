@@ -50,12 +50,13 @@ public class LogstashConfiguration {
 
 	@PostConstruct
 	public void init() {
-
+		ObjectMapper mapper = new ObjectMapper();
+		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		LoggerContext loggerContext = rootLogger.getLoggerContext();
+		Logger log = loggerContext.getLogger(LogstashConfiguration.class);
+		log.info("Configurate  Logger");
 		if (destination != null && !destination.equals("")) {
 
-			ObjectMapper mapper = new ObjectMapper();
-			Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-			LoggerContext loggerContext = rootLogger.getLoggerContext();
 			// loggerContext.reset(); // shouldn't need to use that
 
 			LogstashTcpSocketAppender socketAppender = new LogstashTcpSocketAppender();

@@ -30,6 +30,7 @@ public abstract class MDCFilter implements Filter, MDCProperties {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		System.out.println("inicializando Filtro");
 	}
 
 	@Override
