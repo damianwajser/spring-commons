@@ -1,8 +1,6 @@
 package com.github.damianwajser.exceptions.handlers;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,21 +45,7 @@ public class GlobalExceptionHandler {
 	}
 
 	private List<ExceptionDetail> getExceptionDetails(BindingResult results) {
-
-		return results.getFieldErrors().stream().map(error -> {
-			Map<String, Object> attributes = error.unwrap(javax.validation.ConstraintViolation.class)
-					.getConstraintDescriptor().getAttributes();
-			String code = HttpStatus.BAD_GATEWAY.toString();
-			if (attributes != null) {
-				code = attributes.getOrDefault("businessCode", "400").toString();
-			}
-			ExceptionDetail detail = new ExceptionDetail(code, error.getDefaultMessage(),
-					Optional.of(error.getField()));
-			detail.setMetaData("rejectedValue", error.getRejectedValue());
-			detail.setMetaData("field", error.getField());
-			detail.setMetaData("reason", error.getCode());
-			return detail;
-		}).collect(Collectors.toList());
+		return results.getFieldErrors().stream().map(FieldErrorMapper::convert).collect(Collectors.toList());
 	}
 
 	private String getPath(HttpServletRequest request) {
