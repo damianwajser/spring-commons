@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>rest-template-interceptor</artifactId>
 	<packaging>jar</packaging>
-
+	<version>${spring-commons-version}</version>
 	<name>rest-template-interceptor</name>
 	<description>DESC</description>
 

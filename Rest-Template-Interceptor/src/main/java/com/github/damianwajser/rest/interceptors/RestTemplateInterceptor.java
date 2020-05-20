@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -14,6 +16,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
+
+	private Logger LOGGER = LoggerFactory.getLogger(RestTemplateInterceptor.class);
 
 	private Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
@@ -32,6 +36,7 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 			String headerName = headers.nextElement();
 			String headerValue = servletRequest.getHeader(headerName);
 			if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
+				LOGGER.debug("add headers: " + headerName + ": "+ headerValue);
 				request.getHeaders().add(headerName, headerValue);
 			}
 		}
