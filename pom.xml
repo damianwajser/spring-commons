@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons-parent</artifactId>
-	<version>${spring-commons-version}</version>
+	<version>0.0.20</version>
 	<packaging>pom</packaging>
 
 	<name>spring-commons-parent</name>
@@ -18,7 +18,7 @@
 		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>0.0.16</spring-commons-version>
+		<spring-commons-version>0.0.21</spring-commons-version>
 		<logstash.version>6.3</logstash.version>
 	</properties>
 	<modules>

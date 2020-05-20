@@ -30,6 +30,7 @@ public abstract class MDCFilter implements Filter, MDCProperties {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		System.out.println("inicializando Filtro");
 	}
 
 	@Override
@@ -63,6 +64,7 @@ public abstract class MDCFilter implements Filter, MDCProperties {
 	}
 
 	protected String requestId(HttpServletRequest request) {
+		//El api gateway tiene que agregar el Correlation Id
 		String traceValue = request.getHeader(traceId);
 		if (StringUtils.isEmpty(traceValue)) {
 			traceValue = UUID.randomUUID().toString();

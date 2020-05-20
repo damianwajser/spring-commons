@@ -29,10 +29,10 @@ import net.logstash.logback.encoder.LogstashEncoder;
 @ConfigurationProperties(prefix = "logstash")
 public class LogstashConfiguration {
 
-	@Value("${logstash.destination:}")
+	@Value("${logstash.destination:localhost:5000}")
 	private String destination;
 
-	@Value("${logstash.appName:}")
+	@Value("${logstash.appName:test}")
 	private String appName;
 
 	@Value("${logstash.maxPayload:16000}")
@@ -50,12 +50,12 @@ public class LogstashConfiguration {
 
 	@PostConstruct
 	public void init() {
-
-		if (destination != null && !destination.equals("")) {
-
-			ObjectMapper mapper = new ObjectMapper();
-			Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-			LoggerContext loggerContext = rootLogger.getLoggerContext();
+		ObjectMapper mapper = new ObjectMapper();
+		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		LoggerContext loggerContext = rootLogger.getLoggerContext();
+		Logger log = loggerContext.getLogger(LogstashConfiguration.class);
+		log.info("Configurate  Logger, destination: " + destination);
+		if (destination != null && !destination.equals("")) {;
 			// loggerContext.reset(); // shouldn't need to use that
 
 			LogstashTcpSocketAppender socketAppender = new LogstashTcpSocketAppender();
