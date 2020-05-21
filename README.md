@@ -47,6 +47,8 @@ Create a spring-boot application.
 ```java
 //declare the package to create de options controllers
 @SpringBootApplication
+@EnableAutoConfiguration
+@ComponentScan(basePackages = {"com.github.damianwajser","{YOUR-PACKAGE}"})
 public class Application {
 
 	public static void main(String[] args) {

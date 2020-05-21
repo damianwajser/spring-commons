@@ -34,7 +34,7 @@ public @interface NotEmpty {
 	Class<? extends Payload>[] payload() default {};
 
 	String businessCode() default "400";
-	
+
 	/**
 	 * Defines several {@code @NotEmpty} constraints on the same element.
 	 *
