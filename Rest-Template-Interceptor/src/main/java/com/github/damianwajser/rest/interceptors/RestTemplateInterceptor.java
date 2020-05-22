@@ -29,15 +29,16 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
-
-		HttpServletRequest servletRequest = getCurrentHttpRequest().get();
-		Enumeration<String> headers = servletRequest.getHeaderNames();
-		while (headers.hasMoreElements()) {
-			String headerName = headers.nextElement();
-			String headerValue = servletRequest.getHeader(headerName);
-			if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
-				LOGGER.debug("add headers: " + headerName + ": "+ headerValue);
-				request.getHeaders().add(headerName, headerValue);
+		if (getCurrentHttpRequest().isPresent()) {
+			HttpServletRequest servletRequest = getCurrentHttpRequest().get();
+			Enumeration<String> headers = servletRequest.getHeaderNames();
+			while (headers.hasMoreElements()) {
+				String headerName = headers.nextElement();
+				String headerValue = servletRequest.getHeader(headerName);
+				if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
+					LOGGER.debug("add headers: " + headerName + ": " + headerValue);
+					request.getHeaders().add(headerName, headerValue);
+				}
 			}
 		}
 		ClientHttpResponse response = execution.execute(request, body);
