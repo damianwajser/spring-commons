@@ -47,8 +47,8 @@ public class Application {
 ```
 #### Recommended configuration:
 | Key | Module | Reference
-|--|--|--|--|--|
-PropertyNamingStrategy. SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
+|--|--|--
+PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
 
 ## Modules
  ### [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
@@ -69,7 +69,7 @@ PropertyNamingStrategy. SnakeCaseStrategy | Spring web | format JSON response wh
 
 #### Properties
 | Key | Posible Value | Reference | Default Value
-|--|--|--|--|--|
+|--|--|--|--
 |logging.pattern. level | "Request  ID:  %X{requestId}  Client  IP:  %X{clientIp}" | log pattern | Empty
 |logstash. appName | ms-users | the name of microservice | test
 logstash. destination | localhost:5000 | host and port of logstash server| localhost:5000
@@ -80,8 +80,23 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
  This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
  1. The first request finished executing, which returns the same response that was obtained in the first call. 2. In case the first request is still running, a message will be returned indicating the conflict.
 This configuration is done by registering some beans and properties, you can see the following example:
-```java @Configuration public class IdempotencyConfiguration {
- @Bean public IdempotencyEndpoints idempotencyEndpoints() { IdempotencyEndpoints idempotencyEndpoints = new IdempotencyEndpoints(); // register endpoint by all Http Methods and generic Key generator      // (The idempotence key is generated based on the header sent by the client, X-Idempotency-Key) idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_generic"); //Customize another enpoint only by POST method and custom keyGenerator idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_by_custom", new FooIdempotencyKeyGenerator(), HttpMethod.POST);      return idempotencyEndpoints; } }```
+
+```java 
+@Configuration 
+public class IdempotencyConfiguration {
+  
+  @Bean 
+  public IdempotencyEndpoints idempotencyEndpoints() {
+    IdempotencyEndpoints idempotencyEndpoints = new IdempotencyEndpoints(); 
+    // register endpoint by all Http Methods and generic Key generator      
+    // (The idempotence key is generated based on the header sent by the client, X-Idempotency-Key)
+    idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_generic"); 
+    //Customize another enpoint only by POST method and custom keyGenerator
+    idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_by_custom", new FooIdempotencyKeyGenerator(), HttpMethod.POST);
+    return idempotencyEndpoints; 
+  } 
+}
+```
 Recuerda que este modulo funciona con redis, con lo cual antes debieras configurar tu redis  y tu RedisTemplate, para lo cual te dejo un ejemplo:
 
  1. Create a Redis Properties
