@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons-parent</artifactId>
-	<version>0.0.22</version>
+	<version>0.0.24</version>
 	<packaging>pom</packaging>
 
 	<name>spring-commons-parent</name>
@@ -18,18 +18,19 @@
 		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>0.0.22</spring-commons-version>
+		<spring-commons-version>0.0.24</spring-commons-version>
 		<logstash.version>6.3</logstash.version>
 	</properties>
 	<modules>
 		<module>spring-commons-exception</module>
 		<module>spring-commons-rest-validation</module>
 		<module>spring-commons-exception-handler</module>
-		<module>spring-mvc-http-fixer</module>
-		<module>rest-template-interceptor</module>
+		<module>spring-commons-idempotency</module>
+		<module>spring-commons-http-fixer</module>
+		<module>spring-commons-resttemplate-interceptor</module>
 		<module>spring-commons-logstash-logger</module>
 		<module>spring-commons</module>
-    </modules>
+	</modules>
 
 	<licenses>
 		<license>
@@ -65,6 +66,26 @@
 			<version>${spring.boot.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.3.0</version>
+			<scope>provided</scope>
+			<type>jar</type>
+		</dependency>
+
 		<!-- TESTS -->
 
 		<dependency>
@@ -91,17 +112,23 @@
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>it.ozimov</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<version>0.7.2</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- END TEST -->
 	</dependencies>
 	<build>
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.properties</include>
-            </includes>
-        </resource>
-    </resources>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -111,44 +138,44 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-<!--
+			<!--
+						<plugin>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>3.0.0-M4</version>
+			<dependencies>
+			<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-surefire-provider</artifactId>
+			<version>${junit.platform.version}</version>
+			</dependency>
+			</dependencies>
+			</plugin>
 			<plugin>
-<artifactId>maven-surefire-plugin</artifactId>
-<version>3.0.0-M4</version>
-<dependencies>
-<dependency>
-<groupId>org.junit.platform</groupId>
-<artifactId>junit-platform-surefire-provider</artifactId>
-<version>${junit.platform.version}</version>
-</dependency>
-</dependencies>
-</plugin>
-<plugin>
-<groupId>org.jacoco</groupId>
-<artifactId>jacoco-maven-plugin</artifactId>
-<version>0.7.9</version>
-<configuration>
-<skip>${maven.test.skip}</skip>
-<output>file</output>
-<append>true</append>
-</configuration>
-<executions>
-<execution>
-<id>jacoco-initialize</id>
-<goals>
-<goal>prepare-agent</goal>
-</goals>
-</execution>
-<execution>
-<id>jacoco-site</id>
-<phase>verify</phase>
-<goals>
-<goal>report</goal>
-</goals>
-</execution>
-</executions>
-</plugin>
--->
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.7.9</version>
+			<configuration>
+			<skip>${maven.test.skip}</skip>
+			<output>file</output>
+			<append>true</append>
+			</configuration>
+			<executions>
+			<execution>
+			<id>jacoco-initialize</id>
+			<goals>
+			<goal>prepare-agent</goal>
+			</goals>
+			</execution>
+			<execution>
+			<id>jacoco-site</id>
+			<phase>verify</phase>
+			<goals>
+			<goal>report</goal>
+			</goals>
+			</execution>
+			</executions>
+			</plugin>
+			-->
 		</plugins>
 
 	</build>
@@ -196,8 +223,8 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>2.9.1</version>
 						<configuration>
-     						<source>8</source>
-   						</configuration>
+							<source>8</source>
+						</configuration>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>

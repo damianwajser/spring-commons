@@ -13,22 +13,22 @@
 	<parent>
 		<groupId>com.github.damianwajser</groupId>
 		<artifactId>spring-commons-parent</artifactId>
-		<version>0.0.22</version>
+		<version>0.0.24</version>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
-			<artifactId>rest-template-interceptor</artifactId>
+			<artifactId>spring-commons-resttemplate-interceptor</artifactId>
 			<version>${spring-commons-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
-			<artifactId>spring-mvc-http-fixer</artifactId>
+			<artifactId>spring-commons-http-fixer</artifactId>
 			<version>${spring-commons-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
-			<artifactId>spring-commons-exception-handler</artifactId>
+			<artifactId>spring-commons-idempotency</artifactId>
 			<version>${spring-commons-version}</version>
 		</dependency>
 		<dependency>
