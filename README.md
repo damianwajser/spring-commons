@@ -81,6 +81,15 @@ This module tries to solve the problems associated with idempotence. For them, c
 
 This configuration is done by registering some beans and properties, you can see the following example:
 
+#### Properties
+| Key | Posible Value | Reference | Default Value
+|--|--|--|--
+spring.commons.idempotency.enabled | true/false | Enable the module | false
+spring.commons.idempotency.message | Any String | |
+spring.commons.idempotency.ttl | Any nunmber ||
+spring.commons.idempotency.badrequest.code| Any String | | 400
+spring.commons.idempotency.conflict.code| Any String | | 409
+spring.commons.idempotency.conflict.mesasge| Any String | |idempotency key is bussy
 ```java 
 @Configuration 
 public class IdempotencyConfiguration {
