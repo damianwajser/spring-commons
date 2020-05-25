@@ -76,7 +76,9 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 
 ### [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
- 1. The first request finished executing, which returns the same response that was obtained in the first call. 2. In case the first request is still running, a message will be returned indicating the conflict.
+ 1. The first request finished executing, which returns the same response that was obtained in the first call. 
+ 2. In case the first request is still running, a message will be returned indicating the conflict.
+
 This configuration is done by registering some beans and properties, you can see the following example:
 
 ```java 
