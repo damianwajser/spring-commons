@@ -5,7 +5,7 @@ import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
 import com.github.damianwajser.exceptions.impl.badrequest.ConflictException;
 import com.github.damianwajser.idempotency.configuration.IdempotencyEndpoints;
 import com.github.damianwajser.idempotency.configuration.IdempotencyProperties;
-import com.github.damianwajser.idempotency.exception.ArgumentnotFoundException;
+import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.model.StoredResponse;
 import com.github.damianwajser.idempotency.utils.HeadersUtil;
 import com.github.damianwajser.idempotency.utils.JsonUtils;
@@ -69,7 +69,7 @@ public class IdempontecyFilter implements Filter {
 			} else {
 				excecuteIdempotency(response, request, key);
 			}
-		} catch (ArgumentnotFoundException e) {
+		} catch (ArgumentNotFoundException e) {
 			writeBadRequestMessage(response, request, e);
 		} catch (Exception e) {
 			LOGGER.error("Error to parser", e);
@@ -105,7 +105,7 @@ public class IdempontecyFilter implements Filter {
 		}
 	}
 
-	private void writeBadRequestMessage(HttpServletResponse response, HttpServletRequest request, ArgumentnotFoundException e) throws IOException, ServletException {
+	private void writeBadRequestMessage(HttpServletResponse response, HttpServletRequest request, ArgumentNotFoundException e) throws IOException, ServletException {
 		//Not key present bad request
 		RestException message = new BadRequestException(idempotencyProperties.getBadRequestCode(), e.getArgument() + " Not Found", Optional.empty());
 		writeErrorMessage(response, message, false, request, HttpStatus.BAD_REQUEST);

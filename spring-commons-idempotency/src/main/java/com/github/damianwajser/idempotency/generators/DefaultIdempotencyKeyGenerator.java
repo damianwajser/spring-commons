@@ -1,6 +1,6 @@
 package com.github.damianwajser.idempotency.generators;
 
-import com.github.damianwajser.idempotency.exception.ArgumentnotFoundException;
+import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
@@ -23,7 +23,7 @@ public class DefaultIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerato
 		if (idempotencyHeader != null) {
 			key = idempotencyHeader.stream().collect(Collectors.joining("-"));
 		} else {
-			throw new ArgumentnotFoundException(headerKey);
+			throw new ArgumentNotFoundException(headerKey);
 		}
 		return key;
 	}
