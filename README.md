@@ -151,7 +151,7 @@ public class RedisConfiguration {
    }
 }
 ```
-4. 
+4. Suppose we have the following domain object
 ```java
 public class FooObject {
 
@@ -167,6 +167,29 @@ public class FooObject {
       this.value = value;
    }
 ```
-5.
+5. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method.
+```java
+public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<FooObject> {
+   
+   private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
+
+   @Override
+   public String generateKey(HttpHeaders headers, HttpMethod method, FooObject request) {
+      String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
+      return key + "-" + method.toString() + "-" + request.getValue();
+   }
+   
+   protected String getHeaderValue(HttpHeaders headers, String headerKey) {
+      List<String> idempotencyHeader = headers.get(headerKey);
+      String key;
+      if (idempotencyHeader != null) {
+         key = idempotencyHeader.stream().collect(Collectors.joining("-"));
+      } else {
+         throw new ArgumentNotFoundException(headerKey);
+      }
+      return key;
+   }
+}
+```
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
