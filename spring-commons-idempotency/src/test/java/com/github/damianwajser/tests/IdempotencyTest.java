@@ -83,7 +83,7 @@ public class IdempotencyTest {
 
 	@Test()
 	public void conflict() throws Exception {
-		String idemKey = "123";
+		String idemKey = "conflict";
 		String url = "http://localhost:" + port + "/idempotency_delay";
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HEADER_IDEM, idemKey);
@@ -113,7 +113,7 @@ public class IdempotencyTest {
 
 	@Test
 	public void getPostOK() throws Exception {
-		String idemKey = "123";
+		String idemKey = "getPostOK";
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HEADER_IDEM, idemKey);
 		HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -127,7 +127,7 @@ public class IdempotencyTest {
 
 	@Test
 	public void getPostBadRequest() throws Exception {
-		String idemKey = "123";
+		String idemKey = "getPostBadRequest";
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(HEADER_IDEM, idemKey);
 		headers.setContentType(MediaType.APPLICATION_JSON);
