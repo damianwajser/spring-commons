@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,8 +20,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(Ordered.LOWEST_PRECEDENCE)
-@WebFilter("/*")
 @ConditionalOnProperty(name = "logstash.duration.request.enabled", havingValue = "true")
 public class StatsFilter implements Filter {
 
@@ -28,7 +27,7 @@ public class StatsFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		
+
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class StatsFilter implements Filter {
 		} finally {
 			time = System.currentTimeMillis() - time;
 			HttpServletRequest request = ((HttpServletRequest) req);
-			LOGGER.info("{} {}: {} ms", request.getMethod(), request.getRequestURI(), time);
+			LOGGER.info("{} {}: {} ms", request.getMethod(), Encode.forJava(request.getRequestURI()), time);
 		}
 	}
 
