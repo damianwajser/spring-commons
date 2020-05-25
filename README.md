@@ -34,15 +34,13 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ```
  ## Usage Create a spring-boot application.
 ```java
-//declare the package to create de options controllers
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.github.damianwajser","{YOUR-PACKAGE}"})
 public class Application {
-
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+   public static void main(String[] args) {
+      SpringApplication.run(Application.class, args);
+   }
 }
 ```
 #### Recommended configuration:
@@ -51,8 +49,8 @@ public class Application {
 PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
 
 ## Modules
- ### [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
- Collection of exceptions for the most common cases when rest apis are built, and override the http code. In addition, they request additional information for errors. They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message. For example:
+### [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
+Collection of exceptions for the most common cases when rest apis are built, and override the http code. In addition, they request additional information for errors. They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message. For example:
 |Exception|Http Code |
 |--|--|
 | ForbiddenException | 403 |
@@ -77,7 +75,7 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |logstash. duration. request.enabled| true/false | For each request log the duration.| false
 
 ### [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
- This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
+This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
  1. The first request finished executing, which returns the same response that was obtained in the first call. 2. In case the first request is still running, a message will be returned indicating the conflict.
 This configuration is done by registering some beans and properties, you can see the following example:
 
