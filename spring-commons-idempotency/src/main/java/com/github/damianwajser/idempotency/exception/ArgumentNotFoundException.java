@@ -1,10 +1,10 @@
 package com.github.damianwajser.idempotency.exception;
 
-public class ArgumentnotFoundException extends RuntimeException {
+public class ArgumentNotFoundException extends RuntimeException {
 
 	private String argument;
 
-	public ArgumentnotFoundException(String argument) {
+	public ArgumentNotFoundException(String argument) {
 		this.argument = argument;
 	}
 

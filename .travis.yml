@@ -1,0 +1,7 @@
+addons:
+  sonarcloud:
+    organization: damianwajser
+    token:
+      secure: 'HphFkqcsmXX9j93+nWVw0lnLGx+JBlBS7WRr+1SganEw3Kqviq66F6KBbUXsy0Rgbuv/yRzemgNyzxLxlpk0cg3svqZpA+Dot5yqZRHjc/7HqVvBIR10suP3aPTDSLHto2zOzMxq6I1CEq7S0Zo+bx3CCrJI9nK80RpLhlge1oLuzE1alaa7oJRFbPM++SLPk7fcw37DWHIFhQQbrEFmtG/bOVk7m5DaTK8lh1ImYP2u6Lw1lC8dCepc/bH5eQIvdYwTDBUTDEnqEJWoXly+nLMSOHsAlEoTeKJka6MI33k/NpR1A54aAoo6yxVkgxGtEpUKY43Axmqxtj/4F0/k955b6lJ5YGo5usshdxkxApM1YNZd1/PC8BsqJbc2MXtGQlG4y44WOuZSQlD2LS1mnpgwd7nn+bvQH9p6/bSFY6GPxYtTQa83kwLWiuEZldNoNp8ikCrslzKUnDu7/DxmtcNyQDgTJr0krVnCzrfCv3XtYFse6bAfYs8JoayzEdRUOI5ccrMUkEhvaW33Dj5M4b7cZZQiGoyMOEWPTL+DXGaTS0/KikfPpBbWE6VmYWiGDY1R4AZo0CZgkSLamcDx7rmH50zYpQ2b+PUABlcKOVwXTZLsQaSsVCymcfueMSZ+S4Dn3dJqC9kOX84lxxIYW6JirDVQUx1P13BOth1abyo= '
+script:
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=damianwajser_spring-rest-commons-options
