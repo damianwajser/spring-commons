@@ -125,7 +125,7 @@ spring.redis.host=localhost
 spring.redis.port=6379
 ```
 3. Create a Redis ConnectionFactory and RedisTemplate, in this case I choose the jedis connector.
- ```java
+```java
 @Configuration
 public class RedisConfiguration {
 
@@ -144,5 +144,22 @@ public class RedisConfiguration {
    }
 }
 ```
+4. 
+```java
+public class FooObject {
+
+   private String value;
+   //The Empty Constructor is required
+   public FooObject(){ }
+   
+   public String getValue() {
+      return value;
+   }
+   
+   public void setValue(String value) {
+      this.value = value;
+   }
+```
+5.
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
