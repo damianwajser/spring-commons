@@ -64,10 +64,16 @@ public class IdempontecyFilter implements Filter {
 		try {
 			String key = getKey(request, this.idempotencyEndpoints);
 			LOGGER.info("try lock request key: {}", key);
-			if (redisTemplate.opsForValue().setIfAbsent(key, new StoredResponse())) {
-				excecuteRequest(chain, request, response, key);
+			Boolean notExistInRedis = redisTemplate.opsForValue().setIfAbsent(key, new StoredResponse(), idempotencyProperties.getIdempotencyTtl(), TimeUnit.MILLISECONDS);
+			if (notExistInRedis != null) {
+				if (notExistInRedis) {
+					excecuteRequest(chain, request, response, key);
+				} else {
+					excecuteIdempotency(response, request, key);
+				}
 			} else {
-				excecuteIdempotency(response, request, key);
+				LOGGER.error("Error Redis retrive information to key: " + key);
+				throw new RuntimeException("Error Redis retrive information to key: " + key);
 			}
 		} catch (ArgumentNotFoundException e) {
 			writeBadRequestMessage(response, request, e);
@@ -98,10 +104,15 @@ public class IdempontecyFilter implements Filter {
 		//non firts Time for these key
 		StoredResponse previusResponse = (StoredResponse) redisTemplate.opsForValue().get(key);
 		LOGGER.info("retrive key: {} to cache, body: {}", key, previusResponse);
-		if (!previusResponse.isLocked()) {
-			writeResponse(response, previusResponse, true);
+		if (previusResponse != null) {
+			if (!previusResponse.isLocked()) {
+				writeResponse(response, previusResponse, true);
+			} else {
+				writeLockMessage(response, request);
+			}
 		} else {
-			writeLockMessage(response, request);
+			LOGGER.error("Error Redis retrive information to key: " + key);
+			throw new RuntimeException("Error Redis retrive information to key: " + key);
 		}
 	}
 

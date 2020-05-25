@@ -16,7 +16,7 @@ public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Fo
 	@Override
 	public String generateKey(HttpHeaders headers, HttpMethod method, FooObject request) {
 		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-		return key + "-" + method.toString() + request.getValue();
+		return key + "-" + method.toString() + "-" + request.getValue();
 	}
 
 	protected String getHeaderValue(HttpHeaders headers, String headerKey) {
