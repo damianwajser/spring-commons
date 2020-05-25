@@ -104,9 +104,23 @@ Recuerda que este modulo funciona con redis, con lo cual antes debieras configur
 ```java
 @Configuration
 public class RedisProperties {
- private int redisPort; private String redisHost;
- public RedisProperties(@Value("${spring.redis.port}") int redisPort, @Value("${spring.redis.host}") String redisHost) { this.redisPort = redisPort; this.redisHost = redisHost; }
- public String getRedisHost() { return redisHost; } public int getRedisPort() { return redisPort; }}
+   
+   private int redisPort; 
+   private String redisHost;
+   
+   public RedisProperties(@Value("${spring.redis.port}") int redisPort, 
+                          @Value("${spring.redis.host}") String redisHost){ 
+      this.redisPort = redisPort; 
+      this.redisHost = redisHost; 
+   }
+   
+   public String getRedisHost() { 
+      return redisHost; 
+   } 
+   public int getRedisPort(){ 
+      return redisPort; 
+   }
+}
 ```
  2. Set a Redis Properties in application.properties file
 ```properties
