@@ -167,8 +167,11 @@ public class FooObject {
       this.value = value;
    }
 ```
-5. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method.
+5. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
+
 ```java
+                                                                           //very important 
+									  //generic
 public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<FooObject> {
    
    private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
@@ -185,6 +188,7 @@ public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Fo
       if (idempotencyHeader != null) {
          key = idempotencyHeader.stream().collect(Collectors.joining("-"));
       } else {
+         // ArgumentNotFoundException is used to return a bad request indicating that the field is mandatory 
          throw new ArgumentNotFoundException(headerKey);
       }
       return key;
