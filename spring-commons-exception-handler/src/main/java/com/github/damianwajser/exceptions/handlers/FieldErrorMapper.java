@@ -7,7 +7,10 @@ import org.springframework.validation.FieldError;
 import java.util.Map;
 import java.util.Optional;
 
-public class FieldErrorMapper {
+public final class FieldErrorMapper {
+
+	private FieldErrorMapper() {
+	}
 
 	public static ExceptionDetail convert(FieldError error) {
 

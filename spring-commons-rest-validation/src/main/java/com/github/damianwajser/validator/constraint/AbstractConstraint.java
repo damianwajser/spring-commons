@@ -28,8 +28,8 @@ public abstract class AbstractConstraint {
 	}
 
 	protected boolean methodExclude(HttpMethod[] excludes) {
-		HttpMethod method = this.getCurrentHttpMethod().get();
-		return !Arrays.asList(excludes).contains(method);
+		Optional<HttpMethod> method = this.getCurrentHttpMethod();
+		return method.isPresent() ? !Arrays.asList(excludes).contains(method) : false;
 	}
 
 	public boolean isValid(String field, ConstraintValidatorContext cxt) {

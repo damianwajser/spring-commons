@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = RestException.class)
 	protected ResponseEntity<ErrorMessage> handleConflict(RestException ex, HttpServletRequest request) {
-		return new ResponseEntity<ErrorMessage>(ex.getErrorMessage(request), ex.getHttpCode());
+		return new ResponseEntity<>(ex.getErrorMessage(request), ex.getHttpCode());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
 	}
 
 	private ResponseEntity<ErrorMessage> validationBinnding(BindingResult results, HttpServletRequest request) {
-		return new ResponseEntity<ErrorMessage>(new ErrorMessage(getExceptionDetails(results), request),
+		return new ResponseEntity<>(new ErrorMessage(getExceptionDetails(results), request),
 				HttpStatus.BAD_REQUEST);
 	}
 
