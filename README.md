@@ -97,9 +97,8 @@ public class IdempotencyConfiguration {
   } 
 }
 ```
-Recuerda que este modulo funciona con redis, con lo cual antes debieras configurar tu redis  y tu RedisTemplate, para lo cual te dejo un ejemplo:
-
- 1. Create a Redis Properties
+Remember that this module works with redis, with which you should first configure your redis and your RedisTemplate, for which I leave you an example:
+1. Create a Redis Properties
 
 ```java
 @Configuration
@@ -122,15 +121,30 @@ public class RedisProperties {
    }
 }
 ```
- 2. Set a Redis Properties in application.properties file
+2. Set a Redis Properties in application.properties file
 ```properties
-spring.redis.host=localhost spring.redis.port=6379
+spring.redis.host=localhost 
+spring.redis.port=6379
 ```
- 3. Create a Redis ConnectionFactory and RedisTemplate, in this case I choose the jedis connector.
- ```java@Configuration
+3. Create a Redis ConnectionFactory and RedisTemplate, in this case I choose the jedis connector.
+ ```java
+@Configuration
 public class RedisConfiguration {
- @Bean public JedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)) .connectTimeout(Duration.ofMillis(0)).build(); return new JedisConnectionFactory(config, clientConfiguration); }
- @Bean public RedisTemplate redisTemplate(JedisConnectionFactory connectionFactory) { RedisTemplate template = new RedisTemplate<>(); template.setConnectionFactory(connectionFactory); return template; }}
- ```
- ## License
-  The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
+
+   @Bean 
+   public JedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
+      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
+      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
+      return new JedisConnectionFactory(config, clientConfiguration); 
+   }
+   
+   @Bean 
+   public RedisTemplate redisTemplate(JedisConnectionFactory connectionFactory) { 
+      RedisTemplate template = new RedisTemplate<>(); 
+      template.setConnectionFactory(connectionFactory); 
+      return template; 
+   }
+}
+```
+## License
+The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
