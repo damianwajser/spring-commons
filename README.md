@@ -97,6 +97,11 @@ public class IdempotencyConfiguration {
   } 
 }
 ```
+Eneable the module
+```properties
+spring.commons.idempotency.enabled=true
+```
+
 Remember that this module works with redis, with which you should first configure your redis and your RedisTemplate, for which I leave you an example:
 1. Create a Redis Properties
 
