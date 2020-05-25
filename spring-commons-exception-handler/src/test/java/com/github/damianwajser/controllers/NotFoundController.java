@@ -1,12 +1,11 @@
 package com.github.damianwajser.controllers;
 
-import java.util.Optional;
-
+import com.github.damianwajser.exceptions.impl.notfound.NotFoundException;
+import com.github.damianwajser.model.FooObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.damianwajser.exceptions.impl.notfound.NotFoundException;
-import com.github.damianwajser.model.FooObject;
+import java.util.Optional;
 
 @RestController
 public class NotFoundController {

@@ -1,15 +1,14 @@
 package com.github.damianwajser.validator.constraint;
 
-import java.util.Arrays;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintValidatorContext;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
+import java.util.Optional;
 
 public abstract class AbstractConstraint {
 

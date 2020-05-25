@@ -1,19 +1,15 @@
 package com.github.damianwajser.exceptions;
 
-import java.util.ArrayList;
+import com.github.damianwajser.exceptions.model.ErrorMessage;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import com.github.damianwajser.exceptions.model.ErrorMessage;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.Assert;
-
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.HandlerMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 abstract public class RestException extends Exception {
 

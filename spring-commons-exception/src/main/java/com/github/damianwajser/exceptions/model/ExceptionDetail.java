@@ -1,10 +1,10 @@
 package com.github.damianwajser.exceptions.model;
 
+import org.springframework.util.Assert;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
-import org.springframework.util.Assert;
 
 public class ExceptionDetail {
 

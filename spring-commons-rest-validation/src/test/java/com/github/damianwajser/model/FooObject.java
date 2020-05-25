@@ -1,11 +1,7 @@
 package com.github.damianwajser.model;
 
-import org.springframework.http.HttpMethod;
-
 import com.github.damianwajser.validator.annotation.NotEmpty;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.springframework.http.HttpMethod;
 
 public class FooObject {
 

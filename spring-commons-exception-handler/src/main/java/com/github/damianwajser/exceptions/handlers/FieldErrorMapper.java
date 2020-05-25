@@ -1,12 +1,11 @@
 package com.github.damianwajser.exceptions.handlers;
 
-import java.util.Map;
-import java.util.Optional;
-
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import java.util.Map;
+import java.util.Optional;
 
 public class FieldErrorMapper {
 

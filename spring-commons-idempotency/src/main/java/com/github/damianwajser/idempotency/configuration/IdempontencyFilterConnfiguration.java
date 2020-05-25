@@ -2,7 +2,6 @@ package com.github.damianwajser.idempotency.configuration;
 
 import com.github.damianwajser.idempotency.filters.IdempontecyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

@@ -1,14 +1,13 @@
 package com.github.damianwajser.controllers;
 
-import java.util.Optional;
-
+import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
+import com.github.damianwajser.model.FooObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
-import com.github.damianwajser.model.FooObject;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/validation")
