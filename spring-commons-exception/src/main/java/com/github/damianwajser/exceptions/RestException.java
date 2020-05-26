@@ -11,14 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-abstract public class RestException extends Exception {
+public abstract class RestException extends Exception {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -5157622261482152458L;
 
-	protected List<ExceptionDetail> details;
+	protected final List<ExceptionDetail> details;
 
 	public RestException(List<ExceptionDetail> details) {
 		Assert.notNull(details, "details can't be null");

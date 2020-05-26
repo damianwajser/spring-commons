@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ErrorMessage {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(ErrorMessage.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ErrorMessage.class);
 
 	private List<ExceptionDetail> details;
 	private String timestamp;
@@ -36,7 +36,6 @@ public class ErrorMessage {
 	}
 
 	private String getPath(HttpServletRequest request) {
-		//return (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		return Encode.forJava(request.getRequestURI());
 	}
 

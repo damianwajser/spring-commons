@@ -8,6 +8,7 @@ import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGener
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.utils.HeadersUtil;
 import org.apache.commons.io.IOUtils;
+import org.owasp.encoder.Encode;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -48,7 +49,7 @@ public class IdempotencyEndpoint {
 			req = clazz.getDeclaredConstructor().newInstance();
 		}
 		return genarator.generateKey(new HeadersUtil().getHeaders(request),
-				HttpMethod.valueOf(request.getMethod()), req);
+				HttpMethod.valueOf(request.getMethod()), Encode.forJava(request.getRequestURI()), req);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -2,11 +2,14 @@ package com.github.damianwajser.exceptions.model;
 
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ExceptionDetail {
+public class ExceptionDetail implements Serializable {
+	
+	private static final long serialVersionUID = 1905128741950251207L;
 
 	private final String errorCode;
 	private final Optional<Object> errorDetail;

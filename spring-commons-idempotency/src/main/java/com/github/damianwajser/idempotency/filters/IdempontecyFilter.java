@@ -30,8 +30,8 @@ public class IdempontecyFilter implements Filter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(IdempontecyFilter.class);
 
-	private IdempotencyProperties idempotencyProperties;
-	private RedisTemplate redisTemplate;
+	private final IdempotencyProperties idempotencyProperties;
+	private final RedisTemplate redisTemplate;
 	private final IdempotencyEndpoints idempotencyEndpoints;
 
 	public IdempontecyFilter(RedisTemplate redisTemplate, IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties properties) {

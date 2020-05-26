@@ -12,9 +12,9 @@ public class DefaultIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerato
 	private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 
 	@Override
-	public String generateKey(HttpHeaders headers, HttpMethod method, Object request) {
+	public String generateKey(HttpHeaders headers, HttpMethod method, String path, Object request) {
 		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-		return key + "-" + method.toString();
+		return path + key + "-" + method.toString();
 	}
 
 	protected String getHeaderValue(HttpHeaders headers, String headerKey) {
