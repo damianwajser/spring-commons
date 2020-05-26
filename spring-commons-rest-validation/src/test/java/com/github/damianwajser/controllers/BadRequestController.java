@@ -1,13 +1,12 @@
 package com.github.damianwajser.controllers;
 
-import javax.validation.Valid;
-
+import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
+import com.github.damianwajser.model.FooObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
-import com.github.damianwajser.model.FooObject;
+import javax.validation.Valid;
 
 @RestController
 public class BadRequestController {

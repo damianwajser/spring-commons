@@ -1,11 +1,5 @@
 package com.github.damianwajser.rest.interceptors;
 
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -14,6 +8,11 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Optional;
 
 public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 

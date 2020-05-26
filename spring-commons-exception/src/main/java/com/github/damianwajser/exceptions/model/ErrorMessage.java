@@ -1,14 +1,12 @@
 package com.github.damianwajser.exceptions.model;
 
-import java.util.Date;
-import java.util.List;
-
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
 
 public class ErrorMessage {
 
@@ -39,7 +37,7 @@ public class ErrorMessage {
 
 	private String getPath(HttpServletRequest request) {
 		//return (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-		return request.getRequestURI();
+		return Encode.forJava(request.getRequestURI());
 	}
 
 	@Override

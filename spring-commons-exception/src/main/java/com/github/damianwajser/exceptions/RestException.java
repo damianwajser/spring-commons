@@ -1,18 +1,15 @@
 package com.github.damianwajser.exceptions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.github.damianwajser.exceptions.model.ErrorMessage;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
-
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 abstract public class RestException extends Exception {
 
@@ -29,11 +26,8 @@ abstract public class RestException extends Exception {
 	}
 
 	public RestException(ExceptionDetail detail) {
+		this(Arrays.asList(detail));
 		Assert.notNull(detail, "detail can't be null");
-		if (this.details == null) {
-			this.details = new ArrayList<>();
-		}
-		this.details.add(detail);
 	}
 
 	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
@@ -44,11 +38,11 @@ abstract public class RestException extends Exception {
 		return details;
 	}
 
-	public ErrorMessage getErrorMessage(HttpServletRequest request){
+	public ErrorMessage getErrorMessage(HttpServletRequest request) {
 		return new ErrorMessage(this.getDetails(), request);
 	}
 
-	public HttpStatus getHttpCode(){
+	public HttpStatus getHttpCode() {
 		return this.getHttpCode(this.getClass());
 	}
 
