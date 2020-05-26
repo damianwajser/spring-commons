@@ -186,9 +186,9 @@ public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Fo
    private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 
    @Override
-   public String generateKey(HttpHeaders headers, HttpMethod method, FooObject request) {
+   public String generateKey(HttpHeaders headers, HttpMethod method, String path, FooObject request) {
       String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-      return key + "-" + method.toString() + "-" + request.getValue();
+      return path + "-" + key + "-" + method.toString() + "-" + request.getValue();
    }
    
    protected String getHeaderValue(HttpHeaders headers, String headerKey) {
