@@ -1,5 +1,7 @@
 package com.github.damianwajser.web.filters;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +12,10 @@ import java.io.IOException;
 
 @Component
 public class FixHttpPostFilter implements Filter {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FixHttpPostFilter.class);
 	@Override
 	public void destroy() {
-		System.out.println("destroy filter. release our resources here if any");
+		LOGGER.debug("destroy filter");
 	}
 
 	@Override
@@ -28,6 +31,6 @@ public class FixHttpPostFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
+		LOGGER.debug("innit filter");
 	}
 }
