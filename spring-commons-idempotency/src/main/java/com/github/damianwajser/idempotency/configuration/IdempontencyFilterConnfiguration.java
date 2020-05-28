@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import javax.servlet.Filter;
 
 @Configuration
+@ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
 public class IdempontencyFilterConnfiguration {
 
 	@Autowired
