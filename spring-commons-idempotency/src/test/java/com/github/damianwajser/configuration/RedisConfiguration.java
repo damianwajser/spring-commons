@@ -7,7 +7,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 import java.time.Duration;
@@ -18,8 +17,8 @@ public class RedisConfiguration {
 
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) {
-		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(),
-				redisProperties.getRedisPort());
+		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getHost(),
+				redisProperties.getPort());
 		JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).
 				connectTimeout(Duration.ofMillis(0)).build();
 		return new JedisConnectionFactory(config, clientConfiguration);

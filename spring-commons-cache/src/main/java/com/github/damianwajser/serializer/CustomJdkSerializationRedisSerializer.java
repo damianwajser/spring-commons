@@ -1,4 +1,4 @@
-package com.prismamp.todopago.serializer;
+package com.github.damianwajser.serializer;
 
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;

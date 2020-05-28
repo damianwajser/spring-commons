@@ -1,16 +1,13 @@
-package com.prismamp.todopago.configuration;
+package com.github.damianwajser.configuration;
 
-import com.prismamp.todopago.serializer.CustomJdkSerializationRedisSerializer;
-import org.springframework.beans.factory.annotation.Value;
+import com.github.damianwajser.serializer.CustomJdkSerializationRedisSerializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -18,8 +15,6 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.scripting.support.ResourceScriptSource;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableCaching

@@ -1,4 +1,4 @@
-package com.prismamp.todopago.service;
+package com.github.damianwajser.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

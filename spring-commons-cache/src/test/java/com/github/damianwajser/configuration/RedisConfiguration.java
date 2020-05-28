@@ -1,6 +1,6 @@
-package com.github.damianwajser;
+package com.github.damianwajser.configuration;
 
-import com.github.damianwajser.configuration.RedisProperties;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,8 +17,8 @@ public class RedisConfiguration {
 
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) {
-		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(),
-				redisProperties.getRedisPort());
+		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getHost(),
+				redisProperties.getPort());
 		JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).
 				connectTimeout(Duration.ofMillis(0)).build();
 		return new JedisConnectionFactory(config, clientConfiguration);

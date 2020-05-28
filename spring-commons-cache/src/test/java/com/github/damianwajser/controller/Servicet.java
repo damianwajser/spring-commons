@@ -1,4 +1,4 @@
-package com.github.damianwajser;
+package com.github.damianwajser.controller;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
