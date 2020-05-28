@@ -1,13 +1,12 @@
-package com.github.damianwajser.configuration;
+package com.github.damianwajser;
 
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import com.github.damianwajser.configuration.RedisProperties;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 import java.time.Duration;
