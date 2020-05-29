@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableCaching
+@ConditionalOnProperty(name = "spring.commons.cache.enabled", havingValue = "true")
 public class RedisCacheConfiguration {
 
 	@Bean

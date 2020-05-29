@@ -14,7 +14,7 @@ public abstract class AbstractConstraint {
 
 	protected HttpMethod[] excludes;
 
-	public abstract boolean applyConnstraint(String field, ConstraintValidatorContext cxt);
+	public abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
 
 	protected Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
@@ -27,14 +27,18 @@ public abstract class AbstractConstraint {
 		return this.getCurrentHttpRequest().map(r -> HttpMethod.resolve(r.getMethod()));
 	}
 
-	protected boolean methodExclude(HttpMethod[] excludes) {
+	/**
+	 * @return true if has exlude request method, false in Other case
+	 * */
+	protected boolean isExcluded() {
 		Optional<HttpMethod> method = this.getCurrentHttpMethod();
-		return method.isPresent() ? !Arrays.asList(excludes).contains(method) : false;
+		// if method is blank not exclude validation for request: return false
+		return method.isPresent() ? Arrays.asList(this.excludes).contains(method.get()) : false;
 	}
 
-	public boolean isValid(String field, ConstraintValidatorContext cxt) {
-		if (methodExclude(this.excludes)) {
-			return !StringUtils.isEmpty(field);
+	public boolean isValid(Object field, ConstraintValidatorContext cxt) {
+		if (!isExcluded()) {
+			return !this.hasError(field, cxt);
 		}
 		return true;
 	}

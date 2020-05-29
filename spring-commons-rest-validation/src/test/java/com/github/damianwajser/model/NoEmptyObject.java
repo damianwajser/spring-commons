@@ -1,17 +1,21 @@
 package com.github.damianwajser.model;
 
-import com.github.damianwajser.validator.annotation.NotEmpty;
+import com.github.damianwajser.validator.annotation.cards.CardToken;
+import com.github.damianwajser.validator.annotation.global.NotEmpty;
 import org.springframework.http.HttpMethod;
 
-public class FooObject {
+import java.util.Arrays;
+import java.util.Collection;
+
+public class NoEmptyObject {
 
 	@NotEmpty(excludes = HttpMethod.PUT, businessCode = "a-400")
 	private String value;
 
-	public FooObject() {
+	public NoEmptyObject() {
 	}
 
-	public FooObject(String value) {
+	public NoEmptyObject(String value) {
 		super();
 		this.value = value;
 	}
