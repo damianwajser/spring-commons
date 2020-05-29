@@ -22,8 +22,8 @@ import java.util.ArrayList;
 public class RedisCacheConfiguration {
 
 	@Bean
-	public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
-		RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
+		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory);
 
 		redisTemplate.setDefaultSerializer(new CustomJdkSerializationRedisSerializer());

@@ -17,6 +17,7 @@ public class IdempotencyEndpoints {
 	private Map<String, IdempotencyEndpoint> idempotencyEndpoints = new HashMap<>();
 
 	public IdempotencyEndpoints() {
+		// Need public constructor
 	}
 
 	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint) {
