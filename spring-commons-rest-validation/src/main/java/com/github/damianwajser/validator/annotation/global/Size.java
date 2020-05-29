@@ -26,6 +26,8 @@ public @interface Size {
 
 	int max();
 
+	int min() default 0;
+
 	Class<? extends Payload>[] payload() default {};
 
 	String businessCode();

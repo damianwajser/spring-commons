@@ -1,17 +1,18 @@
-package com.github.damianwajser.model;
+package com.github.damianwajser.model.global.size;
 
 import com.github.damianwajser.validator.annotation.cards.CardToken;
+import com.github.damianwajser.validator.annotation.global.Size;
 import org.springframework.http.HttpMethod;
 
-public class CardTokenObject {
+public class SizeMinZeroStringObject {
 
-	@CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "ago", excludes = HttpMethod.PUT, businessCode = "c-400")
+	@Size(max = 5, businessCode = "c-400")
 	private String value;
 
-	public CardTokenObject() {
+	public SizeMinZeroStringObject() {
 	}
 
-	public CardTokenObject(String value) {
+	public SizeMinZeroStringObject(String value) {
 		super();
 		this.value = value;
 	}

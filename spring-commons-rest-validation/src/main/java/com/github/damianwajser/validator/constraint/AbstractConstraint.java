@@ -1,7 +1,6 @@
 package com.github.damianwajser.validator.constraint;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

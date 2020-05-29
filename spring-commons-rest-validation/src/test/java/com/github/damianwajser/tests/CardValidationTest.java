@@ -7,14 +7,12 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.time.LocalDate;
-
 import static com.github.damianwajser.model.TestUtils.*;
 import static org.junit.Assert.assertThat;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CardValidation {
+public class CardValidationTest {
 
 	@Test
 	public void cardToken() throws Exception {

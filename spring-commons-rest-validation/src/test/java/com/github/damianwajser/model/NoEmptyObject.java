@@ -1,11 +1,7 @@
 package com.github.damianwajser.model;
 
-import com.github.damianwajser.validator.annotation.cards.CardToken;
 import com.github.damianwajser.validator.annotation.global.NotEmpty;
 import org.springframework.http.HttpMethod;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 public class NoEmptyObject {
 

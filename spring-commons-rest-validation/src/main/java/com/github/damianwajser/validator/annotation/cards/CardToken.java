@@ -1,7 +1,6 @@
 package com.github.damianwajser.validator.annotation.cards;
 
 import com.github.damianwajser.validator.constraint.cards.CardTokenConstraint;
-import com.github.damianwajser.validator.constraint.gobal.NotEmptyConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
