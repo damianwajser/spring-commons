@@ -1,6 +1,6 @@
 package com.github.damianwajser.tests;
 
-import com.github.damianwajser.model.FooObject;
+import com.github.damianwajser.model.NoEmptyObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,13 +22,13 @@ public class ExceptionValidationResponse {
 
 	@Test(expected = BadRequest.class)
 	public void notempty() throws Exception {
-		this.restTemplate.postForEntity("http://localhost:" + port + "/badrequest", new FooObject(""), Object.class);
+		this.restTemplate.postForEntity("http://localhost:" + port + "/badrequest", new NoEmptyObject(""), Object.class);
 	}
 
 	@Test
 	public void notempty_exclude() throws Exception {
 		this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.PUT,
-				new HttpEntity<FooObject>(new FooObject("")), Object.class);
+				new HttpEntity<NoEmptyObject>(new NoEmptyObject("")), Object.class);
 	}
 
 

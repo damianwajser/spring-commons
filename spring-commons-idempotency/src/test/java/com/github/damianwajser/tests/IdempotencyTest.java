@@ -2,7 +2,6 @@ package com.github.damianwajser.tests;
 
 import com.github.damianwajser.configuration.IdempotencyConfiguration;
 import com.github.damianwajser.configuration.RedisConfiguration;
-import com.github.damianwajser.configuration.RedisProperties;
 import com.github.damianwajser.controllers.IdempotencyController;
 import com.github.damianwajser.idempotency.configuration.IdempotencyEndpoints;
 import com.github.damianwajser.idempotency.configuration.IdempotencyProperties;
@@ -14,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
@@ -31,7 +31,7 @@ import java.util.concurrent.Future;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Import({RedisProperties.class, RedisConfiguration.class, IdempotencyConfiguration.class})
+@Import({RedisConfiguration.class, IdempotencyConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IdempotencyTest {
@@ -58,7 +58,7 @@ public class IdempotencyTest {
 
 	@Before
 	public void setUp() {
-		this.redisServer = new RedisServer(redisProperties.getRedisPort());
+		this.redisServer = new RedisServer(redisProperties.getPort());
 		redisServer.start();
 	}
 
