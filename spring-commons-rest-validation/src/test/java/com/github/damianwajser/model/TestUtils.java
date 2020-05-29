@@ -4,7 +4,6 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsNot;
-import org.mockito.internal.matchers.Not;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

@@ -28,8 +28,9 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
-		if (getCurrentHttpRequest().isPresent()) {
-			HttpServletRequest servletRequest = getCurrentHttpRequest().get();
+		Optional<HttpServletRequest>  currentRequest = getCurrentHttpRequest();
+		if (currentRequest.isPresent()) {
+			HttpServletRequest servletRequest = currentRequest.get();
 			Enumeration<String> headers = servletRequest.getHeaderNames();
 			while (headers.hasMoreElements()) {
 				String headerName = headers.nextElement();

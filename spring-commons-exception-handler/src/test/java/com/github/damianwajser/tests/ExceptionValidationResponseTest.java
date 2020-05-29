@@ -20,7 +20,7 @@ import java.util.Map;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ExceptionValidationResponse {
+public class ExceptionValidationResponseTest {
 	@LocalServerPort
 	private int port;
 

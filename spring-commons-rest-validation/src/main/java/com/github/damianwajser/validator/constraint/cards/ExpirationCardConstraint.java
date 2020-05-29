@@ -1,7 +1,6 @@
 package com.github.damianwajser.validator.constraint.cards;
 
 import com.github.damianwajser.validator.annotation.cards.CardExpiration;
-import com.github.damianwajser.validator.annotation.cards.CardToken;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
 import com.github.damianwajser.validator.interfaces.CardExpirable;
 
@@ -10,8 +9,6 @@ import javax.validation.ConstraintValidatorContext;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class ExpirationCardConstraint extends AbstractConstraint implements ConstraintValidator<CardExpiration, Object> {
