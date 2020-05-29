@@ -24,6 +24,10 @@ public class TestUtils {
 		return VALIDATOR.validateProperty(object, fieldname);
 	}
 
+	public static Set<ConstraintViolation<Object>> validationFor(Object object) {
+		return VALIDATOR.validate(object);
+	}
+
 	public static String onField(String fieldname) {
 		return fieldname;
 	}
