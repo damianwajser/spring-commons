@@ -53,11 +53,9 @@ public class LogstashConfiguration {
 		Logger rootLogger = (Logger) LoggerFactory.getLogger(ROOT_LOGGER_NAME);
 		LoggerContext loggerContext = rootLogger.getLoggerContext();
 		Logger log = loggerContext.getLogger(LogstashConfiguration.class);
-		log.info("Configurate  Logger, destination: " + destination);
+		log.info("Configurate  Logger, destination: {}", destination);
 		if (destination != null && !destination.equals("")) {
-			;
 			// loggerContext.reset(); // shouldn't need to use that
-
 			LogstashTcpSocketAppender socketAppender = new LogstashTcpSocketAppender();
 			socketAppender.setName("logstash");
 			socketAppender.setContext(loggerContext);

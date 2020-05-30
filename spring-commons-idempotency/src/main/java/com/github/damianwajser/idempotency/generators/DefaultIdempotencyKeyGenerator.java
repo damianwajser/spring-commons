@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DefaultIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Object> {
+public class DefaultIdempotencyKeyGenerator implements IdempotencyKeyGenerator<Object> {
 
 	private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 

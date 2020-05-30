@@ -28,11 +28,11 @@ public abstract class AbstractConstraint {
 
 	/**
 	 * @return true if has exlude request method, false in Other case
-	 * */
+	 */
 	protected boolean isExcluded() {
 		Optional<HttpMethod> method = this.getCurrentHttpMethod();
 		// if method is blank not exclude validation for request: return false
-		return method.isPresent() ? Arrays.asList(this.excludes).contains(method.get()) : false;
+		return method.isPresent() ? Arrays.asList(this.excludes).contains(method.get()) : Boolean.FALSE;
 	}
 
 	public boolean isValid(Object field, ConstraintValidatorContext cxt) {

@@ -26,7 +26,7 @@ public class IdempotencyEndpoint {
 	private final IdempotencyKeyGenerator<Object> genarator;
 
 	public IdempotencyEndpoint(String endpoint, Set<HttpMethod> methods) {
-		this(endpoint, methods, new DefaultIdempotencyKeyGenerator<>());
+		this(endpoint, methods, new DefaultIdempotencyKeyGenerator());
 	}
 
 	public IdempotencyEndpoint(String endpoint, Set<HttpMethod> methods, IdempotencyKeyGenerator<Object> generator) {
@@ -55,10 +55,8 @@ public class IdempotencyEndpoint {
 	@SuppressWarnings("unchecked")
 	private Class<?> getGenericTypeClass(Class<?> clazz) {
 		try {
-
 			String className = ((ParameterizedType) clazz.getGenericInterfaces()[0]).getActualTypeArguments()[0].getTypeName();
-			Class<?> clazz1 = Class.forName(className);
-			return clazz1;
+			return Class.forName(className);
 		} catch (Exception e) {
 			throw new IllegalStateException("Class is not parametrized with generic type!!! Please use extends <> ");
 		}

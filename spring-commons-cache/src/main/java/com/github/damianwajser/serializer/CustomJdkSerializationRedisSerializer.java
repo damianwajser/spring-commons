@@ -8,7 +8,7 @@ public class CustomJdkSerializationRedisSerializer extends JdkSerializationRedis
 	private StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
 	@Override
-	public byte[] serialize(Object source) throws SerializationException {
+	public byte[] serialize(Object source) {
 		if(source instanceof String || source instanceof Number) {
 			return stringRedisSerializer.serialize(source.toString());
 		}
@@ -16,7 +16,7 @@ public class CustomJdkSerializationRedisSerializer extends JdkSerializationRedis
 	}
 
 	@Override
-	public Object deserialize(byte[] source) throws SerializationException {
+	public Object deserialize(byte[] source) {
 		try {
 			return super.deserialize(source);
 		} catch(SerializationException sex) {

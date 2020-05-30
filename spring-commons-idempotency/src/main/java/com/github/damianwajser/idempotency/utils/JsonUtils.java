@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class JsonUtils {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
 	public String objectToJsonString(Object message) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
