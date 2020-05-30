@@ -1,7 +1,7 @@
 package com.github.damianwajser.controllers;
 
 import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
-import com.github.damianwajser.model.NoEmptyObject;
+import com.github.damianwajser.model.global.NoEmptyObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;

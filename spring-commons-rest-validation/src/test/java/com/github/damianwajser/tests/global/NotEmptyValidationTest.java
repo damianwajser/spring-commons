@@ -1,6 +1,6 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.global;
 
-import com.github.damianwajser.model.NoEmptyObject;
+import com.github.damianwajser.model.global.NoEmptyObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ExceptionValidationResponseTest {
+public class NotEmptyValidationTest {
 	@LocalServerPort
 	private int port;
 

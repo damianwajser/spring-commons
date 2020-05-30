@@ -1,4 +1,4 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.global;
 
 import com.github.damianwajser.model.global.size.SizeCollectionObject;
 import com.github.damianwajser.model.global.size.SizeMinOneStringObject;

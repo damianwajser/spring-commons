@@ -1,4 +1,4 @@
-package com.github.damianwajser.model;
+package com.github.damianwajser.model.global;
 
 import com.github.damianwajser.validator.annotation.global.NotEmpty;
 import org.springframework.http.HttpMethod;
