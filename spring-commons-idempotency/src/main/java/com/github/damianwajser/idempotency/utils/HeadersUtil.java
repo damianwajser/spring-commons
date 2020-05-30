@@ -21,23 +21,12 @@ public class HeadersUtil {
 				));
 	}
 
-	public Map<String, String> getHeadersMap(HttpServletRequest request) {
-		return Collections
-				.list(request.getHeaderNames())
-				.stream()
-				.collect(Collectors.toMap(
-						Function.identity(),
-						h -> Collections.list(request.getHeaders(h)).stream().collect(Collectors.joining(","))
-				));
-	}
-
 	public Map<String, String> getHeadersMap(HttpServletResponse response) {
-		Map<String, String> collect = response.getHeaderNames()
+		return response.getHeaderNames()
 				.stream()
 				.collect(Collectors.toMap(
 						Function.identity(),
 						h -> response.getHeaders(h).stream().collect(Collectors.joining(","))
 				));
-		return collect;
 	}
 }

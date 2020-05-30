@@ -1,5 +1,6 @@
 package com.github.damianwajser.rest.interceptors;
 
+import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -28,7 +29,7 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
-		Optional<HttpServletRequest>  currentRequest = getCurrentHttpRequest();
+		Optional<HttpServletRequest> currentRequest = getCurrentHttpRequest();
 		if (currentRequest.isPresent()) {
 			HttpServletRequest servletRequest = currentRequest.get();
 			Enumeration<String> headers = servletRequest.getHeaderNames();
@@ -37,7 +38,7 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 				String headerValue = servletRequest.getHeader(headerName);
 				if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
 					LOGGER.debug("add headers: " + headerName + ": " + headerValue);
-					request.getHeaders().add(headerName, headerValue);
+					request.getHeaders().add(headerName, Encode.forJava(headerValue));
 				}
 			}
 		}

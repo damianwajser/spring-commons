@@ -18,7 +18,7 @@ public class StatsFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
+		LOGGER.debug("init stats filter");
 	}
 
 	@Override

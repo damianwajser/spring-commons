@@ -15,18 +15,12 @@ import javax.servlet.Filter;
 @ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
 public class IdempontencyFilterConnfiguration {
 
-	@Autowired
-	private RedisTemplate redisTemplate;
-
-	@Autowired
-	private IdempotencyProperties idempotencyProperties;
-
 	@Bean
 	@ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
-	public FilterRegistrationBean someFilterRegistration(IdempotencyEndpoints idempotencyEndpoints) {
+	public FilterRegistrationBean someFilterRegistration(IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties idempotencyProperties, RedisTemplate redisTemplate) {
 
 		FilterRegistrationBean registration = new FilterRegistrationBean();
-		registration.setFilter(someFilter(idempotencyEndpoints));
+		registration.setFilter(someFilter(idempotencyEndpoints, idempotencyProperties, redisTemplate));
 		registration.addUrlPatterns(idempotencyEndpoints.getUrlPatterns());
 		registration.setName("IdempontecyFilter");
 		registration.setOrder(Ordered.LOWEST_PRECEDENCE);
@@ -35,7 +29,7 @@ public class IdempontencyFilterConnfiguration {
 
 	@Bean(name = "IdempontecyFilter")
 	@ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
-	public Filter someFilter(IdempotencyEndpoints idempotencyEndpoints) {
+	public Filter someFilter(IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties idempotencyProperties, RedisTemplate redisTemplate) {
 		return new IdempontecyFilter(redisTemplate, idempotencyEndpoints, idempotencyProperties);
 	}
 }
