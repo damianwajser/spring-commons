@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 
-	private Logger LOGGER = LoggerFactory.getLogger(RestTemplateInterceptor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateInterceptor.class);
 
 	private Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
@@ -42,7 +42,6 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 				}
 			}
 		}
-		ClientHttpResponse response = execution.execute(request, body);
-		return response;
+		return execution.execute(request, body);
 	}
 }

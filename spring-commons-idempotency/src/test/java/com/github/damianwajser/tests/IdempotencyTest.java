@@ -139,7 +139,7 @@ public class IdempotencyTest {
 
 		try {
 			this.restTemplate
-					.exchange("http://localhost:" + port + "/idempotency_bad_request", HttpMethod.POST, entity, FooObject.class).getBody();
+					.exchange("http://localhost:" + port + "/idempotency_bad_request", HttpMethod.POST, entity, FooObject.class);
 			Assert.fail("conflict");
 		} catch (HttpClientErrorException.BadRequest e) {
 			body1 = e.getResponseBodyAsString();
@@ -147,7 +147,7 @@ public class IdempotencyTest {
 		}
 		try {
 			this.restTemplate
-					.exchange("http://localhost:" + port + "/idempotency_bad_request", HttpMethod.POST, entity, FooObject.class).getBody();
+					.exchange("http://localhost:" + port + "/idempotency_bad_request", HttpMethod.POST, entity, FooObject.class);
 			Assert.fail("conflict");
 		} catch (HttpClientErrorException.BadRequest e) {
 			body2 = e.getResponseBodyAsString();
