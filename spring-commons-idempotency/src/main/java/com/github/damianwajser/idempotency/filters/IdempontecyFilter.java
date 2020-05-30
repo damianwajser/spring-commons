@@ -121,16 +121,16 @@ public class IdempontecyFilter implements Filter {
 	private void writeBadRequestMessage(HttpServletResponse response, HttpServletRequest request, ArgumentNotFoundException e) throws IOException, ServletException {
 		//Not key present bad request
 		RestException message = new BadRequestException(idempotencyProperties.getBadRequestCode(), e.getArgument() + " Not Found", Optional.empty());
-		writeErrorMessage(response, message, false, request, HttpStatus.BAD_REQUEST);
+		writeErrorMessage(response, message, request, HttpStatus.BAD_REQUEST);
 	}
 
 	private void writeLockMessage(HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
 		//its locked return 409 connflict idempotency
 		RestException message = new ConflictException(idempotencyProperties.getConflictCode(), idempotencyProperties.getConflictMessage(), Optional.empty());
-		writeErrorMessage(response, message, false, request, HttpStatus.CONFLICT);
+		writeErrorMessage(response, message, request, HttpStatus.CONFLICT);
 	}
 
-	private void writeErrorMessage(HttpServletResponse response, RestException exception, boolean cached, HttpServletRequest request, HttpStatus status) throws IOException, ServletException {
+	private void writeErrorMessage(HttpServletResponse response, RestException exception, HttpServletRequest request, HttpStatus status) throws IOException {
 		writeResponse(response, new StoredResponse(new JsonUtils().objectToJsonString(exception.getErrorMessage(request)), null, status.value()), false);
 	}
 

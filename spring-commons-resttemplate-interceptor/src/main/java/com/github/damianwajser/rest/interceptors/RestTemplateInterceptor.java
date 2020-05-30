@@ -37,7 +37,7 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 				String headerName = headers.nextElement();
 				String headerValue = servletRequest.getHeader(headerName);
 				if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
-					LOGGER.debug("add headers: " + headerName + ": " + headerValue);
+					LOGGER.debug("add headers: {}: {}", headerName, headerValue);
 					request.getHeaders().add(headerName, Encode.forJava(headerValue));
 				}
 			}

@@ -12,7 +12,7 @@ import java.util.Map;
 public class StoredResponse implements Serializable {
 
 	private String body;
-	private Map<String, String> headers;
+	private final Map<String, String> headers;
 	private int statusCode;
 	private boolean lock;
 

@@ -20,14 +20,14 @@ import java.util.UUID;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public abstract class MDCFilter implements Filter, MDCProperties {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(MDCFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MDCFilter.class);
 
 	@Value("${logstash.trace.id.key:X-Trace-Id}")
 	private String traceId;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		System.out.println("inicializando Filtro");
+		LOGGER.debug("inicializando Filtro");
 	}
 
 	@Override

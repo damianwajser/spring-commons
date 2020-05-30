@@ -8,15 +8,15 @@ import org.springframework.data.redis.core.SessionCallback;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class RedisService<K, V> {
-	public abstract RedisTemplate<K, V> getRedisTemplate();
+public interface RedisService<K, V> {
+	RedisTemplate<K, V> getRedisTemplate();
 
 	//Ejecuta varias operaciones de redis en forma atomica
-	public List<Object> executeMultiOperations(Consumer<RedisOperations<K, V>> consumer) {
+	default List<Object> executeMultiOperations(Consumer<RedisOperations<K, V>> consumer) {
 		return getRedisTemplate().execute(
 				new SessionCallback<List<Object>>() {
 					@Override
-					public List<Object> execute(RedisOperations operations) throws DataAccessException {
+					public List<Object> execute(RedisOperations operations) {
 						operations.multi();
 						consumer.accept(operations);
 						return operations.exec();
@@ -26,7 +26,7 @@ public abstract class RedisService<K, V> {
 	}
 
 	//Retorna true si habia alguna key para eliminar o false en el otro caso
-	public Boolean delete(K key) {
+	default Boolean delete(K key) {
 		List<Object> results =
 				this.executeMultiOperations(
 						operations -> {
@@ -38,7 +38,7 @@ public abstract class RedisService<K, V> {
 	}
 
 	//Retorna true si habia alguna key para eliminar o false en el otro caso
-	public Boolean deleteFromHash(K key, Object... hKey) {
+	default Boolean deleteFromHash(K key, Object... hKey) {
 		List<Object> results =
 				this.executeMultiOperations(
 						operations -> {
