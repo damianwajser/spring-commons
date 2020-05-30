@@ -2,7 +2,6 @@ package com.github.damianwajser.validator.constraint.gobal;
 
 import com.github.damianwajser.validator.annotation.global.Size;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
-import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForCharSequence;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

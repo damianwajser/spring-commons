@@ -1,9 +1,6 @@
 package com.github.damianwajser.model.global.asserttrue;
 
 import com.github.damianwajser.validator.annotation.global.AssertTrue;
-import com.github.damianwajser.validator.annotation.global.NotNull;
-
-import java.util.Collection;
 
 public class AssertTrueObject {
 

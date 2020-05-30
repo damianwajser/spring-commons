@@ -1,7 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
 import com.github.damianwajser.validator.constraint.gobal.AssertTrueConstraint;
-import com.github.damianwajser.validator.constraint.gobal.NotNullConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

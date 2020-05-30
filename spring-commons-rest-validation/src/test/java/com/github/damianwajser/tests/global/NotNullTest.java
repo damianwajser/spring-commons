@@ -2,15 +2,12 @@ package com.github.damianwajser.tests.global;
 
 import com.github.damianwajser.model.global.nonull.NoNullCollectionObject;
 import com.github.damianwajser.model.global.nonull.NoNullStringObject;
-import com.github.damianwajser.model.global.size.SizeCollectionObject;
-import com.github.damianwajser.model.global.size.SizeMinZeroStringObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 import static com.github.damianwajser.model.TestUtils.*;
 import static org.junit.Assert.assertThat;
