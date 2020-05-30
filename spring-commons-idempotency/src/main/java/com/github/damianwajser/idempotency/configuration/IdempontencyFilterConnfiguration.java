@@ -16,9 +16,9 @@ public class IdempontencyFilterConnfiguration {
 
 	@Bean
 	@ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
-	public FilterRegistrationBean someFilterRegistration(IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties idempotencyProperties, RedisTemplate redisTemplate) {
+	public FilterRegistrationBean<Filter> someFilterRegistration(IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties idempotencyProperties, RedisTemplate redisTemplate) {
 
-		FilterRegistrationBean registration = new FilterRegistrationBean();
+		FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
 		registration.setFilter(someFilter(idempotencyEndpoints, idempotencyProperties, redisTemplate));
 		registration.addUrlPatterns(idempotencyEndpoints.getUrlPatterns());
 		registration.setName("IdempontecyFilter");
