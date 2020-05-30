@@ -60,6 +60,28 @@ Collection of exceptions for the most common cases when rest apis are built, and
 | ConflictException | 409
 
 ### [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
+Override all annotations for standard JSR annotations:
+
+**@NotNull** – validates that the annotated property value is not null
+**@AssertTrue** – validates that the annotated property value is true
+**@Size** – validates that the annotated property value has a size between the attributes min and max; can be applied to String, Collection, Map, and array properties
+**@Min** – vValidates that the annotated property has a value no smaller than the value attribute
+**@Max** – validates that the annotated property has a value no larger than the value attribute
+**@Email** – validates that the annotated property is a valid email address
+Some annotations accept additional attributes, but the message attribute is common to all of them. This is the message that will usually be rendered when the value of the respective property fails validation.
+**@NotEmpty** – validates that the property is not null or empty; can be applied to String, Collection, Map or Array values
+**@NotBlank** – can be applied only to text values and validated that the property is not null or whitespace
+**@Positive** and **@PositiveOrZero** – apply to numeric values and validate that they are strictly positive, or positive including 0
+**@Negative** and **@NegativeOrZero** – apply to numeric values and validate that they are strictly negative, or negative including 0
+**@Past** and **@PastOrPresent** – validate that a date value is in the past or the past including the present; can be applied to date types including those added in Java 8
+**@Future** and **@FutureOrPresent** – validates that a date value is in the future, or in the future including the present
+
+On the other hand some useful validations are added:
+**@CardToken** - 
+**@CardExpiration** - 
+
+All validations need a bussiness code, this code is used for ***spring-commons-exception-handler*** and generate a prettty message.
+
 ### [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
 ### [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
 ### [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
