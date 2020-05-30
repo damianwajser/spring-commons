@@ -1,8 +1,6 @@
 package com.github.damianwajser.model.global.size;
 
-import com.github.damianwajser.validator.annotation.cards.CardToken;
 import com.github.damianwajser.validator.annotation.global.Size;
-import org.springframework.http.HttpMethod;
 
 public class SizeMinZeroStringObject {
 

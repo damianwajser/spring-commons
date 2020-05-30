@@ -1,5 +1,8 @@
 package com.github.damianwajser.exceptions.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +43,17 @@ public class ErrorMessage {
 	}
 
 	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	@Override
 	public String toString() {
-		return "ErrorMessage{" +
-				"details=" + details +
-				", timestamp='" + timestamp + '\'' +
-				", path='" + path + '\'' +
-				'}';
+		return ToStringBuilder.reflectionToString(this);
 	}
 }
