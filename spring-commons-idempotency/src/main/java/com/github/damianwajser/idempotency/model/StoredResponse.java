@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class StoredResponse implements Serializable {
 
