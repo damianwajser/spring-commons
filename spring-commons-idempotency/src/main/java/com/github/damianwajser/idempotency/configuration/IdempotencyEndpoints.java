@@ -25,7 +25,7 @@ public class IdempotencyEndpoints {
 	}
 
 	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, HttpMethod... methods) {
-		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator<>(), methods);
+		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator(), methods);
 	}
 
 	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator<Object> keyGenerator, HttpMethod... methods) {

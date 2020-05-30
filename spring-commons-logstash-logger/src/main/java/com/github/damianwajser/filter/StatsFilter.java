@@ -29,7 +29,8 @@ public class StatsFilter implements Filter {
 			chain.doFilter(req, resp);
 		} finally {
 			time = System.currentTimeMillis() - time;
-			String uri = Encode.forJava(((HttpServletRequest) req).getRequestURI());
+			HttpServletRequest request = ((HttpServletRequest) req);
+			String uri = Encode.forJava(request.getRequestURI());
 			LOGGER.info("{} {}: {} ms", request.getMethod(), uri, time);
 		}
 	}
