@@ -21,6 +21,8 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.slf4j.Logger.ROOT_LOGGER_NAME;
+
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "logstash")
@@ -48,11 +50,12 @@ public class LogstashConfiguration {
 	@PostConstruct
 	public void init() {
 		ObjectMapper mapper = new ObjectMapper();
-		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		Logger rootLogger = (Logger) LoggerFactory.getLogger(ROOT_LOGGER_NAME);
 		LoggerContext loggerContext = rootLogger.getLoggerContext();
 		Logger log = loggerContext.getLogger(LogstashConfiguration.class);
 		log.info("Configurate  Logger, destination: " + destination);
-		if (destination != null && !destination.equals("")) {;
+		if (destination != null && !destination.equals("")) {
+			;
 			// loggerContext.reset(); // shouldn't need to use that
 
 			LogstashTcpSocketAppender socketAppender = new LogstashTcpSocketAppender();
