@@ -7,9 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.client.RestTemplate;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,8 +29,9 @@ public class ExceptionValidationResponseTest {
 
 	@Test
 	public void notempty_exclude() throws Exception {
-		this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.PUT,
-				new HttpEntity<NoEmptyObject>(new NoEmptyObject("")), Object.class);
+		HttpStatus statusCode = this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.PUT,
+				new HttpEntity<>(new NoEmptyObject("")), Object.class).getStatusCode();
+		assertThat(statusCode).isEqualTo(HttpStatus.OK);
 	}
 
 

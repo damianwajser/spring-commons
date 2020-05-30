@@ -10,12 +10,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,20 +27,21 @@ public class InstanciateObjectTest {
 
 	@Test
 	public void instanciateException() {
+
 		new ForbiddenException(getDetails());
-		new ForbiddenException(getDetail());
+		assertThat(new ForbiddenException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
 		new PermissionDeniedException(getDetails());
-		new PermissionDeniedException(getDetail());
+		assertThat(new PermissionDeniedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
 
 		new BadRequestException(getDetails());
-		new BadRequestException(getDetail());
+		assertThat(new BadRequestException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
 		new ConflictException(getDetails());
-		new ConflictException(getDetail());
+		assertThat(new ConflictException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.CONFLICT);
 
 		new NotFoundException(getDetails());
-		new NotFoundException(getDetail());
+		assertThat(new NotFoundException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
 
 	private ExceptionDetail getDetail() {
