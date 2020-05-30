@@ -34,7 +34,7 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/permissionDenied", HttpMethod.POST, null,
 					Object.class);
 		} catch (Forbidden e) {
-			Assert.assertEquals(getMessage(e), "permissionDenied");
+			Assert.assertEquals("permissionDenied", getMessage(e));
 		}
 
 	}
@@ -44,7 +44,7 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/forbbiden", HttpMethod.POST, null, Object.class);
 		} catch (Forbidden e) {
-			Assert.assertEquals(getMessage(e), "forbbiden");
+			Assert.assertEquals("forbbiden", getMessage(e));
 		}
 	}
 
@@ -53,7 +53,7 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.POST, null, Object.class);
 		} catch (BadRequest e) {
-			Assert.assertEquals(getMessage(e), "badrequest");
+			Assert.assertEquals("badrequest", getMessage(e));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/notfound", HttpMethod.POST, null, Object.class);
 		} catch (NotFound e) {
-			Assert.assertEquals(getMessage(e), "notfound");
+			Assert.assertEquals("notfound", getMessage(e));
 		}
 	}
 

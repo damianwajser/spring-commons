@@ -23,13 +23,13 @@ public class IdempotencyEndpoint {
 
 	private String endpoint;
 	private Set<HttpMethod> methods;
-	private final IdempotencyKeyGenerator genarator;
+	private final IdempotencyKeyGenerator<Object> genarator;
 
 	public IdempotencyEndpoint(String endpoint, Set<HttpMethod> methods) {
-		this(endpoint, methods, new DefaultIdempotencyKeyGenerator());
+		this(endpoint, methods, new DefaultIdempotencyKeyGenerator<>());
 	}
 
-	public IdempotencyEndpoint(String endpoint, Set<HttpMethod> methods, IdempotencyKeyGenerator generator) {
+	public IdempotencyEndpoint(String endpoint, Set<HttpMethod> methods, IdempotencyKeyGenerator<Object> generator) {
 		this.methods = methods;
 		this.endpoint = endpoint;
 		this.genarator = generator;

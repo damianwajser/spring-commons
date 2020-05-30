@@ -32,7 +32,7 @@ public class ExceptionValidationResponseTest {
 			this.restTemplate.postForEntity("http://localhost:" + port + "/validation/badrequest", new FooObject(""),
 					Object.class);
 		} catch (BadRequest e) {
-			Assert.assertEquals(getMessage(e, "errorCode"), "400");
+			Assert.assertEquals("400", getMessage(e, "errorCode"));
 			// Assert.assertEquals(getMessage(e, "errorDetail"), "value");
 		}
 	}
