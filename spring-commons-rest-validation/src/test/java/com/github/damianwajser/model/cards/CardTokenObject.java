@@ -1,4 +1,4 @@
-package com.github.damianwajser.model;
+package com.github.damianwajser.model.cards;
 
 import com.github.damianwajser.validator.annotation.cards.CardToken;
 import org.springframework.http.HttpMethod;

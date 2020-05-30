@@ -1,7 +1,7 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.cards;
 
-import com.github.damianwajser.model.CardTokenObject;
-import com.github.damianwajser.model.ExpirationObject;
+import com.github.damianwajser.model.cards.CardTokenObject;
+import com.github.damianwajser.model.cards.ExpirationObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
