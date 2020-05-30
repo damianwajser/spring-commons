@@ -1,10 +1,8 @@
 package com.github.damianwajser.validator.constraint.gobal;
 
-import com.github.damianwajser.validator.annotation.global.NotEmpty;
 import com.github.damianwajser.validator.annotation.global.NotNull;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
 import org.apache.commons.lang3.ObjectUtils;
-import org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
