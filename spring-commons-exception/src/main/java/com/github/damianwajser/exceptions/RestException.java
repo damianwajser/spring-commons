@@ -7,6 +7,9 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +56,26 @@ public abstract class RestException extends Exception {
 		} else {
 			return getHttpCode((Class<? extends RestException>) ex.getSuperclass());
 		}
+	}
+
+	/**
+	 * Always treat deserialization as a full-blown constructor, by validating
+	 * the final state of the de-serialized object.
+	 */
+	private void readObject(ObjectInputStream aInputStream)
+			throws ClassNotFoundException, IOException {
+		// always perform the default deserialization first
+		aInputStream.defaultReadObject();
+	}
+
+	/**
+	 * This is the default implementation of writeObject. Customise if
+	 * necessary.
+	 */
+	private void writeObject(ObjectOutputStream aOutputStream)
+			throws IOException {
+		// perform the default serialization for all non-transient, non-static
+		// fields
+		aOutputStream.defaultWriteObject();
 	}
 }

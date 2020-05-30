@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class IdempontecyFilter implements Filter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(IdempontecyFilter.class);
+	private static final String ERROR_REDIS = "Error Redis retrive information to key: {}";
 
 	private final IdempotencyProperties idempotencyProperties;
 	private final RedisTemplate redisTemplate;
@@ -72,8 +73,8 @@ public class IdempontecyFilter implements Filter {
 					excecuteIdempotency(response, request, key);
 				}
 			} else {
-				LOGGER.error("Error Redis retrive information to key: " + key);
-				throw new RuntimeException("Error Redis retrive information to key: " + key);
+				LOGGER.error(ERROR_REDIS, key);
+				throw new RuntimeException(String.format(ERROR_REDIS, key));
 			}
 		} catch (ArgumentNotFoundException e) {
 			writeBadRequestMessage(response, request, e);
@@ -111,8 +112,8 @@ public class IdempontecyFilter implements Filter {
 				writeLockMessage(response, request);
 			}
 		} else {
-			LOGGER.error("Error Redis retrive information to key: " + key);
-			throw new RuntimeException("Error Redis retrive information to key: " + key);
+			LOGGER.error(ERROR_REDIS, key);
+			throw new RuntimeException(String.format(ERROR_REDIS, key));
 		}
 	}
 
