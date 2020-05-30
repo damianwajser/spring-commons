@@ -6,6 +6,7 @@ import com.github.damianwajser.exceptions.impl.badrequest.ConflictException;
 import com.github.damianwajser.idempotency.configuration.IdempotencyEndpoints;
 import com.github.damianwajser.idempotency.configuration.IdempotencyProperties;
 import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
+import com.github.damianwajser.idempotency.exception.RedisException;
 import com.github.damianwajser.idempotency.model.StoredResponse;
 import com.github.damianwajser.idempotency.utils.HeadersUtil;
 import com.github.damianwajser.idempotency.utils.JsonUtils;
@@ -32,10 +33,10 @@ public class IdempontecyFilter implements Filter {
 	private static final String ERROR_REDIS = "Error Redis retrive information to key: {}";
 
 	private final IdempotencyProperties idempotencyProperties;
-	private final RedisTemplate redisTemplate;
+	private final RedisTemplate<String, Object> redisTemplate;
 	private final IdempotencyEndpoints idempotencyEndpoints;
 
-	public IdempontecyFilter(RedisTemplate redisTemplate, IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties properties) {
+	public IdempontecyFilter(RedisTemplate<String, Object> redisTemplate, IdempotencyEndpoints idempotencyEndpoints, IdempotencyProperties properties) {
 		Assert.notNull(redisTemplate, "redisTemplate is required");
 		Assert.notEmpty(idempotencyEndpoints.getUrlPatterns(), "No Pattterns are configured");
 		this.idempotencyProperties = properties;
@@ -74,7 +75,7 @@ public class IdempontecyFilter implements Filter {
 				}
 			} else {
 				LOGGER.error(ERROR_REDIS, key);
-				throw new RuntimeException(String.format(ERROR_REDIS, key));
+				throw new RedisException(String.format(ERROR_REDIS, key));
 			}
 		} catch (ArgumentNotFoundException e) {
 			writeBadRequestMessage(response, request, e);
@@ -113,7 +114,7 @@ public class IdempontecyFilter implements Filter {
 			}
 		} else {
 			LOGGER.error(ERROR_REDIS, key);
-			throw new RuntimeException(String.format(ERROR_REDIS, key));
+			throw new RedisException(String.format(ERROR_REDIS, key));
 		}
 	}
 

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class IdempotencyEndpoints {
 
-	private Map<String, IdempotencyEndpoint> idempotencyEndpoints = new HashMap<>();
+	private Map<String, IdempotencyEndpoint> endpoints = new HashMap<>();
 
 	public IdempotencyEndpoints() {
 		// Need public constructor
@@ -25,21 +25,21 @@ public class IdempotencyEndpoints {
 	}
 
 	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, HttpMethod... methods) {
-		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator(), methods);
+		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator<>(), methods);
 	}
 
-	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator keyGenerator, HttpMethod... methods) {
+	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator<Object> keyGenerator, HttpMethod... methods) {
 		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(endpoint, new HashSet<>(Arrays.asList(methods)), keyGenerator);
-		this.idempotencyEndpoints.put(endpoint, idempotencyEndpoint);
+		this.endpoints.put(endpoint, idempotencyEndpoint);
 		return idempotencyEndpoint;
 	}
 
 	public String[] getUrlPatterns() {
-		return idempotencyEndpoints.keySet().toArray(new String[idempotencyEndpoints.keySet().size()]);
+		return endpoints.keySet().toArray(new String[endpoints.keySet().size()]);
 	}
 
 	private IdempotencyEndpoint getEndpoint(HttpServletRequest request) {
-		return this.idempotencyEndpoints.get(request.getRequestURI());
+		return this.endpoints.get(request.getRequestURI());
 	}
 
 	public String generateKey(HttpServletRequest request) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
