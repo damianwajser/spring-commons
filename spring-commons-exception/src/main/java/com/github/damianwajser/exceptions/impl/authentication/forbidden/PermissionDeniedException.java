@@ -7,9 +7,6 @@ import java.util.Optional;
 
 public class PermissionDeniedException extends ForbiddenException {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -261986049061018183L;
 
 	public PermissionDeniedException(ExceptionDetail detail) {
