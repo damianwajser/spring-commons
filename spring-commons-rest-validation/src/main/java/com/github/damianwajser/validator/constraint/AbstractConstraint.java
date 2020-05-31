@@ -6,6 +6,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -14,6 +17,12 @@ public abstract class AbstractConstraint {
 	protected HttpMethod[] excludes;
 
 	public abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
+
+	protected boolean hasError(Object field){
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		return !validator.validate(field).isEmpty();
+	}
 
 	protected Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
