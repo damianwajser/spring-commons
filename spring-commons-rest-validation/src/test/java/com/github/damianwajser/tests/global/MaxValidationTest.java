@@ -38,7 +38,6 @@ public class MaxValidationTest {
 		assertThat(validationFor(new MaxPrimitiveObject(1)), succedes());
 		assertThat(validationFor(new MaxPrimitiveObject(2)), succedes());
 		assertThat(validationFor(new MaxPrimitiveObject(3)), fails());
-		new org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator();
 	}
 
 }
