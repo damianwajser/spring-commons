@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
@@ -30,6 +31,11 @@ public class ExceptionCodeTest {
 	@Test(expected = Forbidden.class)
 	public void forbbiden() throws Exception {
 		this.restTemplate.exchange("http://localhost:" + port + "/forbbiden", HttpMethod.POST, null, Object.class);
+	}
+
+	@Test(expected = HttpClientErrorException.Conflict.class)
+	public void conflict() throws Exception {
+		this.restTemplate.exchange("http://localhost:" + port + "/conflict", HttpMethod.POST, null, Object.class);
 	}
 
 	@Test(expected = BadRequest.class)

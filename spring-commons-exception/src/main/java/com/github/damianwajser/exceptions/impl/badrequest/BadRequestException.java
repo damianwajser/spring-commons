@@ -1,19 +1,18 @@
 package com.github.damianwajser.exceptions.impl.badrequest;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.github.damianwajser.exceptions.RestException;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.github.damianwajser.exceptions.RestException;
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import java.util.List;
+import java.util.Optional;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestException extends RestException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3193488927248995976L;
 

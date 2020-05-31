@@ -1,13 +1,12 @@
 package com.github.damianwajser.controllers;
 
-import java.util.Optional;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.ForbiddenException;
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.PermissionDeniedException;
 import com.github.damianwajser.model.FooObject;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class TestForbiddenController {

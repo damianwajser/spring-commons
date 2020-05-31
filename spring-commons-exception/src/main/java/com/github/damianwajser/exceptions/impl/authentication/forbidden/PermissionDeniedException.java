@@ -1,14 +1,14 @@
 package com.github.damianwajser.exceptions.impl.authentication.forbidden;
 
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
 
 public class PermissionDeniedException extends ForbiddenException {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -261986049061018183L;
 

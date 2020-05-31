@@ -1,8 +1,8 @@
 package com.github.damianwajser.tests;
 
-import java.util.List;
-import java.util.Map;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +17,8 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,7 +34,7 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/permissionDenied", HttpMethod.POST, null,
 					Object.class);
 		} catch (Forbidden e) {
-			Assert.assertEquals(getMessage(e), "permissionDenied");
+			Assert.assertEquals("permissionDenied", getMessage(e));
 		}
 
 	}
@@ -45,16 +44,16 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/forbbiden", HttpMethod.POST, null, Object.class);
 		} catch (Forbidden e) {
-			Assert.assertEquals(getMessage(e), "forbbiden");
+			Assert.assertEquals("forbbiden", getMessage(e));
 		}
 	}
-	
+
 	@Test
 	public void badRequest() throws Exception {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.POST, null, Object.class);
 		} catch (BadRequest e) {
-			Assert.assertEquals(getMessage(e), "badrequest");
+			Assert.assertEquals("badrequest", getMessage(e));
 		}
 	}
 
@@ -63,7 +62,7 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/notfound", HttpMethod.POST, null, Object.class);
 		} catch (NotFound e) {
-			Assert.assertEquals(getMessage(e), "notfound");
+			Assert.assertEquals("notfound", getMessage(e));
 		}
 	}
 
