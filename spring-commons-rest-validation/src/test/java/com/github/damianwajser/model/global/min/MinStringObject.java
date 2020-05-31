@@ -1,0 +1,25 @@
+package com.github.damianwajser.model.global.min;
+
+import com.github.damianwajser.validator.annotation.global.Min;
+
+public class MinStringObject {
+
+	@Min(min = 2, businessCode = "a-400")
+	private String value;
+
+	public MinStringObject() {
+	}
+
+	public MinStringObject(String value) {
+		super();
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+}
