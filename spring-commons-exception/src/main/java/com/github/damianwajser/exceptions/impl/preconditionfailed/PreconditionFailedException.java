@@ -11,10 +11,6 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.PRECONDITION_FAILED)
 public class PreconditionFailedException extends RestException {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4468401934359095440L;
 
 	public PreconditionFailedException(ExceptionDetail detail) {

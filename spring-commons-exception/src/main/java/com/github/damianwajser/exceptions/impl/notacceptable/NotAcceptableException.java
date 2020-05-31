@@ -11,12 +11,8 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
 public class NotAcceptableException extends RestException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8012762310079534874L;
 
-	
 	public NotAcceptableException(ExceptionDetail detail) {
 		super(detail);
 	}

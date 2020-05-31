@@ -11,9 +11,6 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.CONFLICT)
 public class ConflictException extends RestException {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 3193488927248995976L;
 
 	public ConflictException(ExceptionDetail detail) {

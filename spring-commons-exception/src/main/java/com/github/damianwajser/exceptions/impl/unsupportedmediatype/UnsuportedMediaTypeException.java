@@ -11,9 +11,6 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
 public class UnsuportedMediaTypeException extends RestException {	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3753742475125448784L;
 
 	public UnsuportedMediaTypeException(ExceptionDetail detail) {
