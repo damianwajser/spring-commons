@@ -1,4 +1,4 @@
-package com.github.damianwajser.exceptions.impl.unsupportedmediatype;
+package com.github.damianwajser.exceptions.impl.badrequest;
 
 import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-public class UnsuportedMediaTypeException extends RestException {	
+public class UnsuportedMediaTypeException extends RestException {
 
 	private static final long serialVersionUID = -3753742475125448784L;
 

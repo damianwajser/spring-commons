@@ -26,7 +26,7 @@ public class PastValidationTest {
 		assertThat(validationFor(new PastAuxObject(LocalDate.now().minusDays(1)), onField("value")), succedes());
 		assertThat(validationFor(new PastAuxObject(LocalDate.now().plusDays(1)), onField("value")), fails());
 
-		assertThat(validationFor(new PastAuxObject(new Date()), onField("value")), fails());
+		assertThat(validationFor(new PastAuxObject(new Date()), onField("value")), succedes());
 
 		assertThat(validationFor(new PastAuxObject(LocalDateTime.now().plusSeconds(10)), onField("value")), fails());
 		assertThat(validationFor(new PastAuxObject(LocalDateTime.now().minusSeconds(10)), onField("value")), succedes());

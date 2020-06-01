@@ -1,4 +1,4 @@
-package com.github.damianwajser.exceptions.impl.preconditionfailed;
+package com.github.damianwajser.exceptions.impl.badrequest;
 
 import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;

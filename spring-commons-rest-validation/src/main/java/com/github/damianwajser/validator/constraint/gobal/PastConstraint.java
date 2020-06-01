@@ -25,10 +25,8 @@ public class PastConstraint extends AbstractConstraint implements ConstraintVali
 				result = LocalDate.now().isBefore((LocalDate) field);
 			} else if (LocalDateTime.class.isAssignableFrom(field.getClass())) {
 				result = LocalDateTime.now().isBefore((LocalDateTime) field);
-			} else if (LocalDateTime.class.isAssignableFrom(field.getClass())) {
-				result = LocalDateTime.now().isBefore((LocalDateTime) field);
 			} else if (Date.class.isAssignableFrom(field.getClass())) {
-				LocalDateTime.now().isBefore(LocalDateTime.ofInstant(((Date) field).toInstant(), ZoneId.systemDefault()));
+				result = LocalDateTime.now().isBefore(LocalDateTime.ofInstant(((Date) field).toInstant(), ZoneId.systemDefault()));
 			}
 		}
 		return result;

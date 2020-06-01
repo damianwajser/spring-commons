@@ -1,4 +1,4 @@
-package com.github.damianwajser.exceptions.impl.methodnotallowed;
+package com.github.damianwajser.exceptions.impl.badrequest;
 
 import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 import java.util.Optional;
 
-@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
-public class MethodNotAllowedException extends RestException {
+@ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE)
+public class NotAcceptableException extends RestException {
 
 	private static final long serialVersionUID = -8012762310079534874L;
 
-	public MethodNotAllowedException(ExceptionDetail detail) {
+	public NotAcceptableException(ExceptionDetail detail) {
 		super(detail);
 	}
 
-	public MethodNotAllowedException(List<ExceptionDetail> details) {
+	public NotAcceptableException(List<ExceptionDetail> details) {
 		super(details);
 	}
 
-	public MethodNotAllowedException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
+	public NotAcceptableException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
 }
