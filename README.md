@@ -57,7 +57,11 @@ Collection of exceptions for the most common cases when rest apis are built, and
 | PermissionDeniedException | 403
 | BadRequestException | 400
 | NotFoundException | 404
+| MethodNotAllowedException | 405
+| NotAcceptableException|406
 | ConflictException | 409
+| PreconditionFailedException | 412
+| UnsuportedMediaTypeException | 415
 
 ### [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
 Override all annotations for standard JSR annotations:
