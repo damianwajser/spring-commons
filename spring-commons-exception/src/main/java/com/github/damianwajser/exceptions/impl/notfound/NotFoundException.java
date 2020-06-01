@@ -11,9 +11,6 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class NotFoundException extends RestException {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 2527808074583211325L;
 
 	public NotFoundException(ExceptionDetail detail) {

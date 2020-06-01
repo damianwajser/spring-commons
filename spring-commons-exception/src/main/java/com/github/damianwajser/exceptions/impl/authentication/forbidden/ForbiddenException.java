@@ -11,9 +11,6 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.FORBIDDEN)
 public class ForbiddenException extends RestException {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 6530273083259853379L;
 
 	public ForbiddenException(ExceptionDetail detail) {
