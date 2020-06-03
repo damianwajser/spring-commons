@@ -92,13 +92,45 @@ Override all annotations for standard JSR annotations:
 
 On the other hand some useful validations are added:
 
-**@CardToken** - 
+**@CardToken** - Use this annotation to validate credit card Token
 
-**@CardExpiration** - 
+**@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to be validate with actual date.
 
 Some annotations accept additional attributes, but the message and the bussisness code attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
 bussiness code: this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
 
+##### Examples
+
+###### @CardToken
+
+```java
+public class CardTokenObject {
+
+    @CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "some message", businessCode = "c-400")
+    private String value;
+    
+}
+```
+##### @CardExpiration
+Implements the interface **CardExpirable** and override the methods: getExpirationMonth and getExpirationYear.
+
+```java
+@CardExpiration(message = "some message", businessCode = "c-400")
+public class ExpirationObject implements CardExpirable {
+
+    private int expirationMonth;
+    private int expirationYear;
+
+    @Override
+    public int getExpirationMonth() {
+	return this.expirationMonth;
+    }
+
+    @Override
+    public int getExpirationYear() {
+       return this.expirationYear;
+    }
+```
 ### [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
 ### [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
 ### [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")

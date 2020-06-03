@@ -4,7 +4,7 @@ import com.github.damianwajser.exceptions.impl.authentication.forbidden.Forbidde
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.PermissionDeniedException;
 import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
 import com.github.damianwajser.exceptions.impl.badrequest.ConflictException;
-import com.github.damianwajser.exceptions.impl.notfound.NotFoundException;
+import com.github.damianwajser.exceptions.impl.badrequest.NotFoundException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;

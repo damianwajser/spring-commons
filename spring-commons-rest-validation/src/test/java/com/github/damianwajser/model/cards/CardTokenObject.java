@@ -5,7 +5,7 @@ import org.springframework.http.HttpMethod;
 
 public class CardTokenObject {
 
-	@CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "ago", excludes = HttpMethod.PUT, businessCode = "c-400")
+	@CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "ago", businessCode = "c-400")
 	private String value;
 
 	public CardTokenObject() {

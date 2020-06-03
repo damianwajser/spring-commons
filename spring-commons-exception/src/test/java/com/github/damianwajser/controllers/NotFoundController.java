@@ -1,6 +1,6 @@
 package com.github.damianwajser.controllers;
 
-import com.github.damianwajser.exceptions.impl.notfound.NotFoundException;
+import com.github.damianwajser.exceptions.impl.badrequest.NotFoundException;
 import com.github.damianwajser.model.FooObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
