@@ -3,7 +3,7 @@ package com.github.damianwajser.model.cards;
 import com.github.damianwajser.validator.annotation.cards.CardExpiration;
 import com.github.damianwajser.validator.interfaces.CardExpirable;
 
-@CardExpiration(message = "as", businessCode = "c-400")
+@CardExpiration(message = "some message", businessCode = "c-400")
 public class ExpirationObject implements CardExpirable {
 
 	private int expirationMonth;

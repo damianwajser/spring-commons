@@ -14,14 +14,14 @@ public class DefaultIdempotencyKeyGenerator implements IdempotencyKeyGenerator<O
 	@Override
 	public String generateKey(HttpHeaders headers, HttpMethod method, String path, Object request) {
 		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-		return path + key + "-" + method.toString();
+		return path + "::" + key + "::" + method.toString();
 	}
 
 	protected String getHeaderValue(HttpHeaders headers, String headerKey) {
 		List<String> idempotencyHeader = headers.get(headerKey);
 		String key;
 		if (idempotencyHeader != null) {
-			key = idempotencyHeader.stream().collect(Collectors.joining("-"));
+			key = idempotencyHeader.stream().collect(Collectors.joining("::"));
 		} else {
 			throw new ArgumentNotFoundException(headerKey);
 		}

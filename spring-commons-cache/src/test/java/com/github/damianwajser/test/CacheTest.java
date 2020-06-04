@@ -40,10 +40,22 @@ public class CacheTest {
 	@Test
 	public void getCacheOK() throws Exception {
 		String result = this.restTemplate
-				.exchange("http://localhost:" + port + "/cache", HttpMethod.POST, null, String.class).getBody();
+				.exchange("http://localhost:" + port + "/cache", HttpMethod.GET, null, String.class).getBody();
 		String result2 = this.restTemplate
-				.exchange("http://localhost:" + port + "/cache", HttpMethod.POST, null, String.class).getBody();
+				.exchange("http://localhost:" + port + "/cache", HttpMethod.GET, null, String.class).getBody();
 		Assert.assertEquals(result, result2);
+	}
+
+	@Test
+	public void getCacheEvict() throws Exception {
+		String result = this.restTemplate
+				.exchange("http://localhost:" + port + "/cache", HttpMethod.GET, null, String.class).getBody();
+		this.restTemplate
+				.exchange("http://localhost:" + port + "/cache", HttpMethod.DELETE, null, String.class).getBody();
+
+		String result2 = this.restTemplate
+				.exchange("http://localhost:" + port + "/cache", HttpMethod.GET, null, String.class).getBody();
+		Assert.assertNotEquals(result, result2);
 	}
 
 	@After

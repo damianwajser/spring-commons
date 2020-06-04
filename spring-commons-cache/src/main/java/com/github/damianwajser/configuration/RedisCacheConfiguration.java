@@ -1,11 +1,14 @@
 package com.github.damianwajser.configuration;
 
-import com.github.damianwajser.serializer.CustomJdkSerializationRedisSerializer;
+import com.github.damianwajser.serializer.CustomJdkKeyPrefixRedisSerializer;
+import com.github.damianwajser.serializer.CustomJdkRedisSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.cache.CacheKeyPrefix;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,16 +24,28 @@ import java.util.ArrayList;
 @ConditionalOnProperty(name = "spring.commons.cache.enabled", havingValue = "true")
 public class RedisCacheConfiguration {
 
+	@Value("${spring.commons.cache.prefix.enabled:true}")
+	private boolean prefixEnabled;
+
+	@Value("${spring.commons.cache.prefix.value}")
+	private String prefix;
+
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory jedisConnectionFactory) {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory);
 
-		redisTemplate.setDefaultSerializer(new CustomJdkSerializationRedisSerializer());
-		redisTemplate.setHashKeySerializer(new CustomJdkSerializationRedisSerializer());
-		redisTemplate.setHashValueSerializer(new CustomJdkSerializationRedisSerializer());
-		redisTemplate.setKeySerializer(new CustomJdkSerializationRedisSerializer());
-		redisTemplate.setValueSerializer(new CustomJdkSerializationRedisSerializer());
+		redisTemplate.setDefaultSerializer(new CustomJdkRedisSerializer());
+		if (prefixEnabled) {
+			String prefixSeparator = prefix + "::";
+			redisTemplate.setHashKeySerializer(new CustomJdkKeyPrefixRedisSerializer(prefixSeparator));
+			redisTemplate.setKeySerializer(new CustomJdkKeyPrefixRedisSerializer(prefixSeparator));
+		} else {
+			redisTemplate.setHashKeySerializer(new CustomJdkRedisSerializer());
+			redisTemplate.setKeySerializer(new CustomJdkRedisSerializer());
+		}
+		redisTemplate.setHashValueSerializer(new CustomJdkRedisSerializer());
+		redisTemplate.setValueSerializer(new CustomJdkRedisSerializer());
 
 		return redisTemplate;
 	}
@@ -64,9 +79,26 @@ public class RedisCacheConfiguration {
 
 	@Bean
 	public RedisCacheManager cacheManager(RedisConnectionFactory jedisConnectionFactory) {
-		RedisCacheManager rcm = RedisCacheManager.create(jedisConnectionFactory);
+		RedisCacheManager rcm = null;
+		if (prefixEnabled) {
+			rcm = this.getPrefixManager(jedisConnectionFactory);
+		} else {
+			rcm = RedisCacheManager.create(jedisConnectionFactory);
+		}
 		rcm.setTransactionAware(true);
 		return rcm;
+	}
+
+	private RedisCacheManager getPrefixManager(RedisConnectionFactory jedisConnectionFactory) {
+		CacheKeyPrefix prefixCache = new CacheKeyPrefix() {
+			@Override
+			public String compute(String cacheName) {
+				return prefix + "::" + CacheKeyPrefix.simple().compute(cacheName);
+			}
+		};
+		return RedisCacheManager.builder(jedisConnectionFactory)
+				.cacheDefaults(org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig()
+						.computePrefixWith(prefixCache)).build();
 	}
 
 	@Bean

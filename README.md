@@ -145,6 +145,39 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |logstash. trace.id.key | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
 |logstash. duration. request.enabled| true/false | For each request log the duration.| false
 
+### [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
+
+#### Properties
+| Key | Posible Value | Reference | Default Value
+|--|--|--|--
+|spring.commons.cache.enabled | | | 
+|spring.commons.cache.prefix.enabled | | | 
+|spring.commons.cache.prefix.value |  | | 
+|spring.redis.host | | | 
+|spring.redis.port | | | 
+
+1. Set a Redis Properties in application.properties file
+```properties
+spring.commons.cache.enabled=true
+spring.commons.cache.prefix.enabled=true
+spring.commons.cache.prefix.value=ms-test
+spring.redis.host=localhost 
+spring.redis.port=6379
+```
+2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
+```java
+@Configuration
+public class RedisConfiguration {
+
+   @Bean 
+   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
+      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
+      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
+      return new JedisConnectionFactory(config, clientConfiguration); 
+   }
+}
+```
+
 ### [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
  1. The first request finished executing, which returns the same response that was obtained in the first call. 
@@ -182,26 +215,9 @@ Eneable the module
 spring.commons.idempotency.enabled=true
 ```
 
-Remember that this module works with redis, with which you should first configure your redis, for which I leave you an example:
-1. Set a Redis Properties in application.properties file
-```properties
-spring.redis.host=localhost 
-spring.redis.port=6379
-```
-2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
-```java
-@Configuration
-public class RedisConfiguration {
+Remember that this module works with cache, with which you should first configure your ***spring-commons-cache***, for which I leave you an example:
 
-   @Bean 
-   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
-      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
-      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
-      return new JedisConnectionFactory(config, clientConfiguration); 
-   }
-}
-```
-3. Suppose we have the following domain object
+1. Suppose we have the following domain object
 ```java
 public class FooObject {
 
@@ -217,7 +233,7 @@ public class FooObject {
       this.value = value;
    }
 ```
-4. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
+2. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
 
 ```java
                                                                            //very important 
