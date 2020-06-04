@@ -49,7 +49,8 @@ public class Application {
 PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
 
 ## Modules
-### 1.1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
+## 1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
+
 Collection of exceptions for the most common cases when rest apis are built, and override the http code. In addition, they request additional information for errors. They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message. For example:
 |Exception|Http Code |
 |--|--|
@@ -63,7 +64,8 @@ Collection of exceptions for the most common cases when rest apis are built, and
 | PreconditionFailedException | 412
 | UnsuportedMediaTypeException | 415
 
-### [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
+## 2 [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
+
 Override all annotations for standard JSR annotations:
 
 **@NotNull** – validates that the annotated property value is not null
@@ -101,7 +103,7 @@ bussiness code: this the code that will usualle for ***spring-commons-exception-
 
 ##### Examples
 
-###### @CardToken
+##### @CardToken
 
 ```java
 public class CardTokenObject {
@@ -131,10 +133,10 @@ public class ExpirationObject implements CardExpirable {
        return this.expirationYear;
     }
 ```
-### [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
-### [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
-### [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
-### [spring-commons-logstash-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logstash-logger "spring-commons-logstash-logger")
+## 3 [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
+## 4 [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
+## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
+## 6 [spring-commons-logstash-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logstash-logger "spring-commons-logstash-logger")
 
 #### Properties
 | Key | Posible Value | Reference | Default Value
@@ -145,7 +147,7 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |logstash. trace.id.key | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
 |logstash. duration. request.enabled| true/false | For each request log the duration.| false
 
-### [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
+## 7 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
 
 #### Properties
 | Key | Posible Value | Reference | Default Value
@@ -153,8 +155,6 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |spring.commons.cache.enabled | | | 
 |spring.commons.cache.prefix.enabled | | | 
 |spring.commons.cache.prefix.value |  | | 
-|spring.redis.host | | | 
-|spring.redis.port | | | 
 
 1. Set a Redis Properties in application.properties file
 ```properties
@@ -178,7 +178,7 @@ public class RedisConfiguration {
 }
 ```
 
-### [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
+## 8 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
  1. The first request finished executing, which returns the same response that was obtained in the first call. 
  2. In case the first request is still running, a message will be returned indicating the conflict.
