@@ -58,6 +58,7 @@ public class IdempotencyTest {
 
 	@Before
 	public void setUp() {
+
 		this.redisServer = new RedisServer(redisProperties.getPort());
 		redisServer.start();
 	}

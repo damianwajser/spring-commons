@@ -1,8 +1,7 @@
 package com.github.damianwajser.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CacheController {
@@ -11,9 +10,15 @@ public class CacheController {
 	private Servicet servicet;
 
 
-	@PostMapping("/cache")
-	private String test_cache() {
+	@GetMapping("/cache")
+	private String get() {
 		return servicet.generateUUID();
 	}
+
+	@DeleteMapping("/cache")
+	private String post() {
+		return servicet.delete();
+	}
+
 
 }

@@ -4,7 +4,7 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-public class CustomJdkSerializationRedisSerializer extends JdkSerializationRedisSerializer {
+public class CustomJdkRedisSerializer extends JdkSerializationRedisSerializer {
 	private StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
 	@Override

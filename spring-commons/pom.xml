@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.github.damianwajser</groupId>
 		<artifactId>spring-commons-parent</artifactId>
-		<version>1.3.0</version>
+		<version>1.4.0</version>
 	</parent>
 	<dependencies>
 		<dependency>
