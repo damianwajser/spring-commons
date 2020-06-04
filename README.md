@@ -92,13 +92,45 @@ Override all annotations for standard JSR annotations:
 
 On the other hand some useful validations are added:
 
-**@CardToken** - 
+**@CardToken** - Use this annotation to validate credit card Token
 
-**@CardExpiration** - 
+**@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to be validate with actual date.
 
 Some annotations accept additional attributes, but the message and the bussisness code attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
 bussiness code: this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
 
+##### Examples
+
+###### @CardToken
+
+```java
+public class CardTokenObject {
+
+    @CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "some message", businessCode = "c-400")
+    private String value;
+    
+}
+```
+##### @CardExpiration
+Implements the interface **CardExpirable** and override the methods: getExpirationMonth and getExpirationYear.
+
+```java
+@CardExpiration(message = "some message", businessCode = "c-400")
+public class ExpirationObject implements CardExpirable {
+
+    private int expirationMonth;
+    private int expirationYear;
+
+    @Override
+    public int getExpirationMonth() {
+	return this.expirationMonth;
+    }
+
+    @Override
+    public int getExpirationYear() {
+       return this.expirationYear;
+    }
+```
 ### [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
 ### [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
 ### [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
@@ -112,6 +144,39 @@ bussiness code: this the code that will usualle for ***spring-commons-exception-
 logstash. destination | localhost:5000 | host and port of logstash server| localhost:5000
 |logstash. trace.id.key | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
 |logstash. duration. request.enabled| true/false | For each request log the duration.| false
+
+### [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
+
+#### Properties
+| Key | Posible Value | Reference | Default Value
+|--|--|--|--
+|spring.commons.cache.enabled | | | 
+|spring.commons.cache.prefix.enabled | | | 
+|spring.commons.cache.prefix.value |  | | 
+|spring.redis.host | | | 
+|spring.redis.port | | | 
+
+1. Set a Redis Properties in application.properties file
+```properties
+spring.commons.cache.enabled=true
+spring.commons.cache.prefix.enabled=true
+spring.commons.cache.prefix.value=ms-test
+spring.redis.host=localhost 
+spring.redis.port=6379
+```
+2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
+```java
+@Configuration
+public class RedisConfiguration {
+
+   @Bean 
+   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
+      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
+      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
+      return new JedisConnectionFactory(config, clientConfiguration); 
+   }
+}
+```
 
 ### [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
@@ -150,26 +215,9 @@ Eneable the module
 spring.commons.idempotency.enabled=true
 ```
 
-Remember that this module works with redis, with which you should first configure your redis, for which I leave you an example:
-1. Set a Redis Properties in application.properties file
-```properties
-spring.redis.host=localhost 
-spring.redis.port=6379
-```
-2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
-```java
-@Configuration
-public class RedisConfiguration {
+Remember that this module works with cache, with which you should first configure your ***spring-commons-cache***, for which I leave you an example:
 
-   @Bean 
-   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
-      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
-      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
-      return new JedisConnectionFactory(config, clientConfiguration); 
-   }
-}
-```
-3. Suppose we have the following domain object
+1. Suppose we have the following domain object
 ```java
 public class FooObject {
 
@@ -185,7 +233,7 @@ public class FooObject {
       this.value = value;
    }
 ```
-4. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
+2. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
 
 ```java
                                                                            //very important 
