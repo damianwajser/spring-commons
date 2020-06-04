@@ -155,8 +155,6 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |spring.commons.cache.enabled | | | 
 |spring.commons.cache.prefix.enabled | | | 
 |spring.commons.cache.prefix.value |  | | 
-|spring.redis.host | | | 
-|spring.redis.port | | | 
 
 1. Set a Redis Properties in application.properties file
 ```properties
