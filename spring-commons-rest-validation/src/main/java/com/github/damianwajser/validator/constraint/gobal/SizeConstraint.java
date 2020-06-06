@@ -2,6 +2,7 @@ package com.github.damianwajser.validator.constraint.gobal;
 
 import com.github.damianwajser.validator.annotation.global.Size;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
+import org.springframework.http.HttpMethod;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,9 +18,14 @@ public class SizeConstraint extends AbstractConstraint implements ConstraintVali
 
 	@Override
 	public void initialize(Size field) {
-		super.excludes = field.excludes();
-		this.max = field.max();
-		this.min = field.min();
+		this.initialize(field.excludes(), field.max(), field.min());
+	}
+
+	public SizeConstraint initialize(HttpMethod[] excludes, int max, int min) {
+		super.excludes = excludes;
+		this.max = max;
+		this.min = min;
+		return this;
 	}
 
 	@Override
@@ -28,14 +34,18 @@ public class SizeConstraint extends AbstractConstraint implements ConstraintVali
 		if (field != null) {
 			Class<?> clazz = field.getClass();
 			if (String.class.isAssignableFrom(clazz)) {
-				hasError = ((String) field).length() > max;
+				hasError = hasErrorSize(((String) field).length());
 			} else if (Collection.class.isAssignableFrom(clazz)) {
-				hasError = ((Collection) field).size() > max;
+				hasError = hasErrorSize(((Collection) field).size());
 			}
 		} else {
 			hasError = min > 0;
 		}
 		return hasError;
+	}
+
+	private boolean hasErrorSize(int size) {
+		return size < min || size > max;
 	}
 
 }
