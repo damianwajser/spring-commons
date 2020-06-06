@@ -58,24 +58,12 @@ public abstract class RestException extends Exception {
 		}
 	}
 
-	/**
-	 * Always treat deserialization as a full-blown constructor, by validating
-	 * the final state of the de-serialized object.
-	 * @throws for java.io.IOException
-	 * @throws for java.io.ClassNotFoundException
-	 */
 	private void readObject(ObjectInputStream aInputStream)
 			throws ClassNotFoundException, IOException {
 		// always perform the default deserialization first
 		aInputStream.defaultReadObject();
 	}
 
-	/**
-	 * This is the default implementation of writeObject. Customise if
-	 * necessary.
-	 *  @throws for java.io.IOException
-	 * 	@throws for java.io.ClassNotFoundException
-	 */
 	private void writeObject(ObjectOutputStream aOutputStream)
 			throws IOException {
 		// perform the default serialization for all non-transient, non-static
