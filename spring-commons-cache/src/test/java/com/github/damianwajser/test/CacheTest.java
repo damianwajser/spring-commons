@@ -13,6 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import redis.embedded.RedisServer;
 
@@ -44,6 +45,23 @@ public class CacheTest {
 		String result2 = this.restTemplate
 				.exchange("http://localhost:" + port + "/cache", HttpMethod.GET, null, String.class).getBody();
 		Assert.assertEquals(result, result2);
+	}
+
+	@Test
+	public void getCacheAllOK() throws Exception {
+		Object result = this.restTemplate
+				.exchange("http://localhost:" + port + "/cache_all", HttpMethod.GET, null, Object.class).getBody();
+
+		Integer result1 = this.restTemplate
+				.exchange("http://localhost:" + port + "/cache_all/1", HttpMethod.GET, null, Integer.class).getBody();
+		Assert.assertEquals(result1, new Integer(1));
+		Integer result2 = this.restTemplate
+				.exchange("http://localhost:" + port + "/cache_all/2", HttpMethod.GET, null, Integer.class).getBody();
+		Assert.assertEquals(result2, new Integer(2));
+		this.restTemplate
+				.exchange("http://localhost:" + port + "/cache_all/2", HttpMethod.DELETE, null, Integer.class).getBody();
+		this.restTemplate
+				.exchange("http://localhost:" + port + "/cache_all/2", HttpMethod.GET, null, Integer.class).getBody();
 	}
 
 	@Test

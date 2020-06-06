@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import static com.github.damianwajser.model.TestUtils.*;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +26,7 @@ public class SizeValidationTest {
 		assertThat(validationFor(new SizeMinZeroStringObject("4"), onField("value")), succedes());
 		assertThat(validationFor(new SizeMinZeroStringObject("12342"), onField("value")), succedes());
 		assertThat(validationFor(new SizeMinZeroStringObject(""), onField("value")), succedes());
-		assertThat(validationFor(new SizeMinOneStringObject(""), onField("value")), succedes());
+		assertThat(validationFor(new SizeMinOneStringObject(""), onField("value")), fails());
 	}
 
 	@Test
@@ -33,7 +34,6 @@ public class SizeValidationTest {
 		assertThat(validationFor(new SizeCollectionObject()), succedes());
 		assertThat(validationFor(new SizeCollectionObject(Arrays.asList(1, 2, 4, 5))), succedes());
 		assertThat(validationFor(new SizeCollectionObject(Arrays.asList(1, 2, 3, 4, 5, 6))), fails());
-
 	}
 
 }

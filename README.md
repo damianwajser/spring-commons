@@ -94,6 +94,8 @@ Override all annotations for standard JSR annotations:
 
 On the other hand some useful validations are added:
 
+**@AlphaNumeric** - Use this annotation to validate alpha-numerics strings, this annotation use @Size constraint then yoy can add that parameters (min, max). Also you can add a boolean parameter allowSpaces, that default value is true.
+
 **@CardToken** - Use this annotation to validate credit card Token
 
 **@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to be validate with actual date.
@@ -110,7 +112,7 @@ public class CardTokenObject {
 
     @CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "some message", businessCode = "c-400")
     private String value;
-    
+
 }
 ```
 ##### @CardExpiration
@@ -152,16 +154,16 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 #### Properties
 | Key | Posible Value | Reference | Default Value
 |--|--|--|--
-|spring.commons.cache.enabled | | | 
-|spring.commons.cache.prefix.enabled | | | 
-|spring.commons.cache.prefix.value |  | | 
+|spring.commons.cache.enabled | true/false| enable the module| false
+|spring.commons.cache.prefix.enabled | true/false | When you use a shared redis between different applications and you want to do a division on the domain of the keys, you can use a prefix to do this manually. | true
+|spring.commons.cache.prefix.value | Any String | value of prefix  | null
 
 1. Set a Redis Properties in application.properties file
 ```properties
 spring.commons.cache.enabled=true
 spring.commons.cache.prefix.enabled=true
 spring.commons.cache.prefix.value=ms-test
-spring.redis.host=localhost 
+spring.redis.host=localhost
 spring.redis.port=6379
 ```
 2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
@@ -169,18 +171,18 @@ spring.redis.port=6379
 @Configuration
 public class RedisConfiguration {
 
-   @Bean 
-   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) { 
-      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort()); 
-      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build(); 
-      return new JedisConnectionFactory(config, clientConfiguration); 
+   @Bean
+   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) {
+      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort());
+      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build();
+      return new JedisConnectionFactory(config, clientConfiguration);
    }
 }
 ```
 
 ## 8 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
- 1. The first request finished executing, which returns the same response that was obtained in the first call. 
+ 1. The first request finished executing, which returns the same response that was obtained in the first call.
  2. In case the first request is still running, a message will be returned indicating the conflict.
 
 This configuration is done by registering some beans and properties, you can see the following example:
@@ -194,20 +196,20 @@ spring.commons.idempotency.ttl | Any nunmber ||
 spring.commons.idempotency.badrequest.code| Any String | | 400
 spring.commons.idempotency.conflict.code| Any String | | 409
 spring.commons.idempotency.conflict.mesasge| Any String | |idempotency key is bussy
-```java 
-@Configuration 
+```java
+@Configuration
 public class IdempotencyConfiguration {
-  
-  @Bean 
+
+  @Bean
   public IdempotencyEndpoints idempotencyEndpoints() {
-    IdempotencyEndpoints idempotencyEndpoints = new IdempotencyEndpoints(); 
-    // register endpoint by all Http Methods and generic Key generator      
+    IdempotencyEndpoints idempotencyEndpoints = new IdempotencyEndpoints();
+    // register endpoint by all Http Methods and generic Key generator
     // (The idempotence key is generated based on the header sent by the client, X-Idempotency-Key)
-    idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_generic"); 
+    idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_generic");
     //Customize another enpoint only by POST method and custom keyGenerator
     idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_by_custom", new FooIdempotencyKeyGenerator(), HttpMethod.POST);
-    return idempotencyEndpoints; 
-  } 
+    return idempotencyEndpoints;
+  }
 }
 ```
 Eneable the module
@@ -224,11 +226,11 @@ public class FooObject {
    private String value;
    //The Empty Constructor is required
    public FooObject(){ }
-   
+
    public String getValue() {
       return value;
    }
-   
+
    public void setValue(String value) {
       this.value = value;
    }
@@ -236,10 +238,10 @@ public class FooObject {
 2. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
 
 ```java
-                                                                           //very important 
+                                                                           //very important
 									  //generic
 public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<FooObject> {
-   
+
    private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 
    @Override
@@ -247,14 +249,14 @@ public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Fo
       String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
       return path + "-" + key + "-" + method.toString() + "-" + request.getValue();
    }
-   
+
    protected String getHeaderValue(HttpHeaders headers, String headerKey) {
       List<String> idempotencyHeader = headers.get(headerKey);
       String key;
       if (idempotencyHeader != null) {
          key = idempotencyHeader.stream().collect(Collectors.joining("-"));
       } else {
-         // ArgumentNotFoundException is used to return a bad request indicating that the field is mandatory 
+         // ArgumentNotFoundException is used to return a bad request indicating that the field is mandatory
          throw new ArgumentNotFoundException(headerKey);
       }
       return key;
