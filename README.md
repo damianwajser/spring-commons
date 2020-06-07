@@ -80,6 +80,8 @@ Override all annotations for standard JSR annotations:
 
 **@Email** – validates that the annotated property is a valid email address
 
+**@Pattern** – validate that a string matches with regex parameter.
+
 **@NotEmpty** – validates that the property is not null or empty; can be applied to String, Collection, Map or Array values
 
 **@NotBlank** – can be applied only to text values and validated that the property is not null or whitespace
@@ -95,6 +97,8 @@ Override all annotations for standard JSR annotations:
 On the other hand some useful validations are added:
 
 **@AlphaNumeric** - Use this annotation to validate alpha-numerics strings, this annotation use @Size constraint then yoy can add that parameters (min, max). Also you can add a boolean parameter allowSpaces, that default value is true.
+
+**@Password** - Use this annotation to validate basic passwords rules.
 
 **@CardToken** - Use this annotation to validate credit card Token
 
