@@ -1,16 +1,11 @@
 package com.github.damianwajser.tests.strings;
 
-import com.github.damianwajser.model.global.size.SizeCollectionObject;
-import com.github.damianwajser.model.global.size.SizeMinOneStringObject;
-import com.github.damianwajser.model.global.size.SizeMinZeroStringObject;
 import com.github.damianwajser.model.strings.AlphaAllowSpaceStringObject;
 import com.github.damianwajser.model.strings.AlphaMinOneStringObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Arrays;
 
 import static com.github.damianwajser.model.TestUtils.*;
 import static org.junit.Assert.assertThat;

@@ -1,6 +1,6 @@
-package com.github.damianwajser.validator.annotation.global;
+package com.github.damianwajser.validator.annotation.strings;
 
-import com.github.damianwajser.validator.constraint.gobal.EmailConstraint;
+import com.github.damianwajser.validator.constraint.strings.PasswordConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
@@ -13,14 +13,14 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = {EmailConstraint.class})
+@Constraint(validatedBy = {PasswordConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-public @interface Email {
+public @interface Password {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.Email.message}";
+	String message();
 
 	Class<?>[] groups() default {};
 

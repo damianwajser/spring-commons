@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 import static com.github.damianwajser.model.TestUtils.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)

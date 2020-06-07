@@ -1,6 +1,5 @@
 package com.github.damianwajser.model.strings;
 
-import com.github.damianwajser.validator.annotation.global.Size;
 import com.github.damianwajser.validator.annotation.strings.AlphaNumeric;
 
 public class AlphaMinOneStringObject {

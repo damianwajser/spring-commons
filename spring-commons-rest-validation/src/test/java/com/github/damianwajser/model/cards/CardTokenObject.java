@@ -1,7 +1,6 @@
 package com.github.damianwajser.model.cards;
 
 import com.github.damianwajser.validator.annotation.cards.CardToken;
-import org.springframework.http.HttpMethod;
 
 public class CardTokenObject {
 
