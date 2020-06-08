@@ -12,6 +12,6 @@ public class BadRequestController {
 
 	@PostMapping("/badrequest")
 	private FooObject badRequest() throws BadRequestException {
-		throw new BadRequestException("2020", "badrequest", Optional.empty());
+		throw new BadRequestException("400", "badrequest", Optional.empty());
 	}
 }

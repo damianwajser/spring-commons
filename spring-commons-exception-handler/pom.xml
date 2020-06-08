@@ -16,5 +16,10 @@
 			<artifactId>spring-commons-exception</artifactId>
 			<version>${spring-commons-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.damianwajser</groupId>
+			<artifactId>spring-commons-rest-validation</artifactId>
+			<version>${spring-commons-version}</version>
+		</dependency>
 	</dependencies>
 </project>

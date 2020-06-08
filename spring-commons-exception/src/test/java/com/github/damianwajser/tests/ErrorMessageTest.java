@@ -24,7 +24,8 @@ public class ErrorMessageTest {
 		ErrorMessage errorMessage = new ErrorMessage(Arrays.asList(detail), request);
 		ErrorMessage errorMessage1 = new ErrorMessage(Arrays.asList(detail), request);
 		System.out.println(errorMessage);
-		Assert.assertEquals(errorMessage, errorMessage1);
+		Assert.assertEquals(errorMessage.getDetails(), errorMessage1.getDetails());
+		Assert.assertEquals(errorMessage.getPath(), errorMessage1.getPath());
 
 	}
 
