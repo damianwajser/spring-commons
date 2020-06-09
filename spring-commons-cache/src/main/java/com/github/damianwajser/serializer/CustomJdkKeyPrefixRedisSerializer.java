@@ -6,8 +6,8 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 public class CustomJdkKeyPrefixRedisSerializer extends JdkSerializationRedisSerializer {
+
 	private StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-	private static final Logger LOGGER = LoggerFactory.getLogger(CustomJdkKeyPrefixRedisSerializer.class);
 
 	private final String PREFIX;
 
