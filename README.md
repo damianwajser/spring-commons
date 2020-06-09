@@ -119,11 +119,12 @@ public class CardTokenObject {
 
 }
 ```
+
 ##### @CardExpiration
 Implements the interface **CardExpirable** and override the methods: getExpirationMonth and getExpirationYear.
 
 ```java
-@CardExpiration(message = "some message", businessCode = "c-400")
+@CardExpiration(message = "{some.message}", businessCode = "c-400")
 public class ExpirationObject implements CardExpirable {
 
     private int expirationMonth;
@@ -140,6 +141,79 @@ public class ExpirationObject implements CardExpirable {
     }
 ```
 ## 3 [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
+
+This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
+
+On the other hand, the internationalization option is enabled, for which in all the exceptions found in ***spring-commons-exceptions*** or the validations found in ***spring-commons-rest-validation*** We can enter placeholders when we talk about errors.
+
+The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take it from the corresponding message.properties.
+
+Firts we create the i18n files in src/main/resources:
+
+- messages_en.properties
+```properties
+spring.commons.validation.constraints.NotEmpty.message=Engilsh message
+```
+- messages_es.properties
+```properties
+spring.commons.validation.constraints.NotEmpty.message=Spanish message
+```
+- messages_fr.properties
+```properties
+spring.commons.validation.constraints.NotEmpty.message=French message
+```
+Example in Rest Validation:
+```java
+public class FooObject {
+
+   @NotEmpty(businessCode = "noStringMessage", message = "{spring.commons}")
+   private String string;
+
+}
+```
+```java
+@RestController
+public class BadRequestValidationController {
+
+	@PostMapping("/badrequest")
+	private FooObject badRequest(@Valid FooObject object) throws BadRequestException {
+		return null;
+	}
+}
+```
+Example in Rest Exception:
+```java
+@RestController
+@RequestMapping("/i18n")
+public class I18nBadRequestController {
+
+   @PostMapping("/withproperties")
+   private FooObject withproperties() throws BadRequestException {
+     throw new BadRequestException("withproperties", "{spring.commons.validation.constraints.NotEmpty.message}", Optional.empty());
+   }
+
+}
+```
+request: curl -X POST {domain}/i18n/withproperties -H Accpet-Lenguaje:FR-fr
+response:
+```json
+{
+   "details":[
+      {
+         "errorCode":"withproperties",
+         "errorMessage":"French message",
+         "errorDetail":null,
+         "metaData":{
+
+         }
+      }
+   ],
+   "path":"/i18n/withproperties",
+   "timestamp":"2020-06-08T17:47:32.988"
+}
+```
+
+
 ## 4 [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
 ## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
 ## 6 [spring-commons-logstash-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logstash-logger "spring-commons-logstash-logger")

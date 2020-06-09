@@ -7,13 +7,15 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-public class I18nConnfiguration {
+public class I18nConfiguration {
 
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename("classpath:messages");
 		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setConcurrentRefresh(true);
+		messageSource.setCacheSeconds(90);
 		return messageSource;
 	}
 
