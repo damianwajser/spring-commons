@@ -212,7 +212,24 @@ response:
    "timestamp":"2020-06-08T17:47:32.988"
 }
 ```
+request: curl -X POST {domain}/i18n/withproperties -H Accpet-Lenguaje:ES-es
+response:
+```json
+{
+   "details":[
+      {
+         "errorCode":"withproperties",
+         "errorMessage":"Spanish message",
+         "errorDetail":null,
+         "metaData":{
 
+         }
+      }
+   ],
+   "path":"/i18n/withproperties",
+   "timestamp":"2020-06-08T17:47:32.988"
+}
+```
 
 ## 4 [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
 ## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
