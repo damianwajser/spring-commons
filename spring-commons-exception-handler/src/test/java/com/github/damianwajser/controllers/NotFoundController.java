@@ -12,6 +12,6 @@ public class NotFoundController {
 
 	@PostMapping("/notfound")
 	private FooObject badRequest() throws NotFoundException {
-		throw new NotFoundException("202", "notfound", Optional.empty());
+		throw new NotFoundException("404", "notfound", Optional.empty());
 	}
 }

@@ -1,8 +1,11 @@
 package com.github.damianwajser.exceptions.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
@@ -17,12 +20,18 @@ public class ExceptionDetail implements Serializable {
 
 	private static final long serialVersionUID = 1905128741950251207L;
 
+	@JsonProperty("errorCode")
 	private final String errorCode;
+	@JsonProperty("errorDetail")
 	private final Optional<Object> errorDetail;
-	private final String errorMessage;
+
+	@JsonProperty("errorMessage")
+	private String errorMessage;
+	@JsonProperty("metaData")
 	private Map<String, Object> metaData;
 
-	public ExceptionDetail(String errorCode, String errorMessage, Optional<Object> detail) {
+	@JsonCreator
+	public ExceptionDetail(@JsonProperty("errorCode") String errorCode, @JsonProperty("errorMessage") String errorMessage, @JsonProperty("errorDetail") Optional<Object> detail) {
 		Assert.notNull(errorCode, "errorCode dont be null");
 		Assert.notNull(errorMessage, "errorMessage dont be null");
 		this.errorCode = errorCode;
@@ -51,6 +60,10 @@ public class ExceptionDetail implements Serializable {
 		return errorDetail;
 	}
 
+	public void setErrorMessage(String message) {
+		this.errorMessage = message;
+	}
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
@@ -63,7 +76,7 @@ public class ExceptionDetail implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 	/**

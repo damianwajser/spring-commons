@@ -13,12 +13,12 @@ public class TestForbiddenController {
 
 	@PostMapping("/forbbiden")
 	private FooObject forbbiden() throws ForbiddenException {
-		throw new ForbiddenException("", "forbbiden", Optional.empty());
+		throw new ForbiddenException("403", "forbbiden", Optional.empty());
 	}
 
 	@PostMapping("/permissionDenied")
 	private FooObject permissionDenied() throws PermissionDeniedException {
-		throw new PermissionDeniedException("", "permissionDenied", Optional.empty());
+		throw new PermissionDeniedException("403", "permissionDenied", Optional.empty());
 	}
 
 }

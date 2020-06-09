@@ -1,12 +1,9 @@
 package com.github.damianwajser.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 public class CacheController {
