@@ -30,7 +30,9 @@ public @interface CardToken {
 
 	String businessCode();
 
-	public enum Tokenizer{
+	boolean isNulleable() default false;
+
+	enum Tokenizer {
 		TOKEN_EX;
 	}
 }

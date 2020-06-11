@@ -20,6 +20,7 @@ public class PastValidationTest {
 	@Test
 	public void past_obect() throws Exception {
 		assertThat(validationFor(new PastAuxObject(), onField("value")), fails());
+		assertThat(validationFor(new PastAuxObject(), onField("nulleable")), succedes());
 		assertThat(validationFor(new PastAuxObject(1), onField("value")), fails());
 
 		assertThat(validationFor(new PastAuxObject(LocalDate.now()), onField("value")), succedes());

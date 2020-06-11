@@ -28,4 +28,5 @@ public @interface Password {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

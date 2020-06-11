@@ -29,11 +29,11 @@ public class CustomValidationI18nTest {
 
 	@Test
 	public void withDefaultMessage() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.add("Accept-Language", "en-EN");
+		HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.add("Accept-Language", "en-EN");
-			HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 			this.restTemplate.exchange("http://localhost:" + port + "/validation/custom", HttpMethod.POST, entity,
 					Object.class);
 			Assert.fail();
@@ -56,11 +56,11 @@ public class CustomValidationI18nTest {
 
 	@Test
 	public void withI18NMessage_Spanish() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.add("Accept-Language", "es-ES");
+		HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.add("Accept-Language", "es-ES");
-			HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 			this.restTemplate.exchange("http://localhost:" + port + "/validation/custom", HttpMethod.POST, entity,
 					Object.class);
 			Assert.fail();
@@ -77,11 +77,11 @@ public class CustomValidationI18nTest {
 	}
 	@Test
 	public void withI18NMessage_French() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.add("Accept-Language", "fr-FR");
+		HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.add("Accept-Language", "fr-FR");
-			HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(new CustomValidationFooObject("", ""), headers);
 			this.restTemplate.exchange("http://localhost:" + port + "/validation/custom", HttpMethod.POST, entity,
 					Object.class);
 			Assert.fail();

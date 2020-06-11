@@ -90,15 +90,10 @@ public class RedisCacheConfiguration {
 	}
 
 	private RedisCacheManager getPrefixManager(RedisConnectionFactory jedisConnectionFactory) {
-		CacheKeyPrefix prefixCache = new CacheKeyPrefix() {
-			@Override
-			public String compute(String cacheName) {
-				return prefix + "::" + CacheKeyPrefix.simple().compute(cacheName);
-			}
-		};
 		return RedisCacheManager.builder(jedisConnectionFactory)
 				.cacheDefaults(org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig()
-						.computePrefixWith(prefixCache)).build();
+						.computePrefixWith((cacheName) -> prefix + "::" + CacheKeyPrefix.simple().compute(cacheName)))
+				.build();
 	}
 
 	@Bean

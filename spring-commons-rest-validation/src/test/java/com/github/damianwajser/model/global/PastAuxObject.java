@@ -7,6 +7,8 @@ public class PastAuxObject {
 
 	@Past(businessCode = "asd")
 	private Object value;
+	@Past(businessCode = "asd", isNulleable = true)
+	private Object nulleable;
 
 	public PastAuxObject() {
 	}

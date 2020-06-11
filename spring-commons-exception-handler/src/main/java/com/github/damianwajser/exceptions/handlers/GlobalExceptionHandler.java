@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = RestException.class)
 	protected ResponseEntity<ErrorMessage> handleConflict(RestException ex, HttpServletRequest request, Locale locale) {
-		return new ResponseEntity<>(new ErrorMessage(this.getExceptionDetails(ex, request, locale), request), ex.getHttpCode());
+		return new ResponseEntity<>(new ErrorMessage(this.getExceptionDetails(ex, locale), request), ex.getHttpCode());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 		return results.getFieldErrors().stream().map(FieldErrorMapper::convert).collect(Collectors.toList());
 	}
 
-	private List<ExceptionDetail> getExceptionDetails(RestException ex, HttpServletRequest request, Locale locale) {
+	private List<ExceptionDetail> getExceptionDetails(RestException ex, Locale locale) {
 		return ex.getDetails().stream().map(d -> FieldErrorMapper.internacionalizate(d, messageSource, locale)).collect(Collectors.toList());
 	}
 

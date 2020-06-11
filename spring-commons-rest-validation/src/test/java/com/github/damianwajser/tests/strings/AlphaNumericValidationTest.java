@@ -17,6 +17,9 @@ public class AlphaNumericValidationTest {
 	@Test
 	public void size_without_space_string() throws Exception {
 		assertThat(validationFor(new AlphaMinOneStringObject(), onField("value")), fails());
+		assertThat(validationFor(new AlphaMinOneStringObject(), onField("nulleable")), succedes());
+
+		assertThat(validationFor(new AlphaMinOneStringObject(""), onField("nulleable")), fails());
 		assertThat(validationFor(new AlphaMinOneStringObject(""), onField("value")), fails());
 		//fail for size
 		assertThat(validationFor(new AlphaMinOneStringObject("1234567891234"), onField("value")), fails());
@@ -28,6 +31,8 @@ public class AlphaNumericValidationTest {
 		assertThat(validationFor(new AlphaMinOneStringObject("4"), onField("value")), succedes());
 		// ok min 5
 		assertThat(validationFor(new AlphaMinOneStringObject("12342"), onField("value")), succedes());
+		assertThat(validationFor(new AlphaMinOneStringObject("12342"), onField("nulleable")), succedes());
+
 	}
 
 	@Test

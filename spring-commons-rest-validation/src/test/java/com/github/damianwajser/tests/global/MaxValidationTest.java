@@ -18,6 +18,7 @@ public class MaxValidationTest {
 	@Test
 	public void max_string() throws Exception {
 		assertThat(validationFor(new MaxStringObject(), onField("value")), fails());
+		assertThat(validationFor(new MaxStringObject(), onField("nulleable")), succedes());
 		assertThat(validationFor(new MaxStringObject("1"), onField("value")), fails());
 		assertThat(validationFor(new MaxStringObject("423456"), onField("value")), fails());
 		assertThat(validationFor(new MaxStringObject(""), onField("value")), fails());

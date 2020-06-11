@@ -30,7 +30,7 @@ public @interface CardExpiration {
 
 	YearFormat yearFormat() default YearFormat.TWO_DIGITS;
 
-	public enum YearFormat {
+	enum YearFormat {
 		TWO_DIGITS, FOUR_DIGIT;
 	}
 }

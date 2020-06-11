@@ -18,6 +18,7 @@ public class MinValidationTest {
 	@Test
 	public void min_string() throws Exception {
 		assertThat(validationFor(new MinStringObject(), onField("value")), fails());
+		assertThat(validationFor(new MinStringObject(), onField("nulleable")), succedes());
 		assertThat(validationFor(new MinStringObject("1"), onField("value")), fails());
 		assertThat(validationFor(new MinStringObject("423456"), onField("value")), fails());
 		assertThat(validationFor(new MinStringObject(""), onField("value")), fails());

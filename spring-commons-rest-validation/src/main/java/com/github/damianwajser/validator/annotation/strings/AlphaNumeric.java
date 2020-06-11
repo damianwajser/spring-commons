@@ -34,4 +34,5 @@ public @interface AlphaNumeric {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

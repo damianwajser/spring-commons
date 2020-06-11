@@ -15,10 +15,11 @@ import java.util.Optional;
 public abstract class AbstractConstraint {
 
 	protected HttpMethod[] excludes;
+	protected boolean isNulleable;
 
 	public abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
 
-	protected boolean hasError(Object field){
+	protected boolean hasError(Object field) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		return !validator.validate(field).isEmpty();
@@ -45,9 +46,15 @@ public abstract class AbstractConstraint {
 	}
 
 	public boolean isValid(Object field, ConstraintValidatorContext cxt) {
+		boolean isValid = true;
 		if (!isExcluded()) {
-			return !this.hasError(field, cxt);
+			if (field != null) {
+				isValid = !this.hasError(field, cxt);
+			} else if (!this.isNulleable) {
+				isValid = false;
+			}
 		}
-		return true;
+		return isValid;
 	}
+
 }

@@ -28,4 +28,5 @@ public @interface NotEmpty {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

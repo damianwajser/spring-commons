@@ -30,4 +30,5 @@ public @interface Min {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

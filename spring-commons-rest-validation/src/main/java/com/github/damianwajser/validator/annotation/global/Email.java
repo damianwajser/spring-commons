@@ -28,4 +28,5 @@ public @interface Email {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }
