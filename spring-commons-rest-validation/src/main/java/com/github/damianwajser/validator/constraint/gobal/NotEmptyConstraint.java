@@ -12,6 +12,7 @@ public class NotEmptyConstraint extends AbstractConstraint implements Constraint
 	@Override
 	public void initialize(NotEmpty field) {
 		super.excludes = field.excludes();
+		super.isNulleable = field.isNulleable();
 	}
 
 	@Override

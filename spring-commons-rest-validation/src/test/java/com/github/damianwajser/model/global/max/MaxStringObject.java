@@ -6,6 +6,8 @@ public class MaxStringObject {
 
 	@Max(max = 2, businessCode = "a-400")
 	private String value;
+	@Max(max = 2, businessCode = "a-400", isNulleable = true)
+	private String nulleable;
 
 	public MaxStringObject() {
 	}

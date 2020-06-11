@@ -14,10 +14,11 @@ public class EmailConstraint extends AbstractConstraint implements ConstraintVal
 	@Override
 	public void initialize(Email field) {
 		super.excludes = field.excludes();
+		super.isNulleable = field.isNulleable();
 	}
 
 	@Override
 	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		return new PatternConstraint().initialize(this.excludes, PATTERN).hasError(field, cxt);
+		return !new PatternConstraint().initialize(this.excludes, PATTERN, this.isNulleable).isValid(field, cxt);
 	}
 }

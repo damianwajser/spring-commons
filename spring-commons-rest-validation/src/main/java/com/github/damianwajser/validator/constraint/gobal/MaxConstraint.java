@@ -16,6 +16,7 @@ public class MaxConstraint extends AbstractConstraint implements ConstraintValid
 	@Override
 	public void initialize(Max field) {
 		super.excludes = field.excludes();
+		super.isNulleable = field.isNulleable();
 		this.max = field.max();
 	}
 

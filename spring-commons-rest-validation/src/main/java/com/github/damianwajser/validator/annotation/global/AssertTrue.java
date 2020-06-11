@@ -28,4 +28,5 @@ public @interface AssertTrue {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

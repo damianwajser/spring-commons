@@ -32,4 +32,5 @@ public @interface Size {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

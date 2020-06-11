@@ -14,6 +14,7 @@ public class CardTokenConstraint extends AbstractConstraint implements Constrain
 	@Override
 	public void initialize(CardToken field) {
 		super.excludes = field.excludes();
+		super.isNulleable = field.isNulleable();
 		this.provider = field.provider();
 	}
 
@@ -23,7 +24,7 @@ public class CardTokenConstraint extends AbstractConstraint implements Constrain
 		if (field != null) {
 			Class<?> clazz = field.getClass();
 			if (String.class.isAssignableFrom(clazz)) {
-				result = !TokenValidatorsFactory.getTokenValidator(provider).isValid((String)field);
+				result = !TokenValidatorsFactory.getTokenValidator(provider).isValid((String) field);
 			}
 		}
 		return result;

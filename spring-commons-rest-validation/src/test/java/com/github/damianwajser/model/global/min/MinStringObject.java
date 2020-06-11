@@ -6,6 +6,8 @@ public class MinStringObject {
 
 	@Min(min = 2, businessCode = "a-400")
 	private String value;
+	@Min(min = 2, businessCode = "a-400", isNulleable = true)
+	private String nulleable;
 
 	public MinStringObject() {
 	}

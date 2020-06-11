@@ -3,7 +3,6 @@ package com.github.damianwajser.idempotency.writers;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.CharArrayWriter;
 import java.io.IOException;
 
 public class HttpServletResponseCopier extends HttpServletResponseWrapper {

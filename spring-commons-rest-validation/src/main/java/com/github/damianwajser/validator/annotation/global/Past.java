@@ -28,4 +28,5 @@ public @interface Past {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }

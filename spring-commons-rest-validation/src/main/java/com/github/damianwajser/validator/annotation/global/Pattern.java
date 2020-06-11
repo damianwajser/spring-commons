@@ -30,4 +30,6 @@ public @interface Pattern {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
+
 }

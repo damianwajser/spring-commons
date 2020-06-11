@@ -30,4 +30,5 @@ public @interface Max {
 
 	String businessCode();
 
+	boolean isNulleable() default false;
 }
