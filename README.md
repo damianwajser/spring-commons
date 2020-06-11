@@ -104,7 +104,7 @@ On the other hand some useful validations are added:
 
 **@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to be validate with actual date.
 
-Some annotations accept additional attributes, but the message and the bussisness code attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
+Some annotations accept additional attributes like ***isNulleable***, but the message and the ***bussisnessCode*** attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
 bussiness code: this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
 
 ##### Examples
