@@ -16,7 +16,7 @@ public class NotNullConstraint extends AbstractConstraint implements ConstraintV
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		return !ObjectUtils.allNotNull(field);
 	}
 

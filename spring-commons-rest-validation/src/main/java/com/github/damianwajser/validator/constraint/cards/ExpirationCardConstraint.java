@@ -22,7 +22,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean result = true;
 		if (field != null) {
 			Class<?> clazz = field.getClass();

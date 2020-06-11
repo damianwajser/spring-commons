@@ -16,7 +16,7 @@ public class NotEmptyConstraint extends AbstractConstraint implements Constraint
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		return ObjectUtils.isEmpty(field);
 	}
 
