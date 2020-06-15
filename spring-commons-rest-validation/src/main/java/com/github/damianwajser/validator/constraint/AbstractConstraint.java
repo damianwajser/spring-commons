@@ -17,13 +17,7 @@ public abstract class AbstractConstraint {
 	protected HttpMethod[] excludes;
 	protected boolean isNulleable;
 
-	public abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
-
-	protected boolean hasError(Object field) {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		return !validator.validate(field).isEmpty();
-	}
+	protected abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
 
 	protected Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(

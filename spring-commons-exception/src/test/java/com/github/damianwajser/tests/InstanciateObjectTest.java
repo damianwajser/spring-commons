@@ -2,9 +2,7 @@ package com.github.damianwajser.tests;
 
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.ForbiddenException;
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.PermissionDeniedException;
-import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
-import com.github.damianwajser.exceptions.impl.badrequest.ConflictException;
-import com.github.damianwajser.exceptions.impl.badrequest.NotFoundException;
+import com.github.damianwajser.exceptions.impl.badrequest.*;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,21 +24,51 @@ public class InstanciateObjectTest {
 
 	@Test
 	public void instanciateException() {
-
-		new ForbiddenException(getDetails());
-		assertThat(new ForbiddenException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
-
-		new PermissionDeniedException(getDetails());
-		assertThat(new PermissionDeniedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
-
-		new BadRequestException(getDetails());
+		//400
+		assertThat(new BadRequestException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 		assertThat(new BadRequestException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
-		new ConflictException(getDetails());
+		//402
+		assertThat(new PaymentRequiredException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.PAYMENT_REQUIRED);
+		assertThat(new PaymentRequiredException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.PAYMENT_REQUIRED);
+
+		//403
+		assertThat(new ForbiddenException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
+		assertThat(new ForbiddenException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
+
+
+		//403
+		assertThat(new PermissionDeniedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
+		assertThat(new PermissionDeniedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.FORBIDDEN);
+
+		//404
+		assertThat(new NotFoundException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		assertThat(new NotFoundException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+		//405
+		assertThat(new MethodNotAllowedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
+		assertThat(new MethodNotAllowedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
+
+		//406
+		assertThat(new NotAcceptableException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
+		assertThat(new NotAcceptableException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
+
+		//409
+		assertThat(new ConflictException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.CONFLICT);
 		assertThat(new ConflictException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.CONFLICT);
 
-		new NotFoundException(getDetails());
-		assertThat(new NotFoundException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		//412
+		assertThat(new PreconditionFailedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.PRECONDITION_FAILED);
+		assertThat(new PreconditionFailedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.PRECONDITION_FAILED);
+
+		//415
+		assertThat(new UnsupportedMediaTypeException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+		assertThat(new UnsupportedMediaTypeException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+
+		//422
+		assertThat(new UnprocessableEntityException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+		assertThat(new UnprocessableEntityException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+
 	}
 
 	private ExceptionDetail getDetail() {

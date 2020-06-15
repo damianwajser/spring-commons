@@ -17,8 +17,8 @@ public class PasswordConstraint extends AbstractConstraint implements Constraint
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		return new PatternConstraint().initialize(this.excludes, PATTERN, super.isNulleable).hasError(field, cxt);
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
+		return !new PatternConstraint().initialize(this.excludes, PATTERN, super.isNulleable).isValid(field, cxt);
 	}
 
 }

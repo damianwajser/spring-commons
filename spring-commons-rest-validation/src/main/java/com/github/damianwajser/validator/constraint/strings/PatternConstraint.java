@@ -27,7 +27,7 @@ public class PatternConstraint extends AbstractConstraint implements ConstraintV
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
 		if (field != null && String.class.isAssignableFrom(field.getClass())) {
 			hasError = !((String) field).matches(this.regex);

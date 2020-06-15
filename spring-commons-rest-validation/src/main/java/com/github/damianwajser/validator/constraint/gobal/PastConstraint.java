@@ -19,7 +19,7 @@ public class PastConstraint extends AbstractConstraint implements ConstraintVali
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean result = true;
 		if (field != null) {
 			if (LocalDate.class.isAssignableFrom(field.getClass())) {

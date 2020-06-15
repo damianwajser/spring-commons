@@ -21,7 +21,7 @@ public class MaxConstraint extends AbstractConstraint implements ConstraintValid
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
 		if (field != null && Number.class.isAssignableFrom(field.getClass())) {
 			long fieldMax = ((Number) field).longValue();

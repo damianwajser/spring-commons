@@ -15,7 +15,7 @@ public class AssertTrueConstraint extends AbstractConstraint implements Constrai
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean result = true;
 		if (field != null && field.getClass().isAssignableFrom(Boolean.class)) {
 			result = !(Boolean) field;

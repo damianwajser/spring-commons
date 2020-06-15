@@ -30,7 +30,7 @@ public class SizeConstraint extends AbstractConstraint implements ConstraintVali
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
 		if (field != null) {
 			Class<?> clazz = field.getClass();

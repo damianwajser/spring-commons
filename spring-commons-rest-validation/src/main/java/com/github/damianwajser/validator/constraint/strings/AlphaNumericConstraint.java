@@ -23,10 +23,10 @@ public class AlphaNumericConstraint extends AbstractConstraint implements Constr
 	}
 
 	@Override
-	public boolean hasError(Object field, ConstraintValidatorContext cxt) {
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
-		if (field != null && String.class.isAssignableFrom(field.getClass())) {
-			hasError = new SizeConstraint().initialize(excludes, max, min, this.isNulleable).hasError(field, cxt);
+		if (String.class.isAssignableFrom(field.getClass())) {
+			hasError = !new SizeConstraint().initialize(excludes, max, min, this.isNulleable).isValid(field, cxt);
 			if (!hasError) {
 				hasError = allowSpaces ? !StringUtils.isAlphanumericSpace((String) field) : !StringUtils.isAlphanumeric((String) field);
 			}
