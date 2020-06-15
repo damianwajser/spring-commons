@@ -32,14 +32,7 @@ public class ErrorMessage {
 
 	@JsonCreator
 	private ErrorMessage(@JsonProperty("details") List<ExceptionDetail> details, @JsonProperty("path") String path) {
-		this(details, path, Optional.empty());
-	}
-
-	ErrorMessage(List<ExceptionDetail> details, String path, Optional<MessageSource> messageSource) {
 		this.details = details;
-		if (messageSource.isPresent()) {
-			this.details.stream().forEach(d -> d.setErrorMessage("hola"));
-		}
 		this.path = path;
 		this.timestamp = LocalDateTime.now().toString();
 		LOGGER.debug("Create Error Message: {}", this);

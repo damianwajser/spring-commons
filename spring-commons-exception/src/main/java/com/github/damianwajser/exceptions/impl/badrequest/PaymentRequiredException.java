@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 import java.util.Optional;
 
-@ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-public class UnsuportedMediaTypeException extends RestException {
+@ResponseStatus(code = HttpStatus.PAYMENT_REQUIRED)
+public class PaymentRequiredException extends RestException {
 
-	private static final long serialVersionUID = -3753742475125448784L;
+	private static final long serialVersionUID = 4468401934359095440L;
 
-	public UnsuportedMediaTypeException(ExceptionDetail detail) {
+	public PaymentRequiredException(ExceptionDetail detail) {
 		super(detail);
 	}
 
-	public UnsuportedMediaTypeException(List<ExceptionDetail> details) {
+	public PaymentRequiredException(List<ExceptionDetail> details) {
 		super(details);
 	}
 
-	public UnsuportedMediaTypeException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
+	public PaymentRequiredException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
 }

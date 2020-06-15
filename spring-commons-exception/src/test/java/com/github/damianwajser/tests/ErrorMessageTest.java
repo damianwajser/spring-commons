@@ -26,6 +26,10 @@ public class ErrorMessageTest {
 		System.out.println(errorMessage);
 		Assert.assertEquals(errorMessage.getDetails(), errorMessage1.getDetails());
 		Assert.assertEquals(errorMessage.getPath(), errorMessage1.getPath());
+		Assert.assertEquals(errorMessage.getDetails().get(0).getErrorCode(), errorMessage1.getDetails().get(0).getErrorCode());
+		Assert.assertEquals(errorMessage.getDetails().get(0).getErrorDetail(), errorMessage1.getDetails().get(0).getErrorDetail());
+		Assert.assertEquals(errorMessage.getDetails().get(0).getErrorMessage(), errorMessage1.getDetails().get(0).getErrorMessage());
+		Assert.assertEquals(errorMessage.getDetails().get(0).getMetaData(), errorMessage1.getDetails().get(0).getMetaData());
 
 	}
 

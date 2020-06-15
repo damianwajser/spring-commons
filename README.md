@@ -54,15 +54,17 @@ PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response whe
 Collection of exceptions for the most common cases when rest apis are built, and override the http code. In addition, they request additional information for errors. They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message. For example:
 |Exception|Http Code |
 |--|--|
-| ForbiddenException | 403 |
-| PermissionDeniedException | 403
 | BadRequestException | 400
+| PaymentRequiredException | 402
+| ForbiddenException | 403
+| PermissionDeniedException | 403
 | NotFoundException | 404
 | MethodNotAllowedException | 405
 | NotAcceptableException|406
 | ConflictException | 409
 | PreconditionFailedException | 412
 | UnsuportedMediaTypeException | 415
+| UnprocessableEntityException | 422
 
 ## 2 [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
 
