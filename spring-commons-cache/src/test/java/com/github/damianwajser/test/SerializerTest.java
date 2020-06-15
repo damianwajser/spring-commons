@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import redis.embedded.RedisServer;
 
+import java.util.Arrays;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class SerializerTest {
@@ -28,6 +30,10 @@ public class SerializerTest {
 		CustomJdkKeyPrefixRedisSerializer serializer = new CustomJdkKeyPrefixRedisSerializer("ms-test");
 		byte[] serial = serializer.serialize("hola");
 		Assert.assertEquals("hola", serializer.deserialize(serial));
+		byte[] serial2 = serializer.serialize(1);
+		Assert.assertEquals("1", serializer.deserialize(serial2));
+		byte[] serial3 = serializer.serialize(Arrays.asList("hola"));
+		Assert.assertEquals(Arrays.asList("hola").toString(), serializer.deserialize(serial3));
 	}
 
 	@Test
@@ -35,5 +41,9 @@ public class SerializerTest {
 		CustomJdkRedisSerializer serializer = new CustomJdkRedisSerializer();
 		byte[] serial = serializer.serialize("hola");
 		Assert.assertEquals("hola", serializer.deserialize(serial));
+		byte[] serial2 = serializer.serialize(1);
+		Assert.assertEquals("1", serializer.deserialize(serial2));
+		byte[] serial3 = serializer.serialize(Arrays.asList("hola"));
+		Assert.assertEquals(Arrays.asList("hola"), serializer.deserialize(serial3));
 	}
 }
