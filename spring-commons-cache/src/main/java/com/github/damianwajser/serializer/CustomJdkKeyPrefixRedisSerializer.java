@@ -29,7 +29,7 @@ public class CustomJdkKeyPrefixRedisSerializer extends JdkSerializationRedisSeri
 		if (indexOf > 0) {
 			return null;
 		} else {
-			return saveKey.substring(indexOf);
+			return saveKey.substring(indexOf + prefix.length());
 		}
 	}
 
