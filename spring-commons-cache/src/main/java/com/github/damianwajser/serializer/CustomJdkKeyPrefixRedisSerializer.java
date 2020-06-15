@@ -15,11 +15,8 @@ public class CustomJdkKeyPrefixRedisSerializer extends JdkSerializationRedisSeri
 
 	@Override
 	public byte[] serialize(Object source) {
-		if (source instanceof String || source instanceof Number) {
-			String key = prefix + source.toString();
-			return stringRedisSerializer.serialize(key);
-		}
-		return super.serialize(source);
+		String key = prefix + source.toString();
+		return stringRedisSerializer.serialize(key);
 	}
 
 	@Override
