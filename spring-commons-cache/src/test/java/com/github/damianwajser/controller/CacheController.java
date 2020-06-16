@@ -9,7 +9,7 @@ import java.util.Collection;
 public class CacheController {
 
 	@Autowired
-	private Servicet servicet;
+	private ServiceCache servicet;
 
 
 	@GetMapping("/cache")

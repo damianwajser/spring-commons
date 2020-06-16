@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Service
-public class Servicet {
+public class ServiceCache {
 
 	@Cacheable(value = "somecache2")
 	public String generateUUID() {

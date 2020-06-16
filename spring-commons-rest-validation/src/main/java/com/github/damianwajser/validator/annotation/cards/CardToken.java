@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -16,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {CardTokenConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
+@Repeatable(CardToken.List.class)
 public @interface CardToken {
 
 	HttpMethod[] excludes() default {};
@@ -34,5 +36,12 @@ public @interface CardToken {
 
 	enum Tokenizer {
 		TOKEN_EX;
+	}
+	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+
+		CardToken[] value();
 	}
 }
