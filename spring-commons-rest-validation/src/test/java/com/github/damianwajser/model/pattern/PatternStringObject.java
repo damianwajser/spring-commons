@@ -1,6 +1,5 @@
 package com.github.damianwajser.model.pattern;
 
-import com.github.damianwajser.validator.annotation.global.Email;
 import com.github.damianwajser.validator.annotation.global.Pattern;
 
 public class PatternStringObject {

@@ -254,7 +254,7 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |spring.commons.cache.enabled | true/false| enable the module| false
 |spring.commons.cache.prefix.enabled | true/false | When you use a shared redis between different applications and you want to do a division on the domain of the keys, you can use a prefix to do this manually. | true
 |spring.commons.cache.prefix.value | Any String | value of prefix  | null
-
+|spring-commons.cache.ttl.all=2| Any int | default time to @Cacheable|86400 (one day)
 1. Set a Redis Properties in application.properties file
 ```properties
 spring.commons.cache.enabled=true

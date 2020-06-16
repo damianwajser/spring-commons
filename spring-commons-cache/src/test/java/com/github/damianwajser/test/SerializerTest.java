@@ -1,27 +1,15 @@
 package com.github.damianwajser.test;
 
-import com.github.damianwajser.configuration.RedisConfiguration;
 import com.github.damianwajser.serializer.CustomJdkKeyPrefixRedisSerializer;
 import com.github.damianwajser.serializer.CustomJdkRedisSerializer;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestTemplate;
-import redis.embedded.RedisServer;
 
 import java.util.Arrays;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
 public class SerializerTest {
 
 

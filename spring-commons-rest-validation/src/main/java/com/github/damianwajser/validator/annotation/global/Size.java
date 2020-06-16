@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -16,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {SizeConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
+@Repeatable(Size.List.class)
 public @interface Size {
 
 	HttpMethod[] excludes() default {};
@@ -33,4 +35,11 @@ public @interface Size {
 	String businessCode();
 
 	boolean isNulleable() default false;
+
+	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+		Size[] value();
+	}
 }

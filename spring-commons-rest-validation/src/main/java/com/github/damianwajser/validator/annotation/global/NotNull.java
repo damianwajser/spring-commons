@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -16,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {NotNullConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
+@Repeatable(NotNull.List.class)
 public @interface NotNull {
 
 	HttpMethod[] excludes() default {};
@@ -28,4 +30,10 @@ public @interface NotNull {
 
 	String businessCode();
 
+	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+		NotNull[] value();
+	}
 }

@@ -9,12 +9,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public class ErrorMessage {
 
