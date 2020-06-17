@@ -1,6 +1,5 @@
 package com.github.damianwajser.validator.annotation.strings;
 
-import com.github.damianwajser.validator.annotation.global.Pattern;
 import com.github.damianwajser.validator.constraint.strings.PasswordConstraint;
 import org.springframework.http.HttpMethod;
 

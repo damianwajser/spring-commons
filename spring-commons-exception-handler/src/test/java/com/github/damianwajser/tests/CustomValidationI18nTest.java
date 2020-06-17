@@ -66,7 +66,7 @@ public class CustomValidationI18nTest {
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
 			Assert.assertEquals("defaultCode", TestUtils.getDetail(e, "defaultCode").getErrorCode());
-			Assert.assertEquals("no puede estar vacío", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
+			Assert.assertEquals("no debe estar vacío", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
 
 			Assert.assertEquals("customCode", TestUtils.getDetail(e, "customCode").getErrorCode());
 			Assert.assertEquals("Español message",  TestUtils.getDetail(e, "customCode").getErrorMessage());
@@ -87,7 +87,7 @@ public class CustomValidationI18nTest {
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
 			Assert.assertEquals("defaultCode", TestUtils.getDetail(e, "defaultCode").getErrorCode());
-			Assert.assertEquals("ne peut pas être vide", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
+			Assert.assertEquals("ne doit pas être vide", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
 
 			Assert.assertEquals("customCode", TestUtils.getDetail(e, "customCode").getErrorCode());
 			Assert.assertEquals("French message",  TestUtils.getDetail(e, "customCode").getErrorMessage());

@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 
 import javax.servlet.*;
@@ -146,7 +147,8 @@ public class IdempontecyFilter implements Filter {
 		String alteredContent = charWriter.toString();
 		response.setContentLength(alteredContent.length());
 		response.setStatus(message.getStatusCode());
-		response.setHeader("Content-Type", "application/json");
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		//response.setHeader("Content-Type", "application/json");
 		response.setHeader("X-Idempotency", String.valueOf(cached));
 		responseWriter.write(alteredContent);
 		return wrapper;

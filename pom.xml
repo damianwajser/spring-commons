@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons-parent</artifactId>
-	<version>1.7.0</version>
+	<version>1.7.1</version>
 	<packaging>pom</packaging>
 
 	<name>spring-commons-parent</name>
@@ -15,10 +15,10 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
+		<spring.boot.version>2.3.0.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>1.7.0</spring-commons-version>
+		<spring-commons-version>1.7.1</spring-commons-version>
 		<logstash.version>6.3</logstash.version>
 	</properties>
 	<modules>
@@ -32,7 +32,6 @@
 		<module>spring-commons-logstash-logger</module>
 		<module>spring-commons</module>
 	</modules>
-
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -74,9 +73,16 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>2.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
@@ -109,7 +115,7 @@
 		<dependency>
 			<groupId>it.ozimov</groupId>
 			<artifactId>embedded-redis</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- END TEST -->

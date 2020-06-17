@@ -12,21 +12,39 @@ Consult the proyect for details on the current [spring-commons roadmap]([https:/
 Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following Maven dependency:
 
 ```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.0.RELEASE</version>
+</parent>
 <properties>
  ...
-	 <!-- Use the latest version whenever possible. -->
-	 <spring.commons>{lastversion}</spring.commons>
+     <!-- Use the latest version whenever possible. -->
+     <spring.commons>{lastversion}</spring.commons>
  ...
- </properties>
- <dependencies>
+</properties>
+
+<dependencies>
  ...
- <dependency>
-	 <groupId>com.github.damianwajser</groupId>
-	 <artifactId>spring-commons</artifactId>
-	 <version>${spring.commons}</version>
- </dependency>
+    <dependency>
+        <groupId>com.github.damianwajser</groupId>
+        <artifactId>spring-commons</artifactId>
+        <version>${spring.commons}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
  ...
- </dependencies>
+</dependencies>
  ```
  #### Gradle
  ```xml
