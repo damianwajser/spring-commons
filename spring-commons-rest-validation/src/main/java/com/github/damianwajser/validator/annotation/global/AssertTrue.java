@@ -1,6 +1,5 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.annotation.cards.CardExpiration;
 import com.github.damianwajser.validator.constraint.gobal.AssertTrueConstraint;
 import org.springframework.http.HttpMethod;
 
