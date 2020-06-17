@@ -19,7 +19,7 @@
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
 		<spring-commons-version>1.7.1</spring-commons-version>
-		<logstash.version>6.3</logstash.version>
+		<logstash.version>6.4</logstash.version>
 	</properties>
 	<modules>
 		<module>spring-commons-cache</module>
@@ -82,7 +82,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
+			<version>2.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
