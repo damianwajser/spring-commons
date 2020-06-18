@@ -43,6 +43,10 @@ Functionality of this package is contained in Java package `com.github.damianwaj
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
  ...
 </dependencies>
  ```
@@ -378,5 +382,30 @@ public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<Fo
    }
 }
 ```
+## 9 [spring-commons-actuator](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-actuator "spring-commons-actuator")
+
+````xml
+<plugin>
+    <groupId>pl.project13.maven</groupId>
+    <artifactId>git-commit-id-plugin</artifactId>
+    <version>4.0.0</version>
+    <executions>
+        <execution>
+            <id>get-the-git-info</id>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+            <phase>initialize</phase>
+        </execution>
+    </executions>
+    <configuration>
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+        <commitIdGenerationMode>full</commitIdGenerationMode>
+        <offline>true</offline>
+    </configuration>
+</plugin>
+````
+
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

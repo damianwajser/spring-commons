@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons-parent</artifactId>
-	<version>1.7.1</version>
+	<version>1.8.0</version>
 	<packaging>pom</packaging>
 
 	<name>spring-commons-parent</name>
@@ -18,11 +18,12 @@
 		<spring.boot.version>2.3.0.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>1.7.1</spring-commons-version>
+		<spring-commons-version>1.8.0</spring-commons-version>
 		<logstash.version>6.4</logstash.version>
 	</properties>
 	<modules>
 		<module>spring-commons-cache</module>
+		<module>spring-commons-actuator</module>
 		<module>spring-commons-exception</module>
 		<module>spring-commons-rest-validation</module>
 		<module>spring-commons-exception-handler</module>
