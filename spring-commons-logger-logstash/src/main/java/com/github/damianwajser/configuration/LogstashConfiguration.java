@@ -5,13 +5,11 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.damianwajser.filter.MDCFilter;
 import net.logstash.logback.appender.LogstashTcpSocketAppender;
 import net.logstash.logback.encoder.LogstashEncoder;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
@@ -24,8 +22,7 @@ import java.util.Map;
 import static org.slf4j.Logger.ROOT_LOGGER_NAME;
 
 @Configuration
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "logstash")
+@ConditionalOnProperty(name = "spring.commons.logstash.enabled", havingValue = "true")
 public class LogstashConfiguration {
 
 	@Value("${logstash.destination:localhost:5000}")
@@ -98,16 +95,6 @@ public class LogstashConfiguration {
 		filter.setMaxPayloadLength(maxPayLoad);
 
 		return filter;
-	}
-
-	@Bean
-	public Filter mdcFilter() {
-		return new MDCFilter() {
-			@Override
-			public Map<String, String> getProperties() {
-				return new HashMap<>();
-			}
-		};
 	}
 
 }

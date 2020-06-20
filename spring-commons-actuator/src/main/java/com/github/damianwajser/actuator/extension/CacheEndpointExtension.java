@@ -1,5 +1,7 @@
 package com.github.damianwajser.actuator.extension;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.cache.CachesEndpoint;
 import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 @Component
 @EndpointWebExtension(endpoint = CachesEndpoint.class)
 public class CacheEndpointExtension extends CachesEndpointWebExtension {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(CacheEndpointExtension.class);
 	@Autowired
 	private CacheManager cache;
 	@Autowired
@@ -36,11 +38,13 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 
 	public CacheEndpointExtension(CachesEndpoint delegate) {
 		super(delegate);
+		LOGGER.debug("inicializando extencion actuator");
 		this.delegate = delegate;
 	}
 
 	@ReadOperation
 	public WebEndpointResponse<Map> cache(@Selector String cache, @Selector String detail, @Nullable String cacheManager) {
+		LOGGER.info("call to cache extension");
 		WebEndpointResponse<CachesEndpoint.CacheEntry> cacheEntry = super.cache(cache, cacheManager);
 		Map<String, Object> info = new HashMap();
 		if (cacheEntry.getStatus() == WebEndpointResponse.STATUS_OK) {
@@ -55,7 +59,7 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 		return new WebEndpointResponse<>(info, 200);
 	}
 
-	private Object getKeysInformation(@Selector String cache) {
+	private Object getKeysInformation(String cache) {
 		Set keys = redisTemplate.keys(cache + "*");
 		return keys.isEmpty() ? null : keys.stream().collect(Collectors.toMap(Object::toString, k -> redisTemplate.opsForValue().get(k)));
 	}

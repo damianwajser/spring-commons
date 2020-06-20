@@ -1,6 +1,5 @@
 package com.github.damianwajser.filter;
 
-import com.github.damianwajser.configuration.MDCProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -18,12 +17,15 @@ import java.util.UUID;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public abstract class MDCFilter implements Filter, MDCProperties {
+public abstract class MDCFilter implements Filter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MDCFilter.class);
 
 	@Value("${logstash.trace.id.key:X-Trace-Id}")
 	private String traceId;
+
+	@Value("${logstash.appName:test}")
+	private String appName;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -38,6 +40,7 @@ public abstract class MDCFilter implements Filter, MDCProperties {
 			// Setup MDC data:
 			// Referenced in Spring Boot's logging.pattern.level property
 			MDC.put("clientIp", request.getRemoteAddr());
+			MDC.put("appName", appName);
 			if (HttpServletRequest.class.isAssignableFrom(request.getClass())) {
 				MDC.put("requestId", requestId(((HttpServletRequest) request)));
 				Enumeration<String> headers = ((HttpServletRequest) request).getHeaderNames();
@@ -49,7 +52,6 @@ public abstract class MDCFilter implements Filter, MDCProperties {
 					}
 				}
 			}
-			getProperties().keySet().forEach(property -> MDC.put(property, getProperties().get(property)));
 			chain.doFilter(request, response);
 		} finally {
 			MDC.clear();

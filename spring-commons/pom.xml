@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-commons</artifactId>
 	<packaging>jar</packaging>
-	<version>${spring-commons-version}</version>
+	<version>${revision}</version>
 
 	<name>spring-commons</name>
 	<description>DESC</description>
@@ -13,28 +13,38 @@
 	<parent>
 		<groupId>com.github.damianwajser</groupId>
 		<artifactId>spring-commons-parent</artifactId>
-		<version>1.8.0</version>
+		<version>${revision}</version>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons-resttemplate-interceptor</artifactId>
-			<version>${spring-commons-version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons-http-fixer</artifactId>
-			<version>${spring-commons-version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons-idempotency</artifactId>
-			<version>${spring-commons-version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
-			<artifactId>spring-commons-logstash-logger</artifactId>
-			<version>${spring-commons-version}</version>
+			<artifactId>spring-commons-logger-logstash</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.damianwajser</groupId>
+			<artifactId>spring-commons-logger</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.damianwajser</groupId>
+			<artifactId>spring-commons-actuator</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 </project>

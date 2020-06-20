@@ -2,13 +2,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>spring-commons-logstash-logger</artifactId>
+	<artifactId>spring-commons-logger-logstash</artifactId>
 	<packaging>jar</packaging>
-	<version>${spring-commons-version}</version>
+	<version>${revision}</version>
 	<parent>
 		<groupId>com.github.damianwajser</groupId>
 		<artifactId>spring-commons-parent</artifactId>
-		<version>1.8.0</version>
+		<version>${revision}</version>
 	</parent>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
