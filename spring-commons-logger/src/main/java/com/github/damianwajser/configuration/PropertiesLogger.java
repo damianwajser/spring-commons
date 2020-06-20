@@ -16,6 +16,17 @@ public class PropertiesLogger {
 	@Value("${spring.commons.logger.app.name}")
 	private String appName;
 
+	@Value("${spring.commons.logger.payload.max}")
+	private Integer maxPayLoad;
+
+	public Integer getMaxPayLoad() {
+		return maxPayLoad;
+	}
+
+	public void setMaxPayLoad(Integer maxPayLoad) {
+		this.maxPayLoad = maxPayLoad;
+	}
+
 	public String getTraceId() {
 		return traceId;
 	}

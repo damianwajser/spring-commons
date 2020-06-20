@@ -31,9 +31,6 @@ public class LogstashConfiguration {
 	@Value("${logstash.appName:test}")
 	private String appName;
 
-	@Value("${logstash.maxPayload:16000}")
-	private Integer maxPayLoad;
-
 	private Map<String, String> customFields;
 
 	public Map<String, String> getCustomFields() {
@@ -85,16 +82,6 @@ public class LogstashConfiguration {
 		}
 		this.getCustomFields().put(string, value);
 
-	}
-
-	@Bean
-	public Filter logFilter() {
-		CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-		filter.setIncludeQueryString(true);
-		filter.setIncludePayload(true);
-		filter.setMaxPayloadLength(maxPayLoad);
-
-		return filter;
 	}
 
 }
