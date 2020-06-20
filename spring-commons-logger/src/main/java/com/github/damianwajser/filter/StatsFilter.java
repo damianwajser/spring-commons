@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
-@ConditionalOnProperty(name = "logstash.duration.request.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "spring.commons.logger.duration.request.enabled", havingValue = "true")
 public class StatsFilter implements Filter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(StatsFilter.class);
