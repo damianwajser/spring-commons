@@ -65,11 +65,11 @@ public class Application {
    }
 }
 ```
-#### Recommended configuration:
-| Key | Module | Reference
-|--|--|--
-PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
-
+#### General configuration:
+| Key | Value | Module | Reference
+|--|--|--|--
+|spring.jackson.property-naming-strategy|PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
+|spring.commons.app.name|"change spring.commons.app.name property"|All spring-commons| the name of microservice
 ## Modules
 ## 1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
 
