@@ -36,7 +36,7 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ```xml
  compile 'com.github.damianwajser:spring-commons-exception-handler:{lastVersion}'
  ```
-### steps
+### Steps
 Firts we create the i18n files in src/main/resources:
 
 - messages_en.properties

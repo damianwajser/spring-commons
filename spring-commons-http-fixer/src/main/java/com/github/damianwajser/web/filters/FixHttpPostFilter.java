@@ -1,7 +1,10 @@
 package com.github.damianwajser.web.filters;
 
+import com.github.damianwajser.web.configuration.PropertiesHttpFixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@ConditionalOnProperty(name = "spring.commons.http.fixer.enabled", havingValue ="true", matchIfMissing = true)
 public class FixHttpPostFilter implements Filter {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FixHttpPostFilter.class);
+
+	@Autowired
+	private PropertiesHttpFixer props;
+
 	@Override
 	public void destroy() {
 		LOGGER.debug("destroy filter");

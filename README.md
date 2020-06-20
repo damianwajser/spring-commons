@@ -102,7 +102,11 @@ On the other hand, the internationalization option is enabled, for which in all 
 The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take it from the corresponding message.properties.
 
 ## 4 [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
+This project is in charge of solving the most common problems related to http codes in spring-mvc REST responses.
+Among other things, set the default http 201 code in the response when we are using the POST verb.
+
 ## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
+
 ## 6 [spring-commons-logstash-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logstash-logger "spring-commons-logstash-logger")
 
 #### Properties
