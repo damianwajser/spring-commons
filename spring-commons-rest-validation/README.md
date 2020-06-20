@@ -3,7 +3,10 @@
 This project override all annotations for standard JSR annotations.
 
 Some annotations accept additional attributes like ***isNulleable***, but the message and the ***bussisnessCode*** attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
-bussiness code: this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
+
+***bussiness code:*** this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
+
+***isNulleable*** this attribute indicate if the field can be nulleable.
 
 -----
 

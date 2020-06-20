@@ -94,10 +94,6 @@ This project override all annotations for standard JSR annotations.
 
 Some annotations accept additional attributes like ***isNulleable***, but the message and the ***bussisnessCode*** attributes are common to all of them. message: This is the message that will usually be rendered when the value of the respective property fails validation.
 
-***bussiness code:*** this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
-
-***isNulleable*** this attribute indicate if the field can be nulleable.
-
 ## 3 [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
 
 This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
