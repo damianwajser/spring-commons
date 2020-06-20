@@ -35,7 +35,7 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ```xml
  compile 'com.github.damianwajser:spring-commons-exception:{lastVersion}'
  ```
-
+### Exceptions
 |Exception|Http Code |
 |--|--|
 | BadRequestException | 400

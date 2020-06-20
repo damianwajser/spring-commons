@@ -74,8 +74,11 @@ public class Application {
 ## 1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
 
 Collection of exceptions for the most common cases when rest apis are built, and override the http code.
+
 In addition, they request additional information for errors.
+
 They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message.
+
 For example:
 |Exception|Http Code |
 |--|--|
