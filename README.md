@@ -107,7 +107,14 @@ Among other things, set the default http 201 code in the response when we are us
 
 ## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
 
-## 6 [spring-commons-logstash-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logstash-logger "spring-commons-logstash-logger")
+This project registers a RestTemplate to be used by the application.
+
+At the same time, it incorporates an Interceptor to add custom headers (those that start with "X-"), to generate traceability between the microservices.
+
+## 6 [spring-commons-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger "spring-commons-logger")
+
+
+## 7 [spring-commons-logger-logstash](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger-logstash "spring-commons-logger-logstash")
 
 #### Properties
 | Key | Posible Value | Reference | Default Value
@@ -118,7 +125,7 @@ logstash. destination | localhost:5000 | host and port of logstash server| local
 |logstash. trace.id.key | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
 |logstash. duration. request.enabled| true/false | For each request log the duration.| false
 
-## 7 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
+## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
 
 #### Properties
 | Key | Posible Value | Reference | Default Value
@@ -149,7 +156,7 @@ public class RedisConfiguration {
 }
 ```
 
-## 8 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
+## 9 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
  1. The first request finished executing, which returns the same response that was obtained in the first call.
  2. In case the first request is still running, a message will be returned indicating the conflict.
