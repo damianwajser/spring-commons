@@ -112,18 +112,15 @@ This project registers a RestTemplate to be used by the application.
 At the same time, it incorporates an Interceptor to add custom headers (those that start with "X-"), to generate traceability between the microservices.
 
 ## 6 [spring-commons-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger "spring-commons-logger")
+This module generates useful tools for logging.
 
+Among its features we find:
+- StatsFilter (generates a log with the duration for each request)
+- MDCFilter (it incorporates parameters in the MDC to be used in the loggin.pattern)
+- RequestIdGenerator (a UUID is generated for each request in order to have traceability)
 
 ## 7 [spring-commons-logger-logstash](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger-logstash "spring-commons-logger-logstash")
 
-#### Properties
-| Key | Posible Value | Reference | Default Value
-|--|--|--|--
-|logging.pattern. level | "Request  ID:  %X{requestId}  Client  IP:  %X{clientIp}" | log pattern | Empty
-|logstash. appName | ms-users | the name of microservice | test
-logstash. destination | localhost:5000 | host and port of logstash server| localhost:5000
-|logstash. trace.id.key | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | UUID
-|logstash. duration. request.enabled| true/false | For each request log the duration.| false
 
 ## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
 
