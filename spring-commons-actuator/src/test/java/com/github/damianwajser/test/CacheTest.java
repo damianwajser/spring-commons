@@ -1,7 +1,9 @@
 package com.github.damianwajser.test;
 
 import com.github.damianwajser.model.CacheInfo;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+import redis.embedded.RedisServer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -21,9 +24,21 @@ public class CacheTest {
 
 	private RestTemplate restTemplate = new RestTemplate();
 
+	private RedisServer redisServer;
+
 	@LocalServerPort
 	private int port;
 
+	@After
+	public void close() {
+		redisServer.stop();
+	}
+
+	@Before
+	public void setUp() {
+		this.redisServer = new RedisServer(redisProperties.getPort());
+		redisServer.start();
+	}
 
 	@Test
 	public void getCacheOK() throws Exception {
