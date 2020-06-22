@@ -107,9 +107,9 @@ The language is selected by the client based on the header ***Accept-Lenguage: $
 This project is in charge of solving the most common problems related to http codes in spring-mvc REST responses.
 Among other things, set the default http 201 code in the response when we are using the POST verb.
 
-## 5 [spring-commons-resttemplate-interceptor](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-resttemplate-interceptor "spring-commons-resttemplate-interceptor")
+## 5 [spring-commons-rest-templates](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-templates "spring-commons-rest-templates")
 
-This project registers a RestTemplate to be used by the application.
+This project registers the RestTemplates to be used by the application.
 
 At the same time, it incorporates an Interceptor to add custom headers (those that start with "X-"), to generate traceability between the microservices.
 
