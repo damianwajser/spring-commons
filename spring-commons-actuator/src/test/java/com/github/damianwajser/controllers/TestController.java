@@ -14,26 +14,4 @@ public class TestController {
 	private FooObject postok() {
 		return new FooObject("something");
 	}
-
-	@PostMapping("/postnok")
-	private Object postnok() {
-		throw new RuntimeException("error");
-	}
-
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	@PostMapping("/postchanged")
-	private Object postchanged() {
-		return new FooObject("something");
-	}
-
-	@GetMapping("/getok")
-	private Object getok() {
-		return new FooObject("something");
-	}
-
-	@GetMapping("/getnok")
-	private Object getnok() {
-		throw new RuntimeException("error");
-	}
-
 }
