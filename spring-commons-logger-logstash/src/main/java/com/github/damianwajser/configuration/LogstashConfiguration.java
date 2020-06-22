@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.logstash.logback.appender.LogstashTcpSocketAppender;
 import net.logstash.logback.encoder.LogstashEncoder;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -25,21 +26,11 @@ import static org.slf4j.Logger.ROOT_LOGGER_NAME;
 @ConditionalOnProperty(name = "spring.commons.logstash.enabled", havingValue = "true")
 public class LogstashConfiguration {
 
-	@Value("${logstash.destination:localhost:5000}")
+	@Value("${spring.commons.logstash.destination:localhost:5000}")
 	private String destination;
 
-	@Value("${logstash.appName:test}")
-	private String appName;
-
-	private Map<String, String> customFields;
-
-	public Map<String, String> getCustomFields() {
-		return customFields;
-	}
-
-	public void setCustomFields(Map<String, String> customFields) {
-		this.customFields = customFields;
-	}
+	@Autowired
+	private PropertiesLogger propertiesLogger;
 
 	@PostConstruct
 	public void init() {
@@ -58,10 +49,9 @@ public class LogstashConfiguration {
 			LogstashEncoder encoder = new LogstashEncoder();
 			encoder.setContext(loggerContext);
 			try {
-				addcustomField("app_name", appName);
-				encoder.setCustomFields(mapper.writeValueAsString(customFields));
+				encoder.setCustomFields(mapper.writeValueAsString(propertiesLogger.getPropetiesToShow()));
 			} catch (JsonProcessingException e) {
-				encoder.setCustomFields("{ \"app_name\": \"" + appName + "\" }");
+				encoder.setCustomFields("{ " + PropertiesLogger.APP_NAME + ": \"" + propertiesLogger.getAppName() + "\" }");
 			}
 			encoder.start();
 
@@ -76,12 +66,5 @@ public class LogstashConfiguration {
 		}
 	}
 
-	private void addcustomField(String string, String value) {
-		if (this.getCustomFields() == null) {
-			this.setCustomFields(new HashMap<>());
-		}
-		this.getCustomFields().put(string, value);
-
-	}
 
 }

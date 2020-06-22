@@ -5,10 +5,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 @ConfigurationProperties
 @PropertySource("classpath:spring-commons-logger.properties")
 public class PropertiesLogger {
+
+	private static final Map<String, String> propertiesToShow = new HashMap<>();
+	public static final String APP_NAME = "APP_NAME";
 
 	@Value("${spring.commons.logger.trace.id}")
 	private String traceId;
@@ -41,5 +47,12 @@ public class PropertiesLogger {
 
 	public void setAppName(String appName) {
 		this.appName = appName;
+	}
+
+	public Map<String, String> getPropetiesToShow() {
+		if (propertiesToShow.isEmpty()) {
+			propertiesToShow.put(APP_NAME, this.getAppName());
+		}
+		return this.propertiesToShow;
 	}
 }
