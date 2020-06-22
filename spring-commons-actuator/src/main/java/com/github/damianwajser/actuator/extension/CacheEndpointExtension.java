@@ -34,22 +34,19 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
-	private final CachesEndpoint delegate;
-
 	public CacheEndpointExtension(CachesEndpoint delegate) {
 		super(delegate);
 		LOGGER.debug("inicializando extencion actuator");
-		this.delegate = delegate;
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<Map> cache(@Selector String cache, @Selector String detail, @Nullable String cacheManager) {
+	public WebEndpointResponse<Map<String, Object>> cache(@Selector String cache, @Selector String detail, @Nullable String cacheManager) {
 		LOGGER.info("call to cache extension");
 		WebEndpointResponse<CachesEndpoint.CacheEntry> cacheEntry = super.cache(cache, cacheManager);
-		Map<String, Object> info = new HashMap();
+		Map<String, Object> info = new HashMap<>();
 		if (cacheEntry.getStatus() == WebEndpointResponse.STATUS_OK) {
 			Optional<RedisCache> redisCache = getRedisCache(cacheEntry.getBody().getName());
-			redisCache.ifPresent((c) -> {
+			redisCache.ifPresent(c -> {
 				info.put("ttl", c.getCacheConfiguration().getTtl().getSeconds() + " seconds");
 				String prefix = c.getCacheConfiguration().getKeyPrefixFor(cache);
 				info.put("prefix", prefix);
@@ -60,7 +57,7 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 	}
 
 	private Object getKeysInformation(String cache) {
-		Set keys = redisTemplate.keys(cache + "*");
+		Set<Object> keys = redisTemplate.keys(cache + "*");
 		return keys.isEmpty() ? null : keys.stream().collect(Collectors.toMap(Object::toString, k -> redisTemplate.opsForValue().get(k)));
 	}
 
