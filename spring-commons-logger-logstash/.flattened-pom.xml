@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.github.damianwajser</groupId>
     <artifactId>spring-commons-parent</artifactId>
-    <version>1.9.1</version>
+    <version>1.10.0</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-logger-logstash</artifactId>
-  <version>1.9.1</version>
+  <version>1.10.0</version>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -18,6 +18,11 @@
     </license>
   </licenses>
   <dependencies>
+    <dependency>
+      <groupId>com.github.damianwajser</groupId>
+      <artifactId>spring-commons-logger</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>net.logstash.logback</groupId>
       <artifactId>logstash-logback-encoder</artifactId>
