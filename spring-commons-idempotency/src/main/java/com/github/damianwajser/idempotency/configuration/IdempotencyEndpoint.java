@@ -62,6 +62,10 @@ public class IdempotencyEndpoint {
 		}
 	}
 
+	public String getEndpoint() {
+		return this.endpoint;
+	}
+
 	public boolean isAppicable(HttpMethod httpMethod) {
 		return this.methods.contains(httpMethod);
 	}

@@ -103,7 +103,7 @@ public class IdempontecyFilter implements Filter {
 		}
 	}
 
-	private void excecuteIdempotency(HttpServletResponse response, HttpServletRequest request, String key) throws IOException, ServletException {
+	private void excecuteIdempotency(HttpServletResponse response, HttpServletRequest request, String key) throws IOException {
 		//non firts Time for these key
 		StoredResponse previusResponse = (StoredResponse) redisTemplate.opsForValue().get(key);
 		LOGGER.info("retrive key: {} to cache, body: {}", key, previusResponse);
@@ -148,7 +148,6 @@ public class IdempontecyFilter implements Filter {
 		response.setContentLength(alteredContent.length());
 		response.setStatus(message.getStatusCode());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		//response.setHeader("Content-Type", "application/json");
 		response.setHeader("X-Idempotency", String.valueOf(cached));
 		responseWriter.write(alteredContent);
 		return wrapper;
