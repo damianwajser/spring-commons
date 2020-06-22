@@ -4,10 +4,51 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-commons-cache</artifactId>
 	<packaging>jar</packaging>
-	<version>${spring-commons-version}</version>
+	<version>${revision}</version>
 	<parent>
 		<groupId>com.github.damianwajser</groupId>
 		<artifactId>spring-commons-parent</artifactId>
-		<version>1.7.1</version>
+		<version>${revision}</version>
 	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.client.version}</version>
+			<scope>provided</scope>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--TEST-->
+		<dependency>
+			<groupId>it.ozimov</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<version>${embedded.redis.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
 </project>

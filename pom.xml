@@ -2,15 +2,22 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.apache</groupId>
+		<artifactId>apache</artifactId>
+		<version>18</version>
+	</parent>
 	<groupId>com.github.damianwajser</groupId>
 	<artifactId>spring-commons-parent</artifactId>
-	<version>1.7.1</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
-
 	<name>spring-commons-parent</name>
 	<description>DESC</description>
 	<url>http://github.com/damianwajser/spring-commons</url>
+
+
 	<properties>
+		<revision>1.10.0</revision>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,18 +25,21 @@
 		<spring.boot.version>2.3.0.RELEASE</spring.boot.version>
 		<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>
-		<spring-commons-version>1.7.1</spring-commons-version>
 		<logstash.version>6.4</logstash.version>
+		<embedded.redis.version>0.7.3</embedded.redis.version>
+		<jedis.client.version>3.3.0</jedis.client.version>
 	</properties>
 	<modules>
 		<module>spring-commons-cache</module>
+		<module>spring-commons-actuator</module>
 		<module>spring-commons-exception</module>
 		<module>spring-commons-rest-validation</module>
 		<module>spring-commons-exception-handler</module>
 		<module>spring-commons-idempotency</module>
 		<module>spring-commons-http-fixer</module>
 		<module>spring-commons-resttemplate-interceptor</module>
-		<module>spring-commons-logstash-logger</module>
+		<module>spring-commons-logger</module>
+		<module>spring-commons-logger-logstash</module>
 		<module>spring-commons</module>
 	</modules>
 	<licenses>
@@ -68,12 +78,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<version>${spring.boot.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 			<version>${spring.boot.version}</version>
 			<scope>provided</scope>
@@ -95,13 +99,6 @@
 			<artifactId>encoder</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>3.3.0</version>
-			<scope>provided</scope>
-			<type>jar</type>
-		</dependency>
 
 		<!-- TESTS -->
 
@@ -109,13 +106,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring.boot.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>it.ozimov</groupId>
-			<artifactId>embedded-redis</artifactId>
-			<version>0.7.3</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- END TEST -->
@@ -132,13 +122,40 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
 				<configuration>
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
+					<parameters>true</parameters>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.1.0</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M4</version>
