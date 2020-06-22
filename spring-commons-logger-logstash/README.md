@@ -1,6 +1,6 @@
 # spring-commons-logger-logstash
 ## Overview
-This module configures the connector to logstash async.
+This module configures the connector to logstash async way.
 
 -----
 ## Get it!

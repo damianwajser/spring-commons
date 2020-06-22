@@ -123,37 +123,16 @@ Among its features we find:
 
 ## 7 [spring-commons-logger-logstash](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger-logstash "spring-commons-logger-logstash")
 
+This module configures the connector to logstash async way.
 
 ## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
 
-#### Properties
-| Key | Posible Value | Reference | Default Value
-|--|--|--|--
-|spring.commons.cache.enabled | true/false| enable the module| false
-|spring.commons.cache.prefix.enabled | true/false | When you use a shared redis between different applications and you want to do a division on the domain of the keys, you can use a prefix to do this manually. | true
-|spring.commons.cache.prefix.value | Any String | value of prefix  | null
-|spring-commons.cache.ttl.all=2| Any int | default time to @Cacheable|86400 (one day)
-1. Set a Redis Properties in application.properties file
-```properties
-spring.commons.cache.enabled=true
-spring.commons.cache.prefix.enabled=true
-spring.commons.cache.prefix.value=ms-test
-spring.redis.host=localhost
-spring.redis.port=6379
-```
-2. Create a Redis ConnectionFactory, in this case I choose the jedis connector.
-```java
-@Configuration
-public class RedisConfiguration {
+This module tries to solve the typical problems that we encounter when we use Redis as Cache in spring.
+Configure:
+- CacheManager
+- RedisTemplate
 
-   @Bean
-   public RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties) {
-      RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(redisProperties.getRedisHost(), redisProperties.getRedisPort());
-      JedisClientConfiguration clientConfiguration = JedisClientConfiguration.builder().readTimeout(Duration.ofMillis(0)).connectTimeout(Duration.ofMillis(0)).build();
-      return new JedisConnectionFactory(config, clientConfiguration);
-   }
-}
-```
+It also improves the lifetime of the keys when we use @Cacheable.
 
 ## 9 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
 This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
