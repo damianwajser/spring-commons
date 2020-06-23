@@ -2,6 +2,10 @@
 ## Overview
 This project contains the general-purpose tools to spring.  Project is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+[![Build Status](https://travis-ci.org/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.org/damianwajser/spring-commons)
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons)
+
 -----
 ## Roadmap
 Consult the proyect for details on the current [spring-commons roadmap]([https://github.com/damianwajser/spring-commons/projects/1](https://github.com/damianwajser/spring-commons/projects/1)).
