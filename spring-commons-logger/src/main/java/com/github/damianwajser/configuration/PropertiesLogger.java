@@ -29,30 +29,18 @@ public class PropertiesLogger {
 		return maxPayLoad;
 	}
 
-	public void setMaxPayLoad(Integer maxPayLoad) {
-		this.maxPayLoad = maxPayLoad;
-	}
-
 	public String getTraceId() {
 		return traceId;
-	}
-
-	public void setTraceId(String traceId) {
-		this.traceId = traceId;
 	}
 
 	public String getAppName() {
 		return appName;
 	}
 
-	public void setAppName(String appName) {
-		this.appName = appName;
-	}
-
 	public Map<String, String> getPropetiesToShow() {
 		if (propertiesToShow.isEmpty()) {
 			propertiesToShow.put(APP_NAME, this.getAppName());
 		}
-		return this.propertiesToShow;
+		return propertiesToShow;
 	}
 }

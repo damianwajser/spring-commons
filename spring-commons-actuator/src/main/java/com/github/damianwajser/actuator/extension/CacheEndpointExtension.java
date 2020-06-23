@@ -56,7 +56,8 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 				info.setKeys(getKeysInformation(cache));
 			});
 		}
-		return new WebEndpointResponse<CacheInfo>(info, 200);
+		LOGGER.info("response cache info {}", info);
+		return new WebEndpointResponse<>(info, 200);
 	}
 
 	private Map<String, Object> getKeysInformation(String cache) {
@@ -65,15 +66,15 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 	}
 
 	private Optional<RedisCache> getRedisCache(String name) {
-		Optional<RedisCache> cache = Optional.empty();
+		Optional<RedisCache> redisCache = Optional.empty();
 		Cache cacheImpl = this.cache.getCache(name);
 		if (TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
 			cacheImpl = ((TransactionAwareCacheDecorator) cacheImpl).getTargetCache();
 			if (RedisCache.class.isAssignableFrom(cacheImpl.getClass())) {
-				cache = Optional.of((RedisCache) cacheImpl);
+				redisCache = Optional.of((RedisCache) cacheImpl);
 			}
 		}
-		return cache;
+		return redisCache;
 	}
 
 }

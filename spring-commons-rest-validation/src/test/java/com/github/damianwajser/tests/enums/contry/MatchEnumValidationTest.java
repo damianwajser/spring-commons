@@ -1,7 +1,5 @@
 package com.github.damianwajser.tests.enums.contry;
 
-import com.github.damianwajser.model.enums.contry.CountryEnum;
-import com.github.damianwajser.model.enums.contry.CountryString;
 import com.github.damianwajser.model.enums.global.MatchEnumObject;
 import com.github.damianwajser.model.enums.global.MatchString;
 import com.github.damianwajser.validator.constraint.enums.values.Countries;

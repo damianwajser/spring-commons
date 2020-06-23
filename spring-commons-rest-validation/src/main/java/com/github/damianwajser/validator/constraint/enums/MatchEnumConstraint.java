@@ -1,9 +1,7 @@
 package com.github.damianwajser.validator.constraint.enums;
 
 import com.github.damianwajser.validator.annotation.enums.MatchEnum;
-import com.github.damianwajser.validator.annotation.global.Email;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
-import com.github.damianwajser.validator.constraint.strings.PatternConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.ConstraintValidator;
