@@ -46,9 +46,11 @@ public class CacheTest {
 				.exchange("http://localhost:" + port + "/actuator/caches/cache-ttl1/detail", HttpMethod.GET, null, CacheInfo.class).getBody();
 
 		CacheInfo info = new CacheInfo();
+
 		info.setPrerfix("ms-test::cache-ttl1::");
 		info.setTtl("2 seconds");
 		Assert.assertEquals(info, result);
+		Assert.assertEquals(info.hashCode(), result.hashCode());
 	}
 
 }

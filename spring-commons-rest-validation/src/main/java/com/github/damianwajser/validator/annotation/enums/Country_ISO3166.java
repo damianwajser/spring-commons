@@ -1,7 +1,6 @@
 package com.github.damianwajser.validator.annotation.enums;
 
 import com.github.damianwajser.validator.constraint.enums.CountryIso3166Constraint;
-import com.github.damianwajser.validator.constraint.enums.MatchEnumConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

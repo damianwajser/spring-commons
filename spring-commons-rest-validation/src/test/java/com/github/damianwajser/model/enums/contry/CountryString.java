@@ -1,7 +1,6 @@
 package com.github.damianwajser.model.enums.contry;
 
 import com.github.damianwajser.validator.annotation.enums.Country_ISO3166;
-import com.github.damianwajser.validator.constraint.enums.values.Countries;
 
 public class CountryString {
 

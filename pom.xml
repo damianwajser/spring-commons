@@ -126,7 +126,6 @@
 					<compilerArgs>
 						<arg>-parameters</arg>
 					</compilerArgs>
-					<parameters>true</parameters>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>

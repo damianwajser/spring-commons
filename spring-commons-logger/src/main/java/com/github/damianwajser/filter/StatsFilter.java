@@ -35,8 +35,4 @@ public class StatsFilter implements Filter {
 		}
 	}
 
-	@Override
-	public void destroy() {
-		// empty
-	}
 }
