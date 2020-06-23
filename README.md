@@ -2,7 +2,8 @@
 ## Overview
 This project contains the general-purpose tools to spring.  Project is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-[![Build Status](https://travis-ci.org/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.org/damianwajser/spring-commons) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons)
+[![Build Status](https://travis-ci.org/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.org/damianwajser/spring-commons) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons) [![Maintainability](https://api.codeclimate.com/v1/badges/b3439fa46cd3387eebff/maintainability)](https://codeclimate.com/github/damianwajser/spring-rest-commons-options/maintainability) 
+[![alert_status](https://sonarcloud.io/api/project_badges/measure?project=damianwajser_spring-rest-commons-options&metric=alert_status)](https://sonarcloud.io/api/project_badges/measure?project=damianwajser_spring-rest-commons-options&metric=alert_status) [![coverage](https://sonarcloud.io/api/project_badges/measure?project=damianwajser_spring-rest-commons-options&metric=coverage)](https://sonarcloud.io/api/project_badges/measure?project=damianwajser_spring-rest-commons-options&metric=coverage)
 
 -----
 ## Roadmap
