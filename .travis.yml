@@ -5,4 +5,5 @@ addons:
       projectKey: damian_wajser-spring-commons
     token:
       secure: "QDBfFCvCWXMW/+L4arJrKgSgq1YjZeFfm1mjs0A5LdJYZKb9jgcjnUIiGdiI8rXFfeK2Fx9vcDxyGRMcCOn8vqf54CWr+hnW378JMYlxOeorxQYWb0KNFg2P9m5OmtO79KiOCjPiLY9+l0osfAj3vH6nY6DKO4nPGLa5IAygekhAmOsAmMugAaYWnfPliHLB9mWTVP3sasTsW7WLlTgfDRds36sxhhPUPlcdIGIiV76AwIRXLgUra8QX9D/AYkon67jKyuCrGOCEu6sp20BYZGm76aNlQZL2gQbre8tb+SbYH9Rp5TaobgT7WZbnKAiIq4qTpkcFhgWgFD8NclmzeEHNt3XnUnGzNI7AuYil1vzOQ0KtBdFwXJie54gEh2lg+uYDbC2rCO3tv8LD+L+wuY7wBz+q6qYTDI/ssgM84El33kR14cWAkJOPR5pqTpkrCsKtgHfAXXiY+K4v8n4SNfIhhiFXr0brUlkSHgAIVc89fJMR979DyiCboXV/MkwIt2UL5Sa8u5THw6etdVjw2/EfQenHgeGh3JXsFFa6QpObJi3P3yBYC2pBuV4T27Sfb4Wc/+BdcOMGakTuCNEocT7INFaflNaK+zi9mb/oF0s81qEuWzf9YB3wsJibbhbG1PhGGsNFzBzlxGVdI2a+EN111iL9oMMuffzbyYtk+LY="
-      script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=damian_wajser-spring-commons
+      script:
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=damian_wajser-spring-commons
