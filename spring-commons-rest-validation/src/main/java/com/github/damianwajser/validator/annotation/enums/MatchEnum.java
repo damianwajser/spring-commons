@@ -32,7 +32,7 @@ public @interface MatchEnum {
 
 	boolean isNulleable() default false;
 
-	Class<Enum<?>> enumClass();
+	Class<? extends Enum<?>> enumClass();
 
 	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 	@Retention(RUNTIME)
