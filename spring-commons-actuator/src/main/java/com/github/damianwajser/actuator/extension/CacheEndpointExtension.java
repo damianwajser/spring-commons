@@ -10,6 +10,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @Primary
 @Component
 @EndpointWebExtension(endpoint = CachesEndpoint.class)
+@ConditionalOnBean(value = {CacheManager.class, RedisTemplate.class})
 public class CacheEndpointExtension extends CachesEndpointWebExtension {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CacheEndpointExtension.class);
