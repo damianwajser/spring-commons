@@ -4,6 +4,7 @@ import com.github.damianwajser.model.CacheInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.cache.CachesEndpoint;
 import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -11,6 +12,8 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
@@ -20,6 +23,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -28,15 +32,14 @@ import java.util.stream.Collectors;
 @Primary
 @Component
 @EndpointWebExtension(endpoint = CachesEndpoint.class)
-@ConditionalOnBean(value = {CacheManager.class, RedisTemplate.class})
 public class CacheEndpointExtension extends CachesEndpointWebExtension {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CacheEndpointExtension.class);
 
-	@Autowired
+	@Autowired(required = false)
 	private CacheManager cache;
 
-	@Autowired
+	@Autowired(required = false)
 	private RedisTemplate redisTemplate;
 
 	public CacheEndpointExtension(CachesEndpoint delegate) {
@@ -63,20 +66,24 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 	}
 
 	private Map<String, Object> getKeysInformation(String cache) {
-		Set<Object> keys = redisTemplate.keys(cache + "*");
+		Set<Object> keys = redisTemplate != null ? redisTemplate.keys(cache + "*") : new HashSet<>();
 		return keys.isEmpty() ? null : keys.stream().collect(Collectors.toMap(Object::toString, k -> redisTemplate.opsForValue().get(k)));
 	}
 
 	private Optional<RedisCache> getRedisCache(String name) {
 		Optional<RedisCache> redisCache = Optional.empty();
-		Cache cacheImpl = this.cache.getCache(name);
-		if (TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
-			cacheImpl = ((TransactionAwareCacheDecorator) cacheImpl).getTargetCache();
-			if (RedisCache.class.isAssignableFrom(cacheImpl.getClass())) {
-				redisCache = Optional.of((RedisCache) cacheImpl);
+		if (this.cache != null) {
+			Cache cacheImpl = this.cache.getCache(name);
+			if (TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
+				cacheImpl = ((TransactionAwareCacheDecorator) cacheImpl).getTargetCache();
+				if (RedisCache.class.isAssignableFrom(cacheImpl.getClass())) {
+					redisCache = Optional.of((RedisCache) cacheImpl);
+				}
 			}
 		}
 		return redisCache;
 	}
 
 }
+
+

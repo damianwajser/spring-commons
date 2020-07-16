@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-parent</artifactId>
-  <version>1.11.0</version>
+  <version>1.11.1</version>
   <packaging>pom</packaging>
   <name>spring-commons-parent</name>
   <description>DESC</description>
@@ -70,7 +70,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <jedis.client.version>3.3.0</jedis.client.version>
     <junit.jupiter.version>5.4.0</junit.jupiter.version>
-    <revision>1.11.0</revision>
+    <revision>1.11.1</revision>
     <maven.compiler.target>1.8</maven.compiler.target>
     <logstash.version>6.4</logstash.version>
   </properties>
@@ -196,6 +196,12 @@
               <excludes>
                 <excludes>**/test/*</excludes>
               </excludes>
+              <archive>
+                <manifest>
+                  <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                </manifest>
+              </archive>
             </configuration>
           </plugin>
           <plugin>
@@ -203,6 +209,20 @@
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>1.6.7</version>
             <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>injected-nexus-deploy</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>deploy</goal>
+                </goals>
+                <configuration>
+                  <serverId>ossrh</serverId>
+                  <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                  <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+              </execution>
+            </executions>
             <configuration>
               <serverId>ossrh</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
@@ -230,6 +250,9 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
+                <configuration>
+                  <source>8</source>
+                </configuration>
               </execution>
             </executions>
             <configuration>
