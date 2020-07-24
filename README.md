@@ -2,7 +2,7 @@
 ## Overview
 This project contains the general-purpose tools to spring.  Project is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-[![Build Status](https://api.travis-ci.com/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.com/damianwajser/spring-commons) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons) [![Maintainability](https://api.codeclimate.com/v1/badges/b3439fa46cd3387eebff/maintainability)](https://codeclimate.com/github/damianwajser/spring-rest-commons-options/maintainability) 
+[![Build Status](https://api.travis-ci.com/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.com/damianwajser/spring-commons) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons) [![Maintainability](https://api.codeclimate.com/v1/badges/b3439fa46cd3387eebff/maintainability)](https://codeclimate.com/github/damianwajser/spring-rest-commons-options/maintainability)
 [![alert_status](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=alert_status)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons) [![coverage](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=coverage)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons)
 
 -----
@@ -72,7 +72,7 @@ public class Application {
 | Key | Value | Module | Reference
 |--|--|--|--
 |spring.jackson.property-naming-strategy|PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
-|spring.commons.app.name|"change spring.commons.app.name property"|All spring-commons| the name of microservice
+|spring.commons.app.name|${spring.commons.app.name}|All spring-commons| the name of microservice
 ## Modules
 ## 1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
 
