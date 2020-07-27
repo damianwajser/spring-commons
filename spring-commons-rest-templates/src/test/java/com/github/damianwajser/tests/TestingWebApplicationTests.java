@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.model.snake.RequestToController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
@@ -23,7 +25,7 @@ public class TestingWebApplicationTests {
 	private int port;
 
 	@Autowired
-	private TestRestTemplate restTemplate;
+	private RestTemplate restTemplate;
 
 	@Test
 	public void testOK() throws Exception {
@@ -35,6 +37,18 @@ public class TestingWebApplicationTests {
 		Map<String, Map<String, String>> response = this.restTemplate
 				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
 		assertThat(response.get("headers").get("X-Client-Id")).contains("3");
+	}
+	@Test
+	public void testPATCH_OK() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-Client-Id", "3");
+
+		HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+		Map<String, String> response = this.restTemplate
+				.exchange("http://localhost:" + port + "/patch_test", HttpMethod.PATCH, entity, Map.class).getBody();
+
+		assertThat(response.get("some_value")).isEqualTo("patch");
 	}
 
 	@Test
