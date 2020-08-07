@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.exceptions.ExceptionFactory;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Assert;
@@ -19,6 +20,7 @@ public class ErrorMessageTest {
 
 	@Test
 	public void ErrorMessageTest() {
+		//new ExceptionFactory().getException(null,null);
 		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		ExceptionDetail detail = new ExceptionDetail("", "", Optional.empty());
 		ErrorMessage errorMessage = new ErrorMessage(Arrays.asList(detail), request);
