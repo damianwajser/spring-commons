@@ -17,11 +17,12 @@ public class TestController {
 	private RestTemplate restTemplateSnake;
 
 	@PatchMapping("/patch_test")
-	private RequestToController test_patc() {
+	private RequestToController test_patch() {
 		RequestToController obj = new RequestToController();
 		obj.setSomeValue("patch");
 		return obj;
 	}
+
 	@GetMapping("/replayheaders")
 	private Object test1() {
 		return restTemplate.getForObject("https://httpbin.org/get", Object.class);
@@ -31,8 +32,10 @@ public class TestController {
 	private Object snake_case(@RequestBody RequestToController request) {
 		return restTemplateSnake.postForObject("https://httpbin.org/post", request, Object.class);
 	}
+
 	@PostMapping("/camel_case")
 	private Object camel_case(@RequestBody RequestToController request) {
 		return restTemplate.postForObject("https://httpbin.org/post", request, Object.class);
 	}
+
 }
