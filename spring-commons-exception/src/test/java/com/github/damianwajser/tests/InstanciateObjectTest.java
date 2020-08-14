@@ -100,6 +100,13 @@ public class InstanciateObjectTest {
 		assertThat(new UnprocessableEntityException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
 		assertThat(new UnprocessableEntityException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
 
+		//423
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.LOCKED).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.LOCKED).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new UnprocessableEntityException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new UnprocessableEntityException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new UnprocessableEntityException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+
 	}
 
 	private ExceptionDetail getDetail() {
