@@ -7,19 +7,15 @@ import com.github.damianwajser.exceptions.impl.badrequest.*;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InstanciateObjectTest {
 
@@ -100,15 +96,20 @@ public class InstanciateObjectTest {
 		assertThat(new UnprocessableEntityException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
 		assertThat(new UnprocessableEntityException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
 
+		//423
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.LOCKED).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.LOCKED).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new LockedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new LockedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+		assertThat(new LockedException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+
 	}
 
 	private ExceptionDetail getDetail() {
-		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		return new ExceptionDetail("", "", Optional.empty());
 	}
 
 	private List<ExceptionDetail> getDetails() {
-		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		return Arrays.asList(new ExceptionDetail("", "", Optional.empty()));
 	}
 }
