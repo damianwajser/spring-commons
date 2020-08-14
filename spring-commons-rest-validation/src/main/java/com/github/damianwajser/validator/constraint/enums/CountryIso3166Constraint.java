@@ -7,9 +7,6 @@ import org.springframework.http.HttpMethod;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CountryIso3166Constraint extends AbstractConstraint implements ConstraintValidator<Country_ISO3166, Object> {
 

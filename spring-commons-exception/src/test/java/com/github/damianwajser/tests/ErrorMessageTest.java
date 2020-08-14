@@ -1,6 +1,5 @@
 package com.github.damianwajser.tests;
 
-import com.github.damianwajser.exceptions.ExceptionFactory;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Assert;
