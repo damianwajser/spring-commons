@@ -22,23 +22,37 @@ public final class FieldErrorMapper {
 
 	public static ExceptionDetail convert(FieldError error) {
 
-		Map<String, Object> attributes = error.unwrap(javax.validation.ConstraintViolation.class)
+		Map<String, Object> attributes = error.unwrap(ConstraintViolation.class)
 				.getConstraintDescriptor().getAttributes();
 		String code = HttpStatus.BAD_GATEWAY.toString();
 		if (attributes != null) {
 			code = attributes.getOrDefault("businessCode", "400").toString();
 		}
-		error.unwrap(ConstraintViolation.class);
+		ConstraintViolation constraintViolation = error.unwrap(ConstraintViolation.class);
 		ExceptionDetail detail = new ExceptionDetail(code, error.getDefaultMessage(), Optional.of(error.getField()));
 		detail.setMetaData("rejectedValue", error.getRejectedValue());
 		detail.setMetaData("field", error.getField());
 		detail.setMetaData("reason", error.getCode());
-		fillI18nWarnings(error, detail);
+		fillI18nWarnings(constraintViolation.getMessageTemplate(), detail);
 		return detail;
 	}
 
-	private static void fillI18nWarnings(FieldError error, ExceptionDetail detail) {
-		String templateMessage = error.unwrap(ConstraintViolation.class).getMessageTemplate();
+	public static ExceptionDetail convert(ConstraintViolation error) {
+		Map<String, Object> attributes = error.getConstraintDescriptor().getAttributes();
+		String code = HttpStatus.BAD_GATEWAY.toString();
+		if (attributes != null) {
+			code = attributes.getOrDefault("businessCode", "400").toString();
+		}
+
+		ExceptionDetail detail = new ExceptionDetail(code, error.getMessage(), Optional.of(error.getPropertyPath().toString()));
+		detail.setMetaData("rejectedValue", error.getInvalidValue());
+		detail.setMetaData("field", error.getPropertyPath().toString());
+		detail.setMetaData("reason", code);
+		fillI18nWarnings(error.getMessageTemplate(), detail);
+		return detail;
+	}
+
+	private static void fillI18nWarnings(String templateMessage, ExceptionDetail detail) {
 		if (templateMessage != null && !templateMessage.startsWith("{")) {
 			detail.setMetaData(I18N_KEY, TEMPLATE_FORMAT_INCORRECT);
 		} else if (templateMessage != null && templateMessage.equalsIgnoreCase(detail.getErrorMessage())) {

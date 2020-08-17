@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -31,21 +34,35 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorMessage> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
-		return validationBinnding(ex.getBindingResult(), request);
+		return validationBinding(ex.getBindingResult(), request);
 	}
 
 	@ExceptionHandler(BindException.class)
 	public ResponseEntity<ErrorMessage> handleValidationExceptions(BindException ex, HttpServletRequest request) {
-		return validationBinnding(ex.getBindingResult(), request);
+		return validationBinding(ex.getBindingResult(), request);
 	}
 
-	private ResponseEntity<ErrorMessage> validationBinnding(BindingResult results, HttpServletRequest request) {
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ErrorMessage> handleValidationExceptions(ConstraintViolationException ex, HttpServletRequest request) {
+		return validationConstrains(ex.getConstraintViolations(), request);
+	}
+
+	private ResponseEntity<ErrorMessage> validationBinding(BindingResult results, HttpServletRequest request) {
+		return new ResponseEntity<>(new ErrorMessage(getExceptionDetails(results), request),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	private ResponseEntity<ErrorMessage> validationConstrains(Set<ConstraintViolation<?>> results, HttpServletRequest request) {
 		return new ResponseEntity<>(new ErrorMessage(getExceptionDetails(results), request),
 				HttpStatus.BAD_REQUEST);
 	}
 
 	private List<ExceptionDetail> getExceptionDetails(BindingResult results) {
 		return results.getFieldErrors().stream().map(FieldErrorMapper::convert).collect(Collectors.toList());
+	}
+
+	private List<ExceptionDetail> getExceptionDetails(Set<ConstraintViolation<?>> results) {
+		return results.stream().map(FieldErrorMapper::convert).collect(Collectors.toList());
 	}
 
 	private List<ExceptionDetail> getExceptionDetails(RestException ex, Locale locale) {
