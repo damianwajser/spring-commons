@@ -3,17 +3,15 @@ package com.github.damianwajser.tests.global;
 import com.github.damianwajser.model.global.PastAuxObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import static com.github.damianwajser.model.TestUtils.*;
-import static org.junit.Assert.assertThat;
+import static com.github.damianwajser.TestUtils.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PastValidationTest {
 

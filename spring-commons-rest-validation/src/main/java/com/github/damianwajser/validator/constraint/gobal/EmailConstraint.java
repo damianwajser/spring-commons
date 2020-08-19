@@ -2,7 +2,6 @@ package com.github.damianwajser.validator.constraint.gobal;
 
 import com.github.damianwajser.validator.annotation.global.Email;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
-import com.github.damianwajser.validator.constraint.strings.PatternConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
