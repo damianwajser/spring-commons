@@ -1,6 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.constraint.strings.PatternConstraint;
+import com.github.damianwajser.validator.constraint.gobal.PatternConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

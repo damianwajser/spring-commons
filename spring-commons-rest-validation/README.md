@@ -77,6 +77,7 @@ On the other hand some useful validations are added:
 
 **@MatchEnum**
 **@Country_ISO3166**
+**UUID**
 ##### Examples
 
 ##### @CardToken

@@ -5,16 +5,14 @@ import com.github.damianwajser.model.global.size.SizeMinOneStringObject;
 import com.github.damianwajser.model.global.size.SizeMinZeroStringObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.github.damianwajser.model.TestUtils.*;
-import static org.junit.Assert.assertThat;
+import static com.github.damianwajser.TestUtils.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SizeValidationTest {
 
@@ -22,7 +20,7 @@ public class SizeValidationTest {
 	public void size_string() throws Exception {
 		assertThat(validationFor(new SizeMinZeroStringObject(), onField("value")), fails());
 		assertThat(validationFor(new SizeMinZeroStringObject(), onField("nulleable")), succedes());
-		
+
 		assertThat(validationFor(new SizeMinZeroStringObject(""), onField("value")), succedes());
 		assertThat(validationFor(new SizeMinZeroStringObject("1234567891234"), onField("value")), fails());
 		assertThat(validationFor(new SizeMinZeroStringObject("4"), onField("value")), succedes());
