@@ -76,8 +76,10 @@ On the other hand some useful validations are added:
 **@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to be validate with actual date.
 
 **@MatchEnum**
+
 **@Country_ISO3166**
-**UUID**
+
+**@UUID**
 ##### Examples
 
 ##### @CardToken
