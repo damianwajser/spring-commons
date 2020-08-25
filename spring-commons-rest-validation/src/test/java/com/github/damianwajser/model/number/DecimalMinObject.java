@@ -24,4 +24,5 @@ public class DecimalMinObject {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
 }
