@@ -26,13 +26,13 @@ public @interface Size {
 
 	Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
-
-	String businessCode();
-
 	int max();
 
 	int min() default 0;
+
+	Class<? extends Payload>[] payload() default {};
+
+	String businessCode();
 
 	boolean isNulleable() default false;
 
