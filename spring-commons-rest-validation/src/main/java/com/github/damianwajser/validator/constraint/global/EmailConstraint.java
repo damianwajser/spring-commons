@@ -1,4 +1,4 @@
-package com.github.damianwajser.validator.constraint.gobal;
+package com.github.damianwajser.validator.constraint.global;
 
 import com.github.damianwajser.validator.annotation.global.Email;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;

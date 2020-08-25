@@ -1,4 +1,4 @@
-package com.github.damianwajser.validator.constraint.gobal;
+package com.github.damianwajser.validator.constraint.global;
 
 import com.github.damianwajser.validator.annotation.global.Size;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;

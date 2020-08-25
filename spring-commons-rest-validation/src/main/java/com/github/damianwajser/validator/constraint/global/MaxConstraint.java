@@ -1,6 +1,6 @@
-package com.github.damianwajser.validator.constraint.gobal;
+package com.github.damianwajser.validator.constraint.global;
 
-import com.github.damianwajser.validator.annotation.global.Min;
+import com.github.damianwajser.validator.annotation.global.Max;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
 
 import javax.validation.ConstraintValidator;
@@ -9,23 +9,23 @@ import javax.validation.ConstraintValidatorContext;
 /**
  *
  */
-public class MinConstraint extends AbstractConstraint implements ConstraintValidator<Min, Object> {
+public class MaxConstraint extends AbstractConstraint implements ConstraintValidator<Max, Object> {
 
-	long min;
+	long max;
 
 	@Override
-	public void initialize(Min field) {
+	public void initialize(Max field) {
 		super.excludes = field.excludes();
 		super.isNulleable = field.isNulleable();
-		this.min = field.min();
+		this.max = field.max();
 	}
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
 		if (field != null && Number.class.isAssignableFrom(field.getClass())) {
-			long fieldMin = ((Number) field).longValue();
-			hasError = fieldMin <= min;
+			long fieldMax = ((Number) field).longValue();
+			hasError = fieldMax > max;
 		}
 		return hasError;
 	}

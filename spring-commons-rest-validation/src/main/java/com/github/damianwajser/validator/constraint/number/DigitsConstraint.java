@@ -1,0 +1,49 @@
+package com.github.damianwajser.validator.constraint.number;
+
+import com.github.damianwajser.validator.annotation.number.Digits;
+import com.github.damianwajser.validator.constraint.AbstractConstraint;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.math.BigDecimal;
+
+public class DigitsConstraint extends AbstractConstraint implements ConstraintValidator<Digits, Object> {
+
+    int maxIntegerLength;
+    int maxFractionLength;
+
+    @Override
+    public void initialize(Digits field) {
+        super.excludes = field.excludes();
+        super.isNulleable = field.isNulleable();
+        this.maxIntegerLength = field.integer();
+        this.maxFractionLength = field.fraction();
+        this.validateParameters();
+    }
+
+    @Override
+    protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
+        if (field == null) {
+            return true;
+        } else {
+            BigDecimal bigNum;
+            if (field instanceof BigDecimal) {
+                bigNum = (BigDecimal)field;
+            } else {
+                bigNum = (new BigDecimal(field.toString())).stripTrailingZeros();
+            }
+
+            int integerPartLength = bigNum.precision() - bigNum.scale();
+            int fractionPartLength = bigNum.scale() < 0 ? 0 : bigNum.scale();
+            return this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
+        }
+    }
+
+    private void validateParameters() {
+        if (this.maxIntegerLength < 0) {
+            throw new IllegalArgumentException("The length of the integer part cannot be negative.");
+        } else if (this.maxFractionLength < 0) {
+            throw new IllegalArgumentException("The length of the fraction part cannot be negative.");
+        }
+    }
+}

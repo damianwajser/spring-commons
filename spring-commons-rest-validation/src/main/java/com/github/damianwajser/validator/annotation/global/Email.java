@@ -1,6 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.constraint.gobal.EmailConstraint;
+import com.github.damianwajser.validator.constraint.global.EmailConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

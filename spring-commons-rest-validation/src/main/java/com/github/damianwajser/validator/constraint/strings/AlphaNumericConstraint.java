@@ -2,7 +2,7 @@ package com.github.damianwajser.validator.constraint.strings;
 
 import com.github.damianwajser.validator.annotation.strings.AlphaNumeric;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
-import com.github.damianwajser.validator.constraint.gobal.SizeConstraint;
+import com.github.damianwajser.validator.constraint.global.SizeConstraint;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;

@@ -1,6 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.constraint.gobal.SizeConstraint;
+import com.github.damianwajser.validator.constraint.global.SizeConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
@@ -26,13 +26,13 @@ public @interface Size {
 
 	Class<?>[] groups() default {};
 
-	int max();
-
-	int min() default 0;
-
 	Class<? extends Payload>[] payload() default {};
 
 	String businessCode();
+
+	int max();
+
+	int min() default 0;
 
 	boolean isNulleable() default false;
 
