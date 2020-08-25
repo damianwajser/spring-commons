@@ -23,20 +23,17 @@ public class DigitsConstraint extends AbstractConstraint implements ConstraintVa
 
     @Override
     protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-        if (field == null) {
-            return true;
+        BigDecimal bigNum;
+        if (field != null && field.getClass().isAssignableFrom(BigDecimal.class)) {
+            bigNum = (BigDecimal) field;
         } else {
-            BigDecimal bigNum;
-            if (field instanceof BigDecimal) {
-                bigNum = (BigDecimal)field;
-            } else {
-                bigNum = (new BigDecimal(field.toString())).stripTrailingZeros();
-            }
-
-            int integerPartLength = bigNum.precision() - bigNum.scale();
-            int fractionPartLength = bigNum.scale() < 0 ? 0 : bigNum.scale();
-            return this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
+            bigNum = (new BigDecimal(field.toString())).stripTrailingZeros();
         }
+
+        int integerPartLength = bigNum.precision() - bigNum.scale();
+        int fractionPartLength = bigNum.scale() < 0 ? 0 : bigNum.scale();
+        return this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
+
     }
 
     private void validateParameters() {

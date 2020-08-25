@@ -27,12 +27,8 @@ public class DecimalMinConstraint extends AbstractConstraint implements Constrai
 
     @Override
     protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-        if (field == null) {
-            return true;
-        } else {
-            int comparisonResult = this.compare((BigDecimal)field);
-            return this.inclusive ? comparisonResult < 0 : comparisonResult <= 0;
-        }
+        int comparisonResult = this.compare((BigDecimal) field);
+        return this.inclusive ? comparisonResult < 0 : comparisonResult <= 0;
     }
 
     protected int compare(BigDecimal number) {
