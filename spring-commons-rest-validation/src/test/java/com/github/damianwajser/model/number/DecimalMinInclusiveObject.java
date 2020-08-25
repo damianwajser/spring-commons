@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public class DecimalMinInclusiveObject {
 
-    @DecimalMin(value = "0.0", inclusive = false, businessCode = "a-400")
+    @DecimalMin(value = "0.0", businessCode = "a-400")
     private BigDecimal value;
 
     public DecimalMinInclusiveObject() {
@@ -24,4 +24,5 @@ public class DecimalMinInclusiveObject {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
 }
