@@ -19,6 +19,8 @@ public class DecimalMinConstraint extends AbstractConstraint implements Constrai
         } catch (NumberFormatException var3) {
             throw new IllegalArgumentException(String.format("%s does not represent a valid BigDecimal format.", field.value()), var3);
         }
+        super.excludes = field.excludes();
+        super.isNulleable = field.isNulleable();
         this.inclusive = field.inclusive();
     }
 
