@@ -1,6 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.constraint.gobal.PastConstraint;
+import com.github.damianwajser.validator.constraint.global.PastConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

@@ -2,7 +2,7 @@ package com.github.damianwajser.validator.constraint.strings;
 
 import com.github.damianwajser.validator.annotation.strings.Password;
 import com.github.damianwajser.validator.constraint.AbstractConstraint;
-import com.github.damianwajser.validator.constraint.gobal.PatternConstraint;
+import com.github.damianwajser.validator.constraint.global.PatternConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

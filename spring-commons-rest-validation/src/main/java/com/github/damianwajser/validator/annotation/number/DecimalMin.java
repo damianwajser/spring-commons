@@ -1,6 +1,6 @@
-package com.github.damianwajser.validator.annotation.global;
+package com.github.damianwajser.validator.annotation.number;
 
-import com.github.damianwajser.validator.constraint.global.NotNullConstraint;
+import com.github.damianwajser.validator.constraint.number.DecimalMinConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
@@ -14,15 +14,15 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = {NotNullConstraint.class})
+@Constraint(validatedBy = {DecimalMinConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Repeatable(NotNull.List.class)
-public @interface NotNull {
+@Repeatable(DecimalMin.List.class)
+public @interface DecimalMin {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.NotNull.message}";
+    String message() default "{javax.validation.constraints.DecimalMin.message}";
 
 	Class<?>[] groups() default {};
 
@@ -30,10 +30,16 @@ public @interface NotNull {
 
 	String businessCode();
 
+    String value();
+
+    boolean inclusive() default true;
+
+    boolean isNulleable() default false;
+
 	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 	@Retention(RUNTIME)
 	@Documented
 	@interface List {
-		NotNull[] value();
+        DecimalMin[] value();
 	}
 }
