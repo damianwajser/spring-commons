@@ -1,6 +1,6 @@
 package com.github.damianwajser.validator.annotation.global;
 
-import com.github.damianwajser.validator.constraint.gobal.MaxConstraint;
+import com.github.damianwajser.validator.constraint.global.MaxConstraint;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;

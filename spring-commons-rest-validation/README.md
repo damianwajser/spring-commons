@@ -80,6 +80,11 @@ On the other hand some useful validations are added:
 **@Country_ISO3166**
 
 **@UUID**
+
+**@Digits** - Use this annotation to validate integer and fraction, that for specifying the number of allowed digits in the integral part and fraction part of the number.
+
+**@DecimalMin** - Use this annotation to validate a number whose value is higher or equal to the specified minimum.
+
 ##### Examples
 
 ##### @CardToken
