@@ -6,7 +6,7 @@ This project contains the general-purpose tools to spring.  Project is licensed 
 [![alert_status](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=alert_status)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons) [![coverage](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=coverage)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons)
 
 -----
-## Roadmap 
+## Roadmap
 Consult the proyect for details on the current [spring-commons roadmap]([https://github.com/damianwajser/spring-commons/projects/1](https://github.com/damianwajser/spring-commons/projects/1)).
 
 ## Get it!
