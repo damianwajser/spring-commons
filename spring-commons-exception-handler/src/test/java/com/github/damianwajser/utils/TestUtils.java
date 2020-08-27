@@ -12,13 +12,17 @@ import org.springframework.web.client.HttpClientErrorException;
 public class TestUtils {
 
 	public static ErrorMessage getMessage(HttpClientErrorException e) throws JsonProcessingException {
+		return getMessage(e.getResponseBodyAsString());
+	}
+
+	public static ErrorMessage getMessage(String body) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper()
 				.registerModule(new Jdk8Module())
 				.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
 				.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
 				.setVisibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.ANY);
-		ErrorMessage message = objectMapper.readValue(e.getResponseBodyAsString(), ErrorMessage.class);
-		System.out.println(e.getResponseBodyAsString());
+		ErrorMessage message = objectMapper.readValue(body, ErrorMessage.class);
+		System.out.println(body);
 		return message;
 	}
 

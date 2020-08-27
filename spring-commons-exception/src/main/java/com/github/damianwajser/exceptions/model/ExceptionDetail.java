@@ -2,6 +2,7 @@ package com.github.damianwajser.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,10 +22,10 @@ public class ExceptionDetail implements Serializable {
 	private static final long serialVersionUID = 1905128741950251207L;
 
 	@JsonAlias({"error_code", "errorCode"})
-	private final String errorCode;
+	private String errorCode;
 
 	@JsonAlias({"error_detail", "errorDetail"})
-	private final Optional<Object> errorDetail;
+	private Optional<Object> errorDetail;
 
 	@JsonAlias({"error_message", "errorMessage"})
 	private String errorMessage;
@@ -32,10 +33,11 @@ public class ExceptionDetail implements Serializable {
 	@JsonAlias({"meta_data", "metaData"})
 	private Map<String, Object> metaData;
 
-	@JsonCreator
-	public ExceptionDetail(@JsonAlias({"error_code", "errorCode"}) String errorCode,
-						   @JsonAlias({"error_message", "errorMessage"}) String errorMessage,
-						   @JsonAlias({"error_detail", "errorDetail"}) Optional<Object> detail) {
+	public ExceptionDetail(){}
+
+	public ExceptionDetail(String errorCode,
+						   String errorMessage,
+						   Optional<Object> detail) {
 		Assert.notNull(errorCode, "errorCode dont be null");
 		Assert.notNull(errorMessage, "errorMessage dont be null");
 		this.errorCode = errorCode;
