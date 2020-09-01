@@ -69,6 +69,8 @@ On the other hand some useful validations are added:
 
 **@AlphaNumeric** - Use this annotation to validate alpha-numerics strings, this annotation use @Size constraint then yoy can add that parameters (min, max). Also you can add a boolean parameter allowSpaces, that default value is true.
 
+**@Word** - Use this annotation to validate word strings, works like @AlphaNumeric but doesn't accept numbers.
+
 **@Password** - Use this annotation to validate basic passwords rules.
 
 **@CardToken** - Use this annotation to validate credit card Token
