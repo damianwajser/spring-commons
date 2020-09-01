@@ -4,7 +4,6 @@ import com.github.damianwajser.validator.annotation.strings.Word;
 
 public class WordAllowSpaceStringObject {
 
-	@Word(message = "somemmessage", min = 1, max = 5, businessCode = "c-400")
 	@Word(message = "somemmessage", min = 1, max = 6, businessCode = "c-400")
 	private String value;
 
