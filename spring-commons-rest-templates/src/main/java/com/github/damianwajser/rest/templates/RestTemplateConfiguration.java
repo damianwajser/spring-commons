@@ -45,9 +45,9 @@ public class RestTemplateConfiguration {
 
     private ClientHttpRequestFactory getClientHttpRequestFactory() {
         final RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(getValueWithDefault(timeouts.getConnection(), -1))
-                .setConnectionRequestTimeout(getValueWithDefault(timeouts.getWrite(), -1))
-                .setSocketTimeout(getValueWithDefault(timeouts.getRead(), -1))
+                .setConnectTimeout(timeouts.getConnection())
+                .setConnectionRequestTimeout(timeouts.getWrite())
+                .setSocketTimeout(timeouts.getRead())
                 .build();
         final CloseableHttpClient client = HttpClientBuilder
                 .create()
@@ -75,8 +75,4 @@ public class RestTemplateConfiguration {
 		restTemplate.setMessageConverters(messageConverters);
 		return restTemplate;
 	}
-
-    private int getValueWithDefault(final int value, final int defaultValue) {
-        return value != 0 ? value : defaultValue;
-    }
 }
