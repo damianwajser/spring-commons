@@ -76,7 +76,7 @@ public class RestTemplateConfiguration {
 		return restTemplate;
 	}
 
-	private int getValueWithDefault(final int value, final int defaultValue) {
-		return value != 0 ? value : defaultValue;
-	}
+    private int getValueWithDefault(final int value, final int defaultValue) {
+        return value != 0 ? value : defaultValue;
+    }
 }
