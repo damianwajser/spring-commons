@@ -30,26 +30,26 @@ public class DefaultTimeOutTests {
 
     @Test
     public void testOK() {
-        System.out.println("start request with delay");
-        this.restTemplate.getForObject("http://localhost:" + port + "/timeout", Integer.class);
-        this.restTemplate.getForObject("http://localhost:" + port + "/without_timeout", Integer.class);
-        System.out.println("end request with delay");
+        System.out.println("start request without delay");
+        final Integer result = this.restTemplate.getForObject("http://localhost:" + port + "/without_timeout", Integer.class);
+        System.out.println("end request without delay");
 
-        assertThat(restTemplate.getRequestFactory(), is(instanceOf(InterceptingClientHttpRequestFactory.class)));
+        assertThat(result, notNullValue());
+        assertThat(restTemplate.getRequestFactory(), instanceOf(InterceptingClientHttpRequestFactory.class));
     }
 
     @Test
     public void testDefaultConfig() {
         final RequestConfig requestConfig = getRequestConfig(restTemplate);
 
-        assertThat(requestConfig, notNullValue());
         assertThat(requestConfig.getConnectTimeout(), is(-1));
         assertThat(requestConfig.getConnectionRequestTimeout(), is(-1));
         assertThat(requestConfig.getSocketTimeout(), is(-1));
     }
 
     private RequestConfig getRequestConfig(RestTemplate restTemplate) {
-        final HttpClient httpClient = (HttpClient) ReflectionTestUtils.getField(Objects.requireNonNull(ReflectionTestUtils.getField(restTemplate, "requestFactory")), "httpClient");
+        final HttpClient httpClient = (HttpClient) ReflectionTestUtils.getField(
+                Objects.requireNonNull(ReflectionTestUtils.getField(restTemplate, "requestFactory")), "httpClient");
 
         assertThat(httpClient, notNullValue());
 
