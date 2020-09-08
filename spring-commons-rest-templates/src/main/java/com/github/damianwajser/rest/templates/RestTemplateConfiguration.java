@@ -2,8 +2,8 @@ package com.github.damianwajser.rest.templates;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.github.damianwajser.rest.configuration.TimeoutConfigurationProperties;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
-import com.github.damianwajser.rest.properties.TimeoutConfigurationProperties;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;

@@ -1,10 +1,10 @@
-package com.github.damianwajser.rest.properties;
+package com.github.damianwajser.rest.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "rest.template.timeout")
+@ConfigurationProperties(prefix = "spring.commons.rest.template.timeout")
 public class TimeoutConfigurationProperties {
 
     private int connection;
