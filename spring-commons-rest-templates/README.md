@@ -35,6 +35,13 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ```xml
  compile 'com.github.damianwajser:spring-commons-resttemplate-interceptor:{lastVersion}'
  ```
+#### Properties
+| Key | Posible Value | Reference | Default Value
+|--|--|--|--
+|spring.commons.rest.template.timeout.connection | any int | timeout connection | -1
+|spring.commons.rest.template.timeout.write | any int | timeout connection | -1
+|spring.commons.rest.template.timeout.read | any int | timeout connection | -1
+
 ### RestTemplates
 
 Inject by default the restTemplate with:
