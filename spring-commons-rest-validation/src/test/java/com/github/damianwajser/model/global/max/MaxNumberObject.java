@@ -4,7 +4,7 @@ import com.github.damianwajser.validator.annotation.global.Max;
 
 public class MaxNumberObject {
 
-	@Max(max = 3, businessCode = "a-400")
+	@Max(value = 3, businessCode = "a-400")
 	private Long value;
 
 	public MaxNumberObject() {

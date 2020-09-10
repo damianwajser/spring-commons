@@ -22,11 +22,11 @@ public @interface Max {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.max.message}";
+	String message() default "{javax.validation.constraints.Max.message}";
 
 	Class<?>[] groups() default {};
 
-	long max();
+	long value();
 
 	Class<? extends Payload>[] payload() default {};
 

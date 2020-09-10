@@ -4,9 +4,9 @@ import com.github.damianwajser.validator.annotation.global.Min;
 
 public class MinStringObject {
 
-	@Min(min = 2, businessCode = "a-400")
+	@Min(value = 2, businessCode = "a-400")
 	private String value;
-	@Min(min = 2, businessCode = "a-400", isNulleable = true)
+	@Min(value = 2, businessCode = "a-400", isNulleable = true)
 	private String nulleable;
 
 	public MinStringObject() {

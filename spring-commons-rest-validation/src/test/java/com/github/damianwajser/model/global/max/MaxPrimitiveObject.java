@@ -4,7 +4,7 @@ import com.github.damianwajser.validator.annotation.global.Max;
 
 public class MaxPrimitiveObject {
 
-	@Max(max = 2, businessCode = "a-400")
+	@Max(value = 2, businessCode = "a-400")
 	private int value;
 
 	public MaxPrimitiveObject() {

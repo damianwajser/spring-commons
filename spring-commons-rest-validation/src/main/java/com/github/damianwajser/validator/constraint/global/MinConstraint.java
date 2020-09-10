@@ -17,7 +17,7 @@ public class MinConstraint extends AbstractConstraint implements ConstraintValid
 	public void initialize(Min field) {
 		super.excludes = field.excludes();
 		super.isNulleable = field.isNulleable();
-		this.min = field.min();
+		this.min = field.value();
 	}
 
 	@Override

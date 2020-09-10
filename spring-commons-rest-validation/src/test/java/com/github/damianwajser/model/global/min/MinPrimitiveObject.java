@@ -4,7 +4,7 @@ import com.github.damianwajser.validator.annotation.global.Min;
 
 public class MinPrimitiveObject {
 
-	@Min(min = 2, businessCode = "a-400")
+	@Min(value = 2, businessCode = "a-400")
 	private int value;
 
 	public MinPrimitiveObject() {

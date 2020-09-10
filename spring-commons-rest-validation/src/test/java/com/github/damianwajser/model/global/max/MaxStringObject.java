@@ -4,9 +4,9 @@ import com.github.damianwajser.validator.annotation.global.Max;
 
 public class MaxStringObject {
 
-	@Max(max = 2, businessCode = "a-400")
+	@Max(value = 2, businessCode = "a-400")
 	private String value;
-	@Max(max = 2, businessCode = "a-400", isNulleable = true)
+	@Max(value = 2, businessCode = "a-400", isNulleable = true)
 	private String nulleable;
 
 	public MaxStringObject() {

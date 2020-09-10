@@ -22,11 +22,11 @@ public @interface Min {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.min.message}";
+	String message() default "{javax.validation.constraints.Min.message}";
 
 	Class<?>[] groups() default {};
 
-	long min();
+	long value();
 
 	Class<? extends Payload>[] payload() default {};
 
