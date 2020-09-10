@@ -55,6 +55,15 @@ public class ExceptionResponseTest {
 	}
 
 	@Test
+	public void badRequestWithParameter() throws Exception {
+		try {
+			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/1", HttpMethod.GET, null, Object.class);
+		} catch (BadRequest e) {
+			Assert.assertEquals("as-400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+		}
+	}
+
+	@Test
 	public void notfound() throws Exception {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/notfound", HttpMethod.POST, null, Object.class);
