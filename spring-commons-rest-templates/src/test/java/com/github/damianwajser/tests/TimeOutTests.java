@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,11 +33,11 @@ public class TimeOutTests {
 		LocalDateTime dataTime = LocalDateTime.now();
 		TimeOutObject request = new TimeOutObject();
 		request.setStart(new Date().getTime());
+		System.out.println("start request: " + request.getStart());
 		try {
-			System.out.println("start request: " + request.getStart());
 			this.restTemplate
 					.postForObject("http://localhost:" + port + "/timeout", request, TimeOutObject.class);
-			Assert.fail();
+			Assert.fail("");
 		} catch (ResourceAccessException e) {
 			System.out.println("TimeOut- start new delay: " + Duration.between(dataTime, LocalDateTime.now()).toMillis());
 			e.printStackTrace();

@@ -1,7 +1,5 @@
 package com.github.damianwajser.model.timeout;
 
-import java.time.LocalDateTime;
-
 public class TimeOutObject {
 
 	private long start;
