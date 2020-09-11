@@ -20,14 +20,17 @@ public class MaxValidationTest {
 		assertThat(validationFor(new MaxStringObject("1"), onField("value")), fails());
 		assertThat(validationFor(new MaxStringObject("423456"), onField("value")), fails());
 		assertThat(validationFor(new MaxStringObject(""), onField("value")), fails());
+		assertThat(validationFor(new MaxStringObject(), onField("aliases")), fails());
+		assertThat(validationFor(new MaxStringObject(), onField("invalidAliases")), fails());
 	}
 
 	@Test
 	public void max_number() throws Exception {
 		assertThat(validationFor(new MaxNumberObject()), fails());
-		assertThat(validationFor(new MaxNumberObject(4l)), fails());
-		assertThat(validationFor(new MaxNumberObject(3l)), succedes());
-		assertThat(validationFor(new MaxNumberObject(2l)), succedes());
+		assertThat(validationFor(new MaxNumberObject(4l), onField("value")), fails());
+		assertThat(validationFor(new MaxNumberObject(3l), onField("value")), succedes());
+		assertThat(validationFor(new MaxNumberObject(2l), onField("value")), succedes());
+		assertThat(validationFor(new MaxNumberObject(null, 1l), onField("aliases")), succedes());
 
 	}
 

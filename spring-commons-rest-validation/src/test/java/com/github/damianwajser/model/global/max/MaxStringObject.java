@@ -8,6 +8,10 @@ public class MaxStringObject {
 	private String value;
 	@Max(max = 2, businessCode = "a-400", isNulleable = true)
 	private String nulleable;
+	@Max(value = 2, businessCode = "a-400")
+	private String aliases;
+	@Max(value = 2, max = 5, businessCode = "a-400")
+	private String invalidAliases;
 
 	public MaxStringObject() {
 	}
@@ -16,6 +20,13 @@ public class MaxStringObject {
 		super();
 		this.value = value;
 	}
+	
+	public MaxStringObject(String value, String aliases, String invalidAliases) {
+		super();
+		this.value = value;
+		this.aliases = aliases;
+		this.invalidAliases = invalidAliases;
+	}
 
 	public String getValue() {
 		return value;
@@ -23,5 +34,13 @@ public class MaxStringObject {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public String getAliases() {
+		return aliases;
+	}
+	
+	public void setAliases(String aliases) {
+		this.aliases = aliases;
 	}
 }

@@ -1,6 +1,7 @@
 package com.github.damianwajser.validator.annotation.global;
 
 import com.github.damianwajser.validator.constraint.global.MaxConstraint;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
@@ -22,11 +23,15 @@ public @interface Max {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.max.message}";
+	String message() default "{javax.validation.constraints.Max.message}";
 
 	Class<?>[] groups() default {};
-
-	long max();
+	
+	@AliasFor("value")
+	long max() default 0L;
+	
+	@AliasFor("max")
+	long value() default 0L;
 
 	Class<? extends Payload>[] payload() default {};
 

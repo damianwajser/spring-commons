@@ -1,6 +1,7 @@
 package com.github.damianwajser.validator.annotation.global;
 
 import com.github.damianwajser.validator.constraint.global.MinConstraint;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.http.HttpMethod;
 
 import javax.validation.Constraint;
@@ -22,11 +23,15 @@ public @interface Min {
 
 	HttpMethod[] excludes() default {};
 
-	String message() default "{javax.validation.constraints.min.message}";
+	String message() default "{javax.validation.constraints.Min.message}";
 
 	Class<?>[] groups() default {};
 
-	long min();
+	@AliasFor("value")
+	long min() default 0L;
+	
+	@AliasFor("min")
+	long value() default 0L;
 
 	Class<? extends Payload>[] payload() default {};
 
