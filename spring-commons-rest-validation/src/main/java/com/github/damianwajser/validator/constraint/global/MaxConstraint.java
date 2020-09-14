@@ -6,6 +6,7 @@ import com.github.damianwajser.validator.constraint.AbstractConstraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@Deprecated
 /**
  *
  */

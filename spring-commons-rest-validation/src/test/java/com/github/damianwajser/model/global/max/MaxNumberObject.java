@@ -1,7 +1,7 @@
 package com.github.damianwajser.model.global.max;
 
 import com.github.damianwajser.validator.annotation.global.Max;
-
+@Deprecated
 public class MaxNumberObject {
 
 	@Max(max = 3, businessCode = "a-400")

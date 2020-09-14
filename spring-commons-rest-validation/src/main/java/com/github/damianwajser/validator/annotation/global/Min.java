@@ -13,6 +13,11 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * @deprecated
+ * This method is no longer acceptable to compute time between versions.
+ * <p> Use {@link com.github.damianwajser.validator.annotation.number.Max} instead.
+ */
 @Documented
 @Constraint(validatedBy = {MinConstraint.class})
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
