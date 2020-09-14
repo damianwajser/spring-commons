@@ -1,7 +1,7 @@
 package com.github.damianwajser.model.global.min;
 
 import com.github.damianwajser.validator.annotation.global.Min;
-
+@Deprecated
 public class MinStringObject {
 
 	@Min(min = 2, businessCode = "a-400")

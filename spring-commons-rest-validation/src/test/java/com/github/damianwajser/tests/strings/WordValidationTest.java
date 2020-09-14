@@ -1,16 +1,13 @@
 package com.github.damianwajser.tests.strings;
 
-import static com.github.damianwajser.TestUtils.fails;
-import static com.github.damianwajser.TestUtils.onField;
-import static com.github.damianwajser.TestUtils.succedes;
-import static com.github.damianwajser.TestUtils.validationFor;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.github.damianwajser.model.strings.WordAllowSpaceStringObject;
 import com.github.damianwajser.model.strings.WordMinOneStringObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static com.github.damianwajser.TestUtils.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class WordValidationTest {

@@ -1,22 +1,9 @@
 package com.github.damianwajser.tests;
 
-import com.github.damianwajser.exceptions.handlers.FieldErrorMapper;
-import com.github.damianwajser.model.CustomValidationFooObject;
 import com.github.damianwajser.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Collections;
 
 @SpringBootTest
 public class MapperErrorTest {

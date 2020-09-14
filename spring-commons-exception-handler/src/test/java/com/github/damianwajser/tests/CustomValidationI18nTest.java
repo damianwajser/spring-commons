@@ -1,6 +1,6 @@
 package com.github.damianwajser.tests;
 
-import com.github.damianwajser.exceptions.handlers.FieldErrorMapper;
+import com.github.damianwajser.exceptions.handlers.ExceptionDetailMapper;
 import com.github.damianwajser.model.CustomValidationFooObject;
 import com.github.damianwajser.utils.TestUtils;
 import org.junit.Assert;
@@ -46,11 +46,11 @@ public class CustomValidationI18nTest {
 
 			Assert.assertEquals("message", TestUtils.getDetail(e, "customStringCode").getErrorMessage());
 			Assert.assertEquals("customStringCode", TestUtils.getDetail(e, "customStringCode").getErrorCode());
-			Assert.assertEquals(FieldErrorMapper.TEMPLATE_FORMAT_INCORRECT, TestUtils.getDetail(e, "customStringCode").getMetaData().get("i18n"));
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_FORMAT_INCORRECT, TestUtils.getDetail(e, "customStringCode").getMetaData().get("i18n"));
 
 			Assert.assertEquals("{spring.commons}", TestUtils.getDetail(e, "noStringMessage").getErrorMessage());
 			Assert.assertEquals("noStringMessage", TestUtils.getDetail(e, "noStringMessage").getErrorCode());
-			Assert.assertEquals(FieldErrorMapper.TEMPLATE_NOT_FOUND, TestUtils.getDetail(e, "noStringMessage").getMetaData().get("i18n"));
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_NOT_FOUND, TestUtils.getDetail(e, "noStringMessage").getMetaData().get("i18n"));
 		}
 	}
 
