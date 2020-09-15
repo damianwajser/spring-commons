@@ -1,5 +1,6 @@
 package com.github.damianwajser.rest.templates;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.github.damianwajser.rest.configuration.TimeoutConfigurationProperties;
@@ -26,40 +27,40 @@ import java.util.List;
 @Configuration
 public class RestTemplateConfiguration {
 
-    @Autowired
-    private TimeoutConfigurationProperties timeouts;
+	@Autowired
+	private TimeoutConfigurationProperties timeouts;
 
-    @Bean
-    @Primary
-    @Qualifier("default_template")
-    public RestTemplate restTemplate() {
-        return getRestTemplate();
-    }
+	@Bean
+	@Primary
+	@Qualifier("default_template")
+	public RestTemplate restTemplate() {
+		return getRestTemplate();
+	}
 
-    private RestTemplate getRestTemplate() {
-        final RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-        restTemplate.setInterceptors(getInterceptors());
+	private RestTemplate getRestTemplate() {
+		final RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+		restTemplate.setInterceptors(getInterceptors());
 
-        return restTemplate;
-    }
+		return restTemplate;
+	}
 
-    private ClientHttpRequestFactory getClientHttpRequestFactory() {
-        final RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(timeouts.getConnection())
-                .setConnectionRequestTimeout(timeouts.getWrite())
-                .setSocketTimeout(timeouts.getRead())
-                .build();
-        final CloseableHttpClient client = HttpClientBuilder
-                .create()
-                .setDefaultRequestConfig(config)
-                .build();
+	private ClientHttpRequestFactory getClientHttpRequestFactory() {
+		final RequestConfig config = RequestConfig.custom()
+				.setConnectTimeout(timeouts.getConnection())
+				.setConnectionRequestTimeout(timeouts.getWrite())
+				.setSocketTimeout(timeouts.getRead())
+				.build();
+		final CloseableHttpClient client = HttpClientBuilder
+				.create()
+				.setDefaultRequestConfig(config)
+				.build();
 
-        return new HttpComponentsClientHttpRequestFactory(client);
-    }
+		return new HttpComponentsClientHttpRequestFactory(client);
+	}
 
-    private List<ClientHttpRequestInterceptor> getInterceptors() {
-        return Collections.singletonList(new RestTemplateInterceptor());
-    }
+	private List<ClientHttpRequestInterceptor> getInterceptors() {
+		return Collections.singletonList(new RestTemplateInterceptor());
+	}
 
 	@Bean
 	@Qualifier("snake_template")
@@ -70,6 +71,7 @@ public class RestTemplateConfiguration {
 		MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter();
 		ObjectMapper mapper = new ObjectMapper();
 		jsonMessageConverter.setObjectMapper(mapper);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		messageConverters.add(jsonMessageConverter);
 		restTemplate.setMessageConverters(messageConverters);
