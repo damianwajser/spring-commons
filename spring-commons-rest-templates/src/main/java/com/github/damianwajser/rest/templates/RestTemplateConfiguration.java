@@ -3,6 +3,7 @@ package com.github.damianwajser.rest.templates;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.damianwajser.rest.configuration.TimeoutConfigurationProperties;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.apache.http.client.config.RequestConfig;
@@ -73,6 +74,7 @@ public class RestTemplateConfiguration {
 		jsonMessageConverter.setObjectMapper(mapper);
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+		mapper.registerModule(new Jdk8Module());
 		messageConverters.add(jsonMessageConverter);
 		restTemplate.setMessageConverters(messageConverters);
 		return restTemplate;
