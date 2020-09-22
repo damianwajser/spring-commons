@@ -142,7 +142,7 @@ This module tries to solve the problems associated with idempotence. For them, c
  1. The first request finished executing, which returns the same response that was obtained in the first call.
  2. In case the first request is still running, a message will be returned indicating the conflict.
 
-## 9 [spring-commons-actuator](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-actuator "spring-commons-actuator")
+## 10 [spring-commons-actuator](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-actuator "spring-commons-actuator")
 
 ````xml
 <plugin>
@@ -166,6 +166,7 @@ This module tries to solve the problems associated with idempotence. For them, c
     </configuration>
 </plugin>
 ````
+## 11 [spring-commons-payment-utilities](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-payment-utilities "spring-commons-payment-utilities")
 
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
