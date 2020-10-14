@@ -22,10 +22,10 @@ public final class ExceptionFactory {
 					Class<RestException> clazz = new Reflections(RestException.class.getPackage().getName()).getTypesAnnotatedWith(ResponseStatus.class)
 							.stream().filter(c -> c.getAnnotation(ResponseStatus.class).code().equals(status)).map(c -> (Class<RestException>) c)
 							.findFirst().orElse(RestException.class);
-					exceptionCache.put(status, clazz);
 					return clazz;
 				}
 		);
+		exceptionCache.put(status, exception);
 		return exception.getDeclaredConstructor(List.class).newInstance(details);
 	}
 }
