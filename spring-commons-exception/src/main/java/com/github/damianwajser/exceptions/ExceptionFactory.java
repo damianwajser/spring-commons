@@ -13,14 +13,19 @@ public final class ExceptionFactory {
 
 	private static Map<HttpStatus, Class<RestException>> exceptionCache = new ConcurrentHashMap<>();
 
-	public static RestException getException(List<ExceptionDetail> details, HttpStatus status) throws ReflectiveOperationException {
-		Class<RestException> exception = exceptionCache.get(status);
-		if (exception == null) {
-			exception = new Reflections(RestException.class.getPackage().getName()).getTypesAnnotatedWith(ResponseStatus.class)
-					.stream().filter(c -> c.getAnnotation(ResponseStatus.class).code().equals(status)).map(c -> (Class<RestException>) c)
-					.findFirst().orElse(RestException.class);
-			exceptionCache.put(status, exception);
-		}
+	private ExceptionFactory() {
+	}
+
+	public static RestException getException(List<ExceptionDetail> details, HttpStatus status) throws
+			ReflectiveOperationException {
+		Class<RestException> exception = exceptionCache.computeIfAbsent(status, k -> {
+					Class<RestException> clazz = new Reflections(RestException.class.getPackage().getName()).getTypesAnnotatedWith(ResponseStatus.class)
+							.stream().filter(c -> c.getAnnotation(ResponseStatus.class).code().equals(status)).map(c -> (Class<RestException>) c)
+							.findFirst().orElse(RestException.class);
+					return clazz;
+				}
+		);
+		exceptionCache.put(status, exception);
 		return exception.getDeclaredConstructor(List.class).newInstance(details);
 	}
 }

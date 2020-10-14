@@ -17,7 +17,7 @@
 
 
 	<properties>
-		<revision>1.14.2</revision>
+		<revision>1.14.5</revision>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,6 +30,7 @@
 		<jedis.client.version>3.3.0</jedis.client.version>
 	</properties>
 	<modules>
+		<module>spring-commons-payment-utilities</module>
 		<module>spring-commons-cache</module>
 		<module>spring-commons-actuator</module>
 		<module>spring-commons-exception</module>
