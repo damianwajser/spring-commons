@@ -40,7 +40,7 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 
 	public CacheEndpointExtension(CachesEndpoint delegate) {
 		super(delegate);
-		LOGGER.debug("inicializando extencion actuator");
+		LOGGER.debug("initializing extension actuator");
 	}
 
 	@ReadOperation

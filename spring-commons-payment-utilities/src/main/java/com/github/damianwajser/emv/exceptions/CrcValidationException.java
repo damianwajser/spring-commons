@@ -1,8 +1,8 @@
 package com.github.damianwajser.emv.exceptions;
 
-public class CrcValidationException extends Exception {
+public class CrcValidationException extends EmvFormatException {
 
-	public CrcValidationException(String messaje) {
-		super(messaje);
+	public CrcValidationException(String message) {
+		super(message);
 	}
 }

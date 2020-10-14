@@ -44,6 +44,7 @@ public class TtlTest {
 		Thread.sleep(2000);
 		Assert.assertNotEquals(uuid1, service.generateUUID());
 	}
+
 	@Test
 	public void testTTL_5_sec() throws InterruptedException {
 		String uuid1 = service.generateUUID2();
@@ -53,6 +54,7 @@ public class TtlTest {
 		Thread.sleep(1000);
 		Assert.assertNotEquals(uuid1, service.generateUUID2());
 	}
+
 	@Test
 	public void testTTL_default_sec() throws InterruptedException {
 		String uuid1 = service.generateUUID3();
