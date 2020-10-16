@@ -24,4 +24,16 @@ public class UnsupportedMediaTypeException extends RestException {
 	public UnsupportedMediaTypeException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
+
+	public UnsupportedMediaTypeException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public UnsupportedMediaTypeException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public UnsupportedMediaTypeException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
+	}
 }
