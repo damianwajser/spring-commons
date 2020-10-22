@@ -12,6 +12,7 @@ import java.util.Optional;
 public class ForbiddenException extends RestException {
 
 	private static final long serialVersionUID = 6530273083259853379L;
+
 	public ForbiddenException(ExceptionDetail detail) {
 		super(detail);
 	}
@@ -22,6 +23,18 @@ public class ForbiddenException extends RestException {
 
 	public ForbiddenException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
+	}
+
+	public ForbiddenException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public ForbiddenException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public ForbiddenException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
 	}
 
 }

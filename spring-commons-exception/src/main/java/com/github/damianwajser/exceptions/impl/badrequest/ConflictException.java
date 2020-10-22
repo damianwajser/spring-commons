@@ -24,4 +24,16 @@ public class ConflictException extends RestException {
 	public ConflictException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
+
+	public ConflictException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public ConflictException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public ConflictException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
+	}
 }

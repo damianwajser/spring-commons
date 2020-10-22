@@ -24,4 +24,16 @@ public class MethodNotAllowedException extends RestException {
 	public MethodNotAllowedException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
+
+	public MethodNotAllowedException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public MethodNotAllowedException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public MethodNotAllowedException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
+	}
 }

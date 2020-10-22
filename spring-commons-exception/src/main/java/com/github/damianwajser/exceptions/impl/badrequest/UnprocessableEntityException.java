@@ -24,4 +24,16 @@ public class UnprocessableEntityException extends RestException {
 	public UnprocessableEntityException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
+
+	public UnprocessableEntityException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public UnprocessableEntityException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public UnprocessableEntityException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
+	}
 }

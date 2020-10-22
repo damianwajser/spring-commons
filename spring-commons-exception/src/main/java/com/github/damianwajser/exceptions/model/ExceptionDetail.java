@@ -28,7 +28,7 @@ public class ExceptionDetail implements Serializable {
 	@JsonAlias({"error_message", "errorMessage"})
 	private String errorMessage;
 
-	@JsonAlias({"meta_data", "metaData"})
+	@JsonAlias({"meta_data", "metaData", "metadata"})
 	private Map<String, Object> metaData;
 
 	public ExceptionDetail(){}

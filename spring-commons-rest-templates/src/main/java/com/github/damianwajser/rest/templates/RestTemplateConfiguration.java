@@ -10,6 +10,7 @@ import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,12 +23,16 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import javax.net.ssl.SSLContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Configuration
 public class RestTemplateConfiguration {
+
+	@Autowired(required = false)
+	private SSLContext sslContext;
 
 	@Autowired
 	private TimeoutConfigurationProperties timeouts;
@@ -36,38 +41,57 @@ public class RestTemplateConfiguration {
 	@Primary
 	@Qualifier("default_template")
 	public RestTemplate restTemplate() {
-		return getRestTemplate();
+		return getRestTemplate(false);
 	}
 
-	private RestTemplate getRestTemplate() {
-		final RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+	@Bean
+	@Qualifier("snake_template")
+	public RestTemplate restTemplateSnake() {
+		RestTemplate restTemplate = getSnakeRestTemplate(false);
+		return restTemplate;
+	}
+
+	@Bean
+	@Qualifier("ssl_camel_case_template")
+	public RestTemplate restTemplateSsl() {
+		return getRestTemplate(true);
+	}
+
+	@Bean
+	@Qualifier("ssl_snake_case_template")
+	public RestTemplate restTemplateSslSnake() {
+		return getSnakeRestTemplate(true);
+	}
+
+	private RestTemplate getRestTemplate(boolean hasSslContext) {
+		final RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory(hasSslContext));
 		restTemplate.setInterceptors(getInterceptors());
 
 		return restTemplate;
 	}
 
-	private ClientHttpRequestFactory getClientHttpRequestFactory() {
+	private ClientHttpRequestFactory getClientHttpRequestFactory(boolean hasSslContext) {
 		final RequestConfig config = RequestConfig.custom()
 				.setConnectTimeout(timeouts.getConnection())
 				.setConnectionRequestTimeout(timeouts.getWrite())
 				.setSocketTimeout(timeouts.getRead())
 				.build();
-		final CloseableHttpClient client = HttpClientBuilder
+		HttpClientBuilder builder = HttpClientBuilder
 				.create()
-				.setDefaultRequestConfig(config)
-				.build();
-
-		return new HttpComponentsClientHttpRequestFactory(client);
+				.setDefaultRequestConfig(config);
+		if (hasSslContext == true && sslContext != null) {
+			builder.setSSLContext(sslContext);
+		}
+		return new HttpComponentsClientHttpRequestFactory(builder.build());
 	}
 
 	private List<ClientHttpRequestInterceptor> getInterceptors() {
 		return Collections.singletonList(new RestTemplateInterceptor());
 	}
 
-	@Bean
-	@Qualifier("snake_template")
-	public RestTemplate restTemplateSnake() {
-		RestTemplate restTemplate = getRestTemplate();
+	@NotNull
+	private RestTemplate getSnakeRestTemplate(boolean hasSSl) {
+		RestTemplate restTemplate = getRestTemplate(hasSSl);
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
 		MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter();
