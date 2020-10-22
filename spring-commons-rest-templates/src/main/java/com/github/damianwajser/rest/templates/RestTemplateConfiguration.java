@@ -3,8 +3,11 @@ package com.github.damianwajser.rest.templates;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.github.damianwajser.rest.configuration.TimeoutConfigurationProperties;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.apache.http.client.config.RequestConfig;
@@ -13,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,12 +28,20 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Configuration
 public class RestTemplateConfiguration {
+
+	@Value("${spring.commons.rest.template.date.serializer.format.local.date}")
+	private String formatLocalDateSerializer;
+
+	@Value("${spring.commons.rest.template.date.deserializer.format.local.date}")
+	private String formatLocalDateDeserializer;
 
 	@Autowired(required = false)
 	private SSLContext sslContext;
@@ -95,11 +107,19 @@ public class RestTemplateConfiguration {
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
 		MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter();
+		JavaTimeModule javaTimeModule = new JavaTimeModule();
+		javaTimeModule.addDeserializer(
+				LocalDate.class,
+				new LocalDateDeserializer(DateTimeFormatter.ofPattern(formatLocalDateSerializer)));
+		javaTimeModule.addSerializer(
+				LocalDate.class,
+				new LocalDateSerializer(DateTimeFormatter.ofPattern(formatLocalDateDeserializer)));
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		mapper.registerModule(new Jdk8Module());
-		mapper.registerModule(new JavaTimeModule());
+		mapper.registerModule(javaTimeModule);
 		jsonMessageConverter.setObjectMapper(mapper);
 		messageConverters.add(jsonMessageConverter);
 		restTemplate.setMessageConverters(messageConverters);
