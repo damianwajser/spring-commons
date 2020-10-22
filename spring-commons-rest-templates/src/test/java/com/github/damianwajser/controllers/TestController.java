@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @RestController
 public class TestController {
 
@@ -36,6 +38,12 @@ public class TestController {
 	@PostMapping("/camel_case")
 	private Object camel_case(@RequestBody RequestToController request) {
 		return restTemplate.postForObject("https://httpbin.org/post", request, Object.class);
+	}
+
+	@PostMapping("/snake_case/local_date")
+	private String snake_caseWithResponse(@RequestBody RequestToController request) {
+		Map<String, String> mapResponse = restTemplateSnake.postForObject("https://httpbin.org/post", request, Map.class);
+		return mapResponse.get("data");
 	}
 
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github.damianwajser</groupId>
     <artifactId>spring-commons-parent</artifactId>
-    <version>1.14.1</version>
+    <version>1.14.5</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons</artifactId>
-  <version>1.14.1</version>
+  <version>1.14.5</version>
   <name>spring-commons</name>
   <description>DESC</description>
   <url>http://github.com/damianwajser/spring-commons</url>
@@ -49,6 +49,11 @@
     <dependency>
       <groupId>com.github.damianwajser</groupId>
       <artifactId>spring-commons-actuator</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.damianwajser</groupId>
+      <artifactId>spring-commons-payment-utilities</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
