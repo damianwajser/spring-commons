@@ -24,4 +24,16 @@ public class LockedException extends RestException {
 	public LockedException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		super(errorCode, errorMessage, errorDetail);
 	}
+
+	public LockedException(ExceptionDetail detail, Exception e) {
+		super(detail, e);
+	}
+
+	public LockedException(List<ExceptionDetail> details, Exception e) {
+		super(details, e);
+	}
+
+	public LockedException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+		super(errorCode, errorMessage, errorDetail, e);
+	}
 }
