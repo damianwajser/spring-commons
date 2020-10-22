@@ -11,7 +11,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.github.damianwajser.rest.configuration.TimeoutConfigurationProperties;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,7 @@ public class RestTemplateConfiguration {
 	@Primary
 	@Qualifier("default_template")
 	public RestTemplate restTemplate() {
-		return getRestTemplate(false);
+		return getCamelCaseRestTemplate(false);
 	}
 
 	@Bean
@@ -66,7 +65,7 @@ public class RestTemplateConfiguration {
 	@Bean
 	@Qualifier("ssl_camel_case_template")
 	public RestTemplate restTemplateSsl() {
-		return getRestTemplate(true);
+		return getCamelCaseRestTemplate(true);
 	}
 
 	@Bean
@@ -102,9 +101,20 @@ public class RestTemplateConfiguration {
 	}
 
 	@NotNull
+	private RestTemplate getCamelCaseRestTemplate(boolean hasSSl){
+		RestTemplate restTemplate = getRestTemplate(hasSSl);
+		setRestTemplateConfiguration(restTemplate, false);
+		return restTemplate;
+	}
+
+	@NotNull
 	private RestTemplate getSnakeRestTemplate(boolean hasSSl) {
 		RestTemplate restTemplate = getRestTemplate(hasSSl);
+		setRestTemplateConfiguration(restTemplate, true);
+		return restTemplate;
+	}
 
+	private void setRestTemplateConfiguration(RestTemplate restTemplate, boolean isSnakeCase) {
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
 		MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter();
 		JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -117,12 +127,13 @@ public class RestTemplateConfiguration {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		mapper.registerModule(new Jdk8Module());
 		mapper.registerModule(javaTimeModule);
-		jsonMessageConverter.setObjectMapper(mapper);
-		messageConverters.add(jsonMessageConverter);
-		restTemplate.setMessageConverters(messageConverters);
-		return restTemplate;
+		if (isSnakeCase) {
+			mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+			jsonMessageConverter.setObjectMapper(mapper);
+			messageConverters.add(jsonMessageConverter);
+			restTemplate.setMessageConverters(messageConverters);
+		}
 	}
 }
