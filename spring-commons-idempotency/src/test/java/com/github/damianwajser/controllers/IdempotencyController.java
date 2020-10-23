@@ -29,4 +29,9 @@ public class IdempotencyController {
 		Thread.sleep(1500l);
 		return new FooObject(value);
 	}
+	@PostMapping("/idempotency/regex")
+	private FooObject test_post_delay_regex() throws InterruptedException {
+		Thread.sleep(1500l);
+		return new FooObject(value);
+	}
 }
