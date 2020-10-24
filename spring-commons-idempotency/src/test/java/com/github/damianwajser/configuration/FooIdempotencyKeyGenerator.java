@@ -2,21 +2,21 @@ package com.github.damianwajser.configuration;
 
 import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
-import com.github.damianwajser.model.FooObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<FooObject> {
+public class FooIdempotencyKeyGenerator implements IdempotencyKeyGenerator {
 
-	private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
+	private static final String IDEMPOTENCY_DEFAULT_HEADER = "X-Idempotency-Key";
 
 	@Override
-	public String generateKey(HttpHeaders headers, HttpMethod method, String path, FooObject request) {
-		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-		return path + "::" + key + "::" + method.toString() + "::" + request.getValue();
+	public String generateKey(HttpHeaders headers, HttpMethod method, String path, HttpServletRequest request) {
+		String key = getHeaderValue(headers, IDEMPOTENCY_DEFAULT_HEADER);
+		return path + "::" + key + "::" + method.toString();
 	}
 
 	protected String getHeaderValue(HttpHeaders headers, String headerKey) {
