@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.github.damianwajser</groupId>
     <artifactId>spring-commons-parent</artifactId>
-    <version>1.14.9</version>
+    <version>1.15.2</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-exception</artifactId>
-  <version>1.14.9</version>
+  <version>1.15.2</version>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
