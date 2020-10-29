@@ -24,8 +24,7 @@ public abstract class RestException extends Exception {
 	protected final List<ExceptionDetail> details;
 
 	public RestException(List<ExceptionDetail> details, Exception e) {
-		super(e);
-		Assert.notNull(details, "details can't be null");
+		super(details != null ? details.toString() : "", e);
 		this.details = details;
 	}
 
@@ -39,7 +38,6 @@ public abstract class RestException extends Exception {
 
 	public RestException(ExceptionDetail detail) {
 		this(detail, null);
-		Assert.notNull(detail, "detail can't be null");
 	}
 
 	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {

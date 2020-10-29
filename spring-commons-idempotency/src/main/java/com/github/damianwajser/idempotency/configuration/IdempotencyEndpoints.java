@@ -1,8 +1,10 @@
 package com.github.damianwajser.idempotency.configuration;
 
+import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import org.springframework.http.HttpMethod;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class IdempotencyEndpoints {
 		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator(), methods);
 	}
 
-	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator<Object> keyGenerator, HttpMethod... methods) {
+	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator keyGenerator, HttpMethod... methods) {
 		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(endpoint, new HashSet<>(Arrays.asList(methods)), keyGenerator);
 		this.endpoints.put(endpoint, idempotencyEndpoint);
 		return idempotencyEndpoint;
@@ -39,7 +41,11 @@ public class IdempotencyEndpoints {
 	}
 
 	private IdempotencyEndpoint getEndpoint(HttpServletRequest request) {
-		return this.endpoints.get(request.getRequestURI());
+		return this.endpoints.entrySet().stream()
+				.filter(entry -> new AntPathMatcher().match(entry.getKey(), request.getRequestURI()))
+				.map(Map.Entry::getValue)
+				.findFirst()
+				.orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI()));
 	}
 
 	public String generateKey(HttpServletRequest request) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

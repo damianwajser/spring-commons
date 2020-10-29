@@ -64,38 +64,19 @@ Eneable the module
 ```properties
 spring.commons.idempotency.enabled=true
 ```
-
 Remember that this module works with cache, with which you should first configure your ***spring-commons-cache***, for which I leave you an example:
 
-1. Suppose we have the following domain object
 ```java
-public class FooObject {
-
-   private String value;
-   //The Empty Constructor is required
-   public FooObject(){ }
-
-   public String getValue() {
-      return value;
-   }
-
-   public void setValue(String value) {
-      this.value = value;
-   }
-```
-2. So we want some properties of the object to be part of the idempotence key, for which we should create our own KeyGenerator  and override the "generateKey" method. The declaration of the generics is important, since the request will be stopped and a mapping will be made towards the declared object, it can return InternalErrorOfServer in case of a ClassCastException.
-
-```java
-                                                                           //very important
+                                                                           import javax.servlet.http.HttpServletRequest;//very important
 									  //generic
-public class FooIdempotencyKeyGenerator<T> implements IdempotencyKeyGenerator<FooObject> {
+public class FooIdempotencyKeyGenerator implements IdempotencyKeyGenerator {
 
    private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 
    @Override
-   public String generateKey(HttpHeaders headers, HttpMethod method, String path, FooObject request) {
+   public String generateKey(HttpHeaders headers, HttpMethod method, String path, HttpServletRequest request) {
       String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
-      return path + "-" + key + "-" + method.toString() + "-" + request.getValue();
+      return path + "-" + key + "-" + method.toString() + "-" ; // manipulate the request
    }
 
    protected String getHeaderValue(HttpHeaders headers, String headerKey) {

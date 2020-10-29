@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Assert;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Optional;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ErrorMessageTest {
 
@@ -34,4 +35,12 @@ public class ErrorMessageTest {
 
 	}
 
+	@Test
+	public void ErrorMessageTestStack() {
+		try {
+			throw new BadRequestException("a", "b", Optional.of("asd"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
