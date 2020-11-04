@@ -58,7 +58,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 		String format;
 		switch (this.yearFormat) {
 			case TWO_DIGITS:
-				format = "MM-uu";
+				format = "M-uu";
 				break;
 			case FOUR_DIGIT:
 				format = "MM-YYYY";
