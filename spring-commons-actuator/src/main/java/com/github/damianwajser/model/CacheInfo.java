@@ -4,12 +4,13 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CacheInfo {
 
 	private String prerfix;
-	private Map<String, Object> keys;
+	private Map<String, Object> keys = new HashMap<>();
 	private String ttl;
 
 	public String getPrerfix() {
