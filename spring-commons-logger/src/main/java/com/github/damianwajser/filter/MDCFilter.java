@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class MDCFilter implements Filter {
+public class MDCFilter extends OncePerRequestFilter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MDCFilter.class);
 
@@ -28,12 +31,7 @@ public class MDCFilter implements Filter {
 	private RequestIdGenerator generator;
 
 	@Override
-	public void init(FilterConfig filterConfig) {
-		LOGGER.debug("inicializando Filtro");
-	}
-
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
 		try {

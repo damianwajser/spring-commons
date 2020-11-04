@@ -39,7 +39,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 	private boolean isValidExpirable(CardExpirable expirable) {
 		String dateStr = expirable.getExpirationMonth() + "-" + expirable.getExpirationYear();
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(this.getPattern()+"-dd")
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(this.getPattern() + "-dd")
 					.withResolverStyle(ResolverStyle.STRICT);
 
 			TemporalAccessor temporalAccessor = formatter.parse(dateStr + "-01");
