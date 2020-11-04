@@ -26,6 +26,7 @@ public class CardValidationTest {
 		assertThat(validationFor(new ExpirationObject()), fails());
 		assertThat(validationFor(new ExpirationObject(10, 30)), succedes());
 		assertThat(validationFor(new ExpirationObject(11, 26)), succedes());
+		assertThat(validationFor(new ExpirationObject(5, 25)), succedes());
 		assertThat(validationFor(new ExpirationObject(2, 19)), fails());
 		assertThat(validationFor(new ExpirationObject(99, 25)), fails());
 	}
