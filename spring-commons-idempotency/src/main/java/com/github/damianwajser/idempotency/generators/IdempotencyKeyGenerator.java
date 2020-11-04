@@ -3,7 +3,6 @@ package com.github.damianwajser.idempotency.generators;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 public interface IdempotencyKeyGenerator {
