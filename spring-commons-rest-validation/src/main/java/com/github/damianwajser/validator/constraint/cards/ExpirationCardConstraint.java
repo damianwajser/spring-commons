@@ -6,11 +6,12 @@ import com.github.damianwajser.validator.interfaces.CardExpirable;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.MonthDay;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
+import java.time.format.ResolverStyle;
 import java.time.temporal.TemporalAccessor;
-import java.util.Comparator;
 
 public class ExpirationCardConstraint extends AbstractConstraint implements ConstraintValidator<CardExpiration, Object> {
 
@@ -38,12 +39,16 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 	private boolean isValidExpirable(CardExpirable expirable) {
 		String dateStr = expirable.getExpirationMonth() + "-" + expirable.getExpirationYear();
 		try {
-			TemporalAccessor ta = DateTimeFormatter.ofPattern(this.getPattern()).parse(dateStr);
-			Comparator<TemporalAccessor> monthCompare = (a, b) -> a.get(ChronoField.MONTH_OF_YEAR) - b.get(ChronoField.MONTH_OF_YEAR);
-			Comparator<TemporalAccessor> yearCompare = (a, b) -> a.get(ChronoField.YEAR) - b.get(ChronoField.YEAR);
-			Comparator<TemporalAccessor> dateCompare = monthCompare.thenComparing(yearCompare);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(this.getPattern() + "-dd")
+					.withResolverStyle(ResolverStyle.STRICT);
 
-			return dateCompare.compare(ta, LocalDateTime.now()) < 0;
+			TemporalAccessor temporalAccessor = formatter.parse(dateStr + "-01");
+
+			LocalDate expiryDate = LocalDate.of(YearMonth.from(temporalAccessor).getYear(),
+					MonthDay.from(temporalAccessor).getMonthValue(),
+					MonthDay.from(temporalAccessor).getDayOfMonth());
+
+			return LocalDate.now().isBefore(expiryDate);
 		} catch (Exception e) {
 			return false;
 		}
@@ -53,7 +58,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 		String format;
 		switch (this.yearFormat) {
 			case TWO_DIGITS:
-				format = "MM-YY";
+				format = "M-uu";
 				break;
 			case FOUR_DIGIT:
 				format = "MM-YYYY";
