@@ -42,7 +42,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(this.getPattern() + "-dd")
 					.withResolverStyle(ResolverStyle.STRICT);
 
-			TemporalAccessor temporalAccessor = formatter.parse(dateStr + "-01");
+			TemporalAccessor temporalAccessor = formatter.parse(dateStr + lastDayOfMonth(expirable));
 
 			LocalDate expiryDate = LocalDate.of(YearMonth.from(temporalAccessor).getYear(),
 					MonthDay.from(temporalAccessor).getMonthValue(),
@@ -67,5 +67,11 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 				format = null;
 		}
 		return format;
+	}
+
+	private String lastDayOfMonth(CardExpirable expirable) {
+		LocalDate lastDayOfMonth = YearMonth.of(expirable.getExpirationYear(),
+				expirable.getExpirationMonth()).atEndOfMonth();
+		return "-" + lastDayOfMonth.getDayOfMonth();
 	}
 }
