@@ -50,7 +50,7 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 			redisCache.ifPresent(c -> {
 				info.setTtl(c.getCacheConfiguration().getTtl().getSeconds() + " seconds");
 				String prefix = c.getCacheConfiguration().getKeyPrefixFor(cacheName);
-				info.setPrerfix(prefix);
+				info.setPrefix(prefix);
 				info.setKeys(getKeysInformation(redisTemplate, cacheName));
 			});
 		}
