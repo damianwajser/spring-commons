@@ -9,16 +9,16 @@ import java.util.Map;
 
 public class CacheInfo {
 
-	private String prerfix;
+	private String prefix;
 	private Map<String, Object> keys = new HashMap<>();
 	private String ttl;
 
-	public String getPrerfix() {
-		return prerfix;
+	public String getPrefix() {
+		return prefix;
 	}
 
-	public void setPrerfix(String prerfix) {
-		this.prerfix = prerfix;
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 
 	public Map<String, Object> getKeys() {

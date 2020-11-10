@@ -53,7 +53,7 @@ public class CacheTest {
 
 		CacheInfo info = new CacheInfo();
 
-		info.setPrerfix("ms-test::cache-ttl1::");
+		info.setPrefix("ms-test::cache-ttl1::");
 		info.setTtl("2 seconds");
 		Assert.assertEquals(info, result);
 		Assert.assertEquals(info.hashCode(), result.hashCode());
