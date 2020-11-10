@@ -128,7 +128,7 @@ Among its features we find:
 
 This module configures the connector to logstash async way.
 
-## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-cache")
+## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-cache "spring-commons-cache")
 
 This module tries to solve the typical problems that we encounter when we use Redis as Cache in spring.
 Configure:
@@ -168,5 +168,18 @@ This module tries to solve the problems associated with idempotence. For them, c
 ````
 ## 11 [spring-commons-payment-utilities](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-payment-utilities "spring-commons-payment-utilities")
 
+## Commons Issues:
+### DynamoDb
+DynamoDb generate some issues connfiguring JPA, this issue has solution, exclude the DatasourceAutoConfiguration:
+```java
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration
+@ComponentScan(basePackages = {"com.github.damianwajser","{YOUR-PACKAGE}"})
+public class Application {
+   public static void main(String[] args) {
+      SpringApplication.run(Application.class, args);
+   }
+}
+```
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
