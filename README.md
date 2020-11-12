@@ -173,7 +173,12 @@ This module tries to solve the problems associated with idempotence. For them, c
 DynamoDb generate some issues connfiguring JPA, this issue has solution, exclude the DatasourceAutoConfiguration:
 ```java
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-@EnableAutoConfiguration
+@EnableDynamoDBRepositories(
+    includeFilters = {
+            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
+                {YOUR-REPO1}.class, {YOUR-REPO1}.class})
+    }
+)
 @ComponentScan(basePackages = {"com.github.damianwajser","{YOUR-PACKAGE}"})
 public class Application {
    public static void main(String[] args) {
