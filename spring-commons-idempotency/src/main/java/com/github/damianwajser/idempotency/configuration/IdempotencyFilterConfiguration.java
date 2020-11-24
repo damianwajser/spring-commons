@@ -12,7 +12,7 @@ import javax.servlet.Filter;
 
 @Configuration
 @ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
-public class IdempontencyFilterConnfiguration {
+public class IdempotencyFilterConfiguration {
 
 	@Bean
 	@ConditionalOnProperty(name = "spring.commons.idempotency.enabled", havingValue = "true")
