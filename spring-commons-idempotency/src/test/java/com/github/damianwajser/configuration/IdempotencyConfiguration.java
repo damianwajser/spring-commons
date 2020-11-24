@@ -14,6 +14,7 @@ public class IdempotencyConfiguration {
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency", new FooIdempotencyKeyGenerator(), HttpMethod.POST);
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_delay");
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency/*");
+		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency/**/regex2/**");
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_bad_request");
 		return idempotencyEndpoints;
 	}

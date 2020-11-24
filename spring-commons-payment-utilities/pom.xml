@@ -10,4 +10,11 @@
 		<artifactId>spring-commons-parent</artifactId>
 		<version>${revision}</version>
 	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+	</dependencies>
 </project>

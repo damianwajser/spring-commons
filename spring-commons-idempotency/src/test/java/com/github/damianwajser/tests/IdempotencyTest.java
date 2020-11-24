@@ -104,6 +104,27 @@ public class IdempotencyTest {
 		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
 	}
 	@Test()
+	public void conflict_regex2() throws Exception {
+		String idemKey = "conflict";
+		String url = "http://localhost:" + port + "/idempotency/asdasda/regex2/sdfasda";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set(HEADER_IDEM, idemKey);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		ExecutorService service = Executors.newFixedThreadPool(4);
+		Future<FooObject> future = service.submit(() -> sendIdempotency(entity, url));
+		Thread.sleep(1000);
+		Future<FooObject> future2 = service.submit(() -> sendIdempotency(entity, url));
+		Assert.assertEquals(future.get().getValue(), IdempotencyController.value);
+		try {
+			future2.get();
+			Assert.fail("not work");
+		} catch (ExecutionException e) {
+			HttpClientErrorException.Conflict conflict = (HttpClientErrorException.Conflict) e.getCause();
+			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+		}
+		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
+	}
+	@Test()
 	public void conflict() throws Exception {
 		String idemKey = "conflict";
 		String url = "http://localhost:" + port + "/idempotency_delay";
