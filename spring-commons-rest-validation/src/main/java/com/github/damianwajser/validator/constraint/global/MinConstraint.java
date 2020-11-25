@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 @Deprecated
 /**
- *
+ * Use de minn package
  */
 public class MinConstraint extends AbstractConstraint implements ConstraintValidator<Min, Object> {
 
