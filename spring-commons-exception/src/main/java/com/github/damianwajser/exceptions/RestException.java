@@ -27,23 +27,23 @@ public abstract class RestException extends Exception {
 		this.details = details;
 	}
 
-	public RestException(List<ExceptionDetail> details) {
+	protected RestException(List<ExceptionDetail> details) {
 		this(details, null);
 	}
 
-	public RestException(ExceptionDetail detail, Exception e) {
+	protected RestException(ExceptionDetail detail, Exception e) {
 		this(Arrays.asList(detail), e);
 	}
 
-	public RestException(ExceptionDetail detail) {
+	protected RestException(ExceptionDetail detail) {
 		this(detail, null);
 	}
 
-	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
+	protected RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		this(errorCode, errorMessage, errorDetail, null);
 	}
 
-	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+	protected RestException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
 		this(new ExceptionDetail(errorCode, errorMessage, errorDetail), e);
 	}
 
