@@ -84,73 +84,21 @@ public class IdempotencyTest {
 
 	@Test()
 	public void conflict_regex() throws Exception {
-		String idemKey = "conflict";
-		String url = "http://localhost:" + port + "/idempotency/regex";
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(HEADER_IDEM, idemKey);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		ExecutorService service = Executors.newFixedThreadPool(4);
-		Future<FooObject> future = service.submit(() -> sendIdempotency(entity, url));
-		Thread.sleep(1000);
-		Future<FooObject> future2 = service.submit(() -> sendIdempotency(entity, url));
-		Assert.assertEquals(future.get().getValue(), IdempotencyController.value);
-		try {
-			future2.get();
-			Assert.fail("not work");
-		} catch (ExecutionException e) {
-			HttpClientErrorException.Conflict conflict = (HttpClientErrorException.Conflict) e.getCause();
-			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-		}
-		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
+		conflict("/idempotency/regex");
 	}
+
 	@Test()
 	public void conflict_regex2() throws Exception {
-		String idemKey = "conflict";
-		String url = "http://localhost:" + port + "/idempotency/asdasda/regex2/sdfasda";
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(HEADER_IDEM, idemKey);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		ExecutorService service = Executors.newFixedThreadPool(4);
-		Future<FooObject> future = service.submit(() -> sendIdempotency(entity, url));
-		Thread.sleep(1000);
-		Future<FooObject> future2 = service.submit(() -> sendIdempotency(entity, url));
-		Assert.assertEquals(future.get().getValue(), IdempotencyController.value);
-		try {
-			future2.get();
-			Assert.fail("not work");
-		} catch (ExecutionException e) {
-			HttpClientErrorException.Conflict conflict = (HttpClientErrorException.Conflict) e.getCause();
-			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-		}
-		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
+		conflict("/idempotency/asdasda/regex2/sdfasda");
 	}
-	@Test()
-	public void conflict() throws Exception {
-		String idemKey = "conflict";
-		String url = "http://localhost:" + port + "/idempotency_delay";
-		HttpHeaders headers = new HttpHeaders();
-		headers.set(HEADER_IDEM, idemKey);
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		ExecutorService service = Executors.newFixedThreadPool(4);
-		Future<FooObject> future = service.submit(() -> sendIdempotency(entity, url));
-		Thread.sleep(1000);
-		Future<FooObject> future2 = service.submit(() -> sendIdempotency(entity, url));
-		Assert.assertEquals(future.get().getValue(), IdempotencyController.value);
-		try {
-			future2.get();
-			Assert.fail("not work");
-		} catch (ExecutionException e) {
-			HttpClientErrorException.Conflict conflict = (HttpClientErrorException.Conflict) e.getCause();
-			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-		}
-		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
-	}
-	public FooObject sendIdempotency(HttpEntity entity, String url) {
 
-		FooObject result = this.restTemplate
-				.exchange(url, HttpMethod.POST, entity, FooObject.class).getBody();
-		// Artificial delay of 1s for demonstration purposes
-		return result;
+	@Test()
+	public void conflict_test() throws Exception {
+		conflict("/idempotency_delay");
+	}
+
+	public FooObject sendIdempotency(HttpEntity entity, String url) {
+		return this.restTemplate.exchange(url, HttpMethod.POST, entity, FooObject.class).getBody();
 	}
 
 	@Test
@@ -197,5 +145,26 @@ public class IdempotencyTest {
 		}
 		assertThat(body1).isEqualTo(body2);
 		assertThat(status1).isEqualTo(status2);
+	}
+
+	public void conflict(String path) throws Exception {
+		String idemKey = "conflict";
+		String url = "http://localhost:" + port + path;
+		HttpHeaders headers = new HttpHeaders();
+		headers.set(HEADER_IDEM, idemKey);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		ExecutorService service = Executors.newFixedThreadPool(4);
+		Future<FooObject> future = service.submit(() -> sendIdempotency(entity, url));
+		Thread.sleep(1000);
+		Future<FooObject> future2 = service.submit(() -> sendIdempotency(entity, url));
+		Assert.assertEquals(future.get().getValue(), IdempotencyController.value);
+		try {
+			future2.get();
+			Assert.fail("not work");
+		} catch (ExecutionException e) {
+			HttpClientErrorException.Conflict conflict = (HttpClientErrorException.Conflict) e.getCause();
+			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+		}
+		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
 	}
 }
