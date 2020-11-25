@@ -10,6 +10,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public final class CacheUtilities {
+
+	private CacheUtilities(){
+		// static class
+	}
+
 	public static Map<String, Object> getKeysInformation(RedisTemplate redisTemplate, String cache) {
 		Set<Object> keys = redisTemplate != null ? redisTemplate.keys(cache + "*") : new HashSet<>();
 		return keys.isEmpty() ? new HashMap<>() : keys.stream().collect(Collectors.toMap(Object::toString, k -> redisTemplate.opsForValue().get(k)));
@@ -19,7 +24,7 @@ public final class CacheUtilities {
 		Optional<RedisCache> redisCache = Optional.empty();
 		if (cacheManager != null) {
 			Cache cacheImpl = cacheManager.getCache(name);
-			if (TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
+			if (cacheImpl != null && TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
 				cacheImpl = ((TransactionAwareCacheDecorator) cacheImpl).getTargetCache();
 				if (RedisCache.class.isAssignableFrom(cacheImpl.getClass())) {
 					redisCache = Optional.of((RedisCache) cacheImpl);
