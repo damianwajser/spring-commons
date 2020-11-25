@@ -69,7 +69,7 @@ public class CacheTest {
 		result = this.restTemplate
 				.exchange("http://localhost:" + port + "/actuator/cache-keys", HttpMethod.GET, null, Map.class).getBody();
 		Assert.assertFalse(result.isEmpty());
-		Assert.assertEquals(result.get("k"), "v");
+		Assert.assertEquals("v", result.get("k"));
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.github.damianwajser.idempotency.configuration;
 
+import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import org.springframework.http.HttpMethod;
@@ -44,7 +45,8 @@ public class IdempotencyEndpoints {
 	}
 
 	public String generateKey(HttpServletRequest request) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		return this.getEndpoint(request).get().generateKey(request);
+		return this.getEndpoint(request).map(ie -> ie.generateKey(request))
+				.orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI()));
 	}
 
 	public boolean isApplicable(HttpServletRequest request) {

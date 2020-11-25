@@ -27,13 +27,15 @@ public class CacheKeysEndpoint {
 	@ReadOperation
 	public Map<String, Object> key(@Selector String key) {
 		Map<String, Object> result = CacheUtilities.getKeysInformation(redisTemplate, key)
-				.entrySet().stream()
-				.collect(Collectors
-						.toMap(entry -> entry.getKey(), entry -> new HashMap<String, Object>() {{
-							put("value", entry.getValue());
-							put("ttl", redisTemplate.opsForValue().getOperations().getExpire(entry.getKey()));
-						}}));
+				.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey(), entry -> getCacheInfo(entry)));
 		return result;
+	}
+
+	private Map<String, Object> getCacheInfo(Map.Entry<String, Object> entry) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("value", entry.getValue());
+		map.put("ttl", redisTemplate.opsForValue().getOperations().getExpire(entry.getKey()));
+		return map;
 	}
 
 	@DeleteOperation
