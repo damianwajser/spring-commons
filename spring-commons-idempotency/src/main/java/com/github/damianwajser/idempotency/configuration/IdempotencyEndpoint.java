@@ -1,6 +1,5 @@
 package com.github.damianwajser.idempotency.configuration;
 
-import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.utils.HeadersUtil;
 import org.owasp.encoder.Encode;

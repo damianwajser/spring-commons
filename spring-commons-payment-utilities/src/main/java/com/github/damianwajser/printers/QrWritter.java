@@ -2,19 +2,15 @@ package com.github.damianwajser.printers;
 
 import com.github.damianwajser.printers.formatters.QrFormat;
 import com.github.damianwajser.printers.formatters.impl.FormattersFactory;
-import com.google.zxing.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 
 import java.io.IOException;
 
 public class QrWritter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(QrWritter.class);
-
 	private static final Integer WIDTH_DEFAULT = 512;
 	private static final Integer HEIGHT_DEFAULT = 512;
-
 
 	public byte[] write(String text, int width, int height, QrFormat format) throws WriterException, IOException {
 		width = (width > 0) ? width : WIDTH_DEFAULT;

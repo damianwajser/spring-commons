@@ -27,7 +27,7 @@ public class CacheKeysEndpoint {
 	@ReadOperation
 	public Map<String, Object> key(@Selector String key) {
 		return CacheUtilities.getKeysInformation(redisTemplate, key)
-				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> getCacheInfo(entry)));
+				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, this::getCacheInfo));
 	}
 
 	private Map<String, Object> getCacheInfo(Map.Entry<String, Object> entry) {
