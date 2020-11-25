@@ -28,7 +28,7 @@ public class IdempotencyEndpoints {
 	}
 
 	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator keyGenerator, HttpMethod... methods) {
-		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(endpoint, new HashSet<>(Arrays.asList(methods)), keyGenerator);
+		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(new HashSet<>(Arrays.asList(methods)), keyGenerator);
 		this.endpoints.put(endpoint, idempotencyEndpoint);
 		return idempotencyEndpoint;
 	}

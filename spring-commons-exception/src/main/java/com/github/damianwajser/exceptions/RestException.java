@@ -22,7 +22,7 @@ public abstract class RestException extends Exception {
 
 	protected final List<ExceptionDetail> details;
 
-	public RestException(List<ExceptionDetail> details, Exception e) {
+	protected RestException(List<ExceptionDetail> details, Exception e) {
 		super(details != null ? details.toString() : "", e);
 		this.details = details;
 	}

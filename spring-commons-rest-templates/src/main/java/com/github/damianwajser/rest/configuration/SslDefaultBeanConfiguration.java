@@ -18,11 +18,9 @@ import java.security.cert.CertificateException;
 @ConditionalOnProperty(name = "spring.commons.rest.template.ssl.enable", havingValue = "true")
 public class SslDefaultBeanConfiguration {
 
-	@Autowired
-	private SslConfigurationProperties properties;
 
 	@Bean
-	public SSLContext getSSlContext() throws IOException, CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+	public SSLContext getSSlContext(SslConfigurationProperties properties) throws IOException, CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
 		return SSLContextBuilder.create()
 				.loadTrustMaterial(new URL(properties.getTrustStore()),
 						properties.getTrustStorePassword())

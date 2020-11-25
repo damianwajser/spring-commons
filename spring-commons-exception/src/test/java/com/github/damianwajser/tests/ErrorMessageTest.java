@@ -38,8 +38,10 @@ public class ErrorMessageTest {
 	public void ErrorMessageTestStack() {
 		try {
 			throw new BadRequestException("a", "b", Optional.of("asd"));
-		} catch (Exception e) {
+		} catch (BadRequestException e) {
 			e.printStackTrace();
+		}catch (Exception e){
+			Assert.fail("error in exception create");
 		}
 	}
 }

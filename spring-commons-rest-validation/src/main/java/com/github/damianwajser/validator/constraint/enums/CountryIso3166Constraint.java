@@ -12,10 +12,10 @@ public class CountryIso3166Constraint extends AbstractConstraint implements Cons
 
 	@Override
 	public void initialize(Country_ISO3166 field) {
-		this.initialize(field.excludes(), field.isNulleable(), Countries.class);
+		this.initialize(field.excludes(), field.isNulleable());
 	}
 
-	public CountryIso3166Constraint initialize(HttpMethod[] excludes, boolean isNulleable, Class<? extends Enum<?>> enumClass) {
+	public CountryIso3166Constraint initialize(HttpMethod[] excludes, boolean isNulleable) {
 		super.excludes = excludes;
 		super.isNulleable = isNulleable;
 		return this;
