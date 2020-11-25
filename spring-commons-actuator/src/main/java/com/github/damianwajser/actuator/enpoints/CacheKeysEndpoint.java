@@ -26,13 +26,12 @@ public class CacheKeysEndpoint {
 
 	@ReadOperation
 	public Map<String, Object> key(@Selector String key) {
-		Map<String, Object> result = CacheUtilities.getKeysInformation(redisTemplate, key)
-				.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey(), entry -> getCacheInfo(entry)));
-		return result;
+		return CacheUtilities.getKeysInformation(redisTemplate, key)
+				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> getCacheInfo(entry)));
 	}
 
 	private Map<String, Object> getCacheInfo(Map.Entry<String, Object> entry) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("value", entry.getValue());
 		map.put("ttl", redisTemplate.opsForValue().getOperations().getExpire(entry.getKey()));
 		return map;
