@@ -7,12 +7,10 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 import java.time.Duration;
 
 @TestConfiguration
-@EnableRedisRepositories
 public class RedisConfiguration {
 
 	@Bean

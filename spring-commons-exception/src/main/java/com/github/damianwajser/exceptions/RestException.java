@@ -3,7 +3,6 @@ package com.github.damianwajser.exceptions;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,30 +22,28 @@ public abstract class RestException extends Exception {
 
 	protected final List<ExceptionDetail> details;
 
-	public RestException(List<ExceptionDetail> details, Exception e) {
-		super(e);
-		Assert.notNull(details, "details can't be null");
+	protected RestException(List<ExceptionDetail> details, Exception e) {
+		super(details != null ? details.toString() : "", e);
 		this.details = details;
 	}
 
-	public RestException(List<ExceptionDetail> details) {
+	protected RestException(List<ExceptionDetail> details) {
 		this(details, null);
 	}
 
-	public RestException(ExceptionDetail detail, Exception e) {
+	protected RestException(ExceptionDetail detail, Exception e) {
 		this(Arrays.asList(detail), e);
 	}
 
-	public RestException(ExceptionDetail detail) {
+	protected RestException(ExceptionDetail detail) {
 		this(detail, null);
-		Assert.notNull(detail, "detail can't be null");
 	}
 
-	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
+	protected RestException(String errorCode, String errorMessage, Optional<Object> errorDetail) {
 		this(errorCode, errorMessage, errorDetail, null);
 	}
 
-	public RestException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
+	protected RestException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
 		this(new ExceptionDetail(errorCode, errorMessage, errorDetail), e);
 	}
 

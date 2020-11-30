@@ -10,20 +10,17 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+import static com.github.damianwajser.utilities.CacheUtilities.getKeysInformation;
+import static com.github.damianwajser.utilities.CacheUtilities.getRedisCache;
 
 @Primary
 @Component
@@ -44,40 +41,21 @@ public class CacheEndpointExtension extends CachesEndpointWebExtension {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<CacheInfo> cache(@Selector String cache, @Selector String detail, @Nullable String cacheManager) {
+	public WebEndpointResponse<CacheInfo> cache(@Selector String cacheName, @Selector String detail, @Nullable String cacheManager) {
 		LOGGER.info("call to cache extension");
-		WebEndpointResponse<CachesEndpoint.CacheEntry> cacheEntry = super.cache(cache, cacheManager);
+		WebEndpointResponse<CachesEndpoint.CacheEntry> cacheEntry = super.cache(cacheName, cacheManager);
 		CacheInfo info = new CacheInfo();
 		if (cacheEntry.getStatus() == WebEndpointResponse.STATUS_OK) {
-			Optional<RedisCache> redisCache = getRedisCache(cacheEntry.getBody().getName());
+			Optional<RedisCache> redisCache = getRedisCache(this.cache, cacheEntry.getBody().getName());
 			redisCache.ifPresent(c -> {
 				info.setTtl(c.getCacheConfiguration().getTtl().getSeconds() + " seconds");
-				String prefix = c.getCacheConfiguration().getKeyPrefixFor(cache);
-				info.setPrerfix(prefix);
-				info.setKeys(getKeysInformation(cache));
+				String prefix = c.getCacheConfiguration().getKeyPrefixFor(cacheName);
+				info.setPrefix(prefix);
+				info.setKeys(getKeysInformation(redisTemplate, cacheName));
 			});
 		}
 		LOGGER.info("response cache info {}", info);
 		return new WebEndpointResponse<>(info, 200);
-	}
-
-	private Map<String, Object> getKeysInformation(String cache) {
-		Set<Object> keys = redisTemplate != null ? redisTemplate.keys(cache + "*") : new HashSet<>();
-		return keys.isEmpty() ? null : keys.stream().collect(Collectors.toMap(Object::toString, k -> redisTemplate.opsForValue().get(k)));
-	}
-
-	private Optional<RedisCache> getRedisCache(String name) {
-		Optional<RedisCache> redisCache = Optional.empty();
-		if (this.cache != null) {
-			Cache cacheImpl = this.cache.getCache(name);
-			if (TransactionAwareCacheDecorator.class.isAssignableFrom(cacheImpl.getClass())) {
-				cacheImpl = ((TransactionAwareCacheDecorator) cacheImpl).getTargetCache();
-				if (RedisCache.class.isAssignableFrom(cacheImpl.getClass())) {
-					redisCache = Optional.of((RedisCache) cacheImpl);
-				}
-			}
-		}
-		return redisCache;
 	}
 
 }

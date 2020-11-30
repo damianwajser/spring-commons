@@ -4,15 +4,16 @@ import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DefaultIdempotencyKeyGenerator implements IdempotencyKeyGenerator<Object> {
+public class DefaultIdempotencyKeyGenerator implements IdempotencyKeyGenerator {
 
 	private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
 
 	@Override
-	public String generateKey(HttpHeaders headers, HttpMethod method, String path, Object request) {
+	public String generateKey(HttpHeaders headers, HttpMethod method, String path, HttpServletRequest request) {
 		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
 		return path + "::" + key + "::" + method.toString();
 	}

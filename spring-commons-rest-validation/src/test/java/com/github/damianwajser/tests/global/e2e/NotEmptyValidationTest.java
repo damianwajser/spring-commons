@@ -1,4 +1,4 @@
-package com.github.damianwajser.tests.global;
+package com.github.damianwajser.tests.global.e2e;
 
 import com.github.damianwajser.model.global.NoEmptyObject;
 import org.junit.Test;

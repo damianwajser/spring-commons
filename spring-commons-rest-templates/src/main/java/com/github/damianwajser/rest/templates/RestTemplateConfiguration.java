@@ -22,7 +22,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -90,16 +89,22 @@ public class RestTemplateConfiguration {
 	@NotNull
 	private RestTemplate getSnakeRestTemplate(boolean hasSSl) {
 		RestTemplate restTemplate = getRestTemplate(hasSSl);
+		List<HttpMessageConverter<?>> converters = restTemplate.getMessageConverters();
 
-		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-		MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter();
+		MappingJackson2HttpMessageConverter converter = (MappingJackson2HttpMessageConverter) restTemplate.getMessageConverters().stream()
+				.filter(c->MappingJackson2HttpMessageConverter.class.isAssignableFrom(c.getClass()))
+				.findFirst()
+				.orElseGet(()->new  MappingJackson2HttpMessageConverter());
+
+		if(!converters.contains(converter)){
+			converters.add(converter);
+		}
+
 		ObjectMapper mapper = new ObjectMapper();
-		jsonMessageConverter.setObjectMapper(mapper);
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		mapper.registerModule(new Jdk8Module());
-		messageConverters.add(jsonMessageConverter);
-		restTemplate.setMessageConverters(messageConverters);
+		converter.setObjectMapper(mapper);
 		return restTemplate;
 	}
 }

@@ -6,10 +6,12 @@ import com.github.damianwajser.validator.interfaces.CardExpirable;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.MonthDay;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.time.temporal.TemporalAccessor;
 
 public class ExpirationCardConstraint extends AbstractConstraint implements ConstraintValidator<CardExpiration, Object> {
 
@@ -37,11 +39,17 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 	private boolean isValidExpirable(CardExpirable expirable) {
 		String dateStr = expirable.getExpirationMonth() + "-" + expirable.getExpirationYear();
 		try {
-			DateFormat sdf = new SimpleDateFormat(this.getPattern());
-			sdf.setLenient(false);
-			Date date = sdf.parse(dateStr);
-			return date.after(new Date());
-		} catch (ParseException e) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(this.getPattern() + "-dd")
+					.withResolverStyle(ResolverStyle.STRICT);
+
+			TemporalAccessor temporalAccessor = formatter.parse(dateStr + lastDayOfMonth(expirable));
+
+			LocalDate expiryDate = LocalDate.of(YearMonth.from(temporalAccessor).getYear(),
+					MonthDay.from(temporalAccessor).getMonthValue(),
+					MonthDay.from(temporalAccessor).getDayOfMonth());
+
+			return LocalDate.now().isBefore(expiryDate);
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -50,7 +58,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 		String format;
 		switch (this.yearFormat) {
 			case TWO_DIGITS:
-				format = "MM-YY";
+				format = "M-uu";
 				break;
 			case FOUR_DIGIT:
 				format = "MM-YYYY";
@@ -59,5 +67,11 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 				format = null;
 		}
 		return format;
+	}
+
+	private String lastDayOfMonth(CardExpirable expirable) {
+		LocalDate lastDayOfMonth = YearMonth.of(expirable.getExpirationYear(),
+				expirable.getExpirationMonth()).atEndOfMonth();
+		return "-" + lastDayOfMonth.getDayOfMonth();
 	}
 }

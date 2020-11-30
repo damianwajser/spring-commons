@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 @Deprecated
 /**
- *
+ * Use de Number package
  */
 public class MaxConstraint extends AbstractConstraint implements ConstraintValidator<Max, Object> {
 

@@ -1,16 +1,15 @@
 package com.github.damianwajser.idempotency.configuration;
 
+import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import org.springframework.http.HttpMethod;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class IdempotencyEndpoints {
 
@@ -28,8 +27,8 @@ public class IdempotencyEndpoints {
 		return this.addIdempotencyEndpoint(endpoint, new DefaultIdempotencyKeyGenerator(), methods);
 	}
 
-	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator<Object> keyGenerator, HttpMethod... methods) {
-		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(endpoint, new HashSet<>(Arrays.asList(methods)), keyGenerator);
+	public IdempotencyEndpoint addIdempotencyEndpoint(String endpoint, IdempotencyKeyGenerator keyGenerator, HttpMethod... methods) {
+		IdempotencyEndpoint idempotencyEndpoint = new IdempotencyEndpoint(new HashSet<>(Arrays.asList(methods)), keyGenerator);
 		this.endpoints.put(endpoint, idempotencyEndpoint);
 		return idempotencyEndpoint;
 	}
@@ -38,15 +37,19 @@ public class IdempotencyEndpoints {
 		return endpoints.keySet().toArray(new String[endpoints.keySet().size()]);
 	}
 
-	private IdempotencyEndpoint getEndpoint(HttpServletRequest request) {
-		return this.endpoints.get(request.getRequestURI());
+	private Optional<IdempotencyEndpoint> getEndpoint(HttpServletRequest request) {
+		return this.endpoints.entrySet().stream()
+				.filter(entry -> new AntPathMatcher().match(entry.getKey(), request.getRequestURI()))
+				.map(Map.Entry::getValue)
+				.findFirst();
 	}
 
 	public String generateKey(HttpServletRequest request) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-		return this.getEndpoint(request).generateKey(request);
+		return this.getEndpoint(request).map(ie -> ie.generateKey(request))
+				.orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI()));
 	}
 
 	public boolean isApplicable(HttpServletRequest request) {
-		return this.getEndpoint(request).isAppicable(HttpMethod.valueOf(request.getMethod()));
+		return this.getEndpoint(request).map(e -> e.isAppicable(HttpMethod.valueOf(request.getMethod()))).orElse(false);
 	}
 }

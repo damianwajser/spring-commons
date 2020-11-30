@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 import redis.embedded.RedisServer;
+
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -21,6 +24,9 @@ public class CacheTest {
 
 	@Autowired
 	private RedisProperties redisProperties;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -47,10 +53,23 @@ public class CacheTest {
 
 		CacheInfo info = new CacheInfo();
 
-		info.setPrerfix("ms-test::cache-ttl1::");
+		info.setPrefix("ms-test::cache-ttl1::");
 		info.setTtl("2 seconds");
 		Assert.assertEquals(info, result);
 		Assert.assertEquals(info.hashCode(), result.hashCode());
+	}
+
+	@Test
+	public void getCacheKeys() throws Exception {
+		Map<String, Object> result = this.restTemplate
+				.exchange("http://localhost:" + port + "/actuator/cache-keys", HttpMethod.GET, null, Map.class).getBody();
+
+		Assert.assertTrue(result.isEmpty());
+		redisTemplate.opsForValue().set("k", "v");
+		result = this.restTemplate
+				.exchange("http://localhost:" + port + "/actuator/cache-keys", HttpMethod.GET, null, Map.class).getBody();
+		Assert.assertFalse(result.isEmpty());
+		Assert.assertEquals("v", result.get("k"));
 	}
 
 }
