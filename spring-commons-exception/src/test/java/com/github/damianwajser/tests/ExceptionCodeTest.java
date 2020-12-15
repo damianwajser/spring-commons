@@ -11,7 +11,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -48,10 +47,4 @@ public class ExceptionCodeTest {
 	public void notfound() throws Exception {
 		this.restTemplate.exchange("http://localhost:" + port + "/notfound", HttpMethod.POST, null, Object.class);
 	}
-
-	@Test(expected = HttpServerErrorException.InternalServerError.class)
-	public void internalServerError() throws Exception {
-		this.restTemplate.exchange("http://localhost:" + port + "/internalservererror", HttpMethod.POST, null, Object.class);
-	}
-
 }
