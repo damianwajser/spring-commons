@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = Exception.class)
 	protected ResponseEntity<ErrorMessage> handleDefault(Exception ex, HttpServletRequest request, Locale locale) {
-		return new ResponseEntity<>(new ErrorMessage(Arrays.asList(new ExceptionDetail(ex.getMessage(), ex.getMessage(), Optional.empty())), request), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(new ErrorMessage(Arrays.asList(new ExceptionDetail(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), ex.getMessage(), Optional.empty())), request), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(value = RestException.class)

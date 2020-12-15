@@ -36,8 +36,6 @@ public class ExceptionDetail implements Serializable {
 	public ExceptionDetail(String errorCode,
 						   String errorMessage,
 						   Optional<Object> detail) {
-		Assert.notNull(errorCode, "errorCode dont be null");
-		Assert.notNull(errorMessage, "errorMessage dont be null");
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 		this.errorDetail = detail;
