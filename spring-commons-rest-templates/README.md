@@ -41,10 +41,12 @@ Functionality of this package is contained in Java package `com.github.damianwaj
 |spring.commons.rest.template.timeout.connection | any int | timeout connection | -1
 |spring.commons.rest.template.timeout.write | any int | timeout connection | -1
 |spring.commons.rest.template.timeout.read | any int | timeout connection | -1
-spring.commons.rest.template.ssl.enable|boolean|enable ssl certificate in ssl_restTemplate|false
-spring.commons.rest.template.ssl.protocol||any string|TLSv1.2
-spring.commons.rest.template.ssl.trustStorePassword||any string|empty
-spring.commons.rest.template.ssl.trustStore||any string|empty
+|spring.commons.rest.template.ssl.enable|boolean|enable ssl certificate in ssl_restTemplate|false
+|spring.commons.rest.template.ssl.protocol||any string|TLSv1.2
+|spring.commons.rest.template.ssl.trustStorePassword||any string|empty
+|spring.commons.rest.template.ssl.trustStore||any string|empty
+|spring.commons.rest.template.http.connection.pool.maxTotal|any int||100
+|spring.commons.rest.template.http.connection.pool.MaxDefaultPerRoute|any int||30
 
 
 ### RestTemplates

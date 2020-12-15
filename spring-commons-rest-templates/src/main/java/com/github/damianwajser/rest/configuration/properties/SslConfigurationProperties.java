@@ -1,4 +1,4 @@
-package com.github.damianwajser.rest.configuration;
+package com.github.damianwajser.rest.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

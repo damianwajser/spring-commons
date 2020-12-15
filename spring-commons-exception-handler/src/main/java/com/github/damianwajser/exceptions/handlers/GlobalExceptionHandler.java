@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -26,6 +24,11 @@ public class GlobalExceptionHandler {
 
 	@Autowired
 	private MessageSource messageSource;
+
+	@ExceptionHandler(value = Exception.class)
+	protected ResponseEntity<ErrorMessage> handleDefault(Exception ex, HttpServletRequest request, Locale locale) {
+		return new ResponseEntity<>(new ErrorMessage(Arrays.asList(new ExceptionDetail(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), ex.getMessage(), Optional.empty())), request), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	@ExceptionHandler(value = RestException.class)
 	protected ResponseEntity<ErrorMessage> handleConflict(RestException ex, HttpServletRequest request, Locale locale) {
