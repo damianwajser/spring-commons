@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -48,6 +49,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(BindException.class)
 	public ResponseEntity<ErrorMessage> handleValidationExceptions(BindException ex, HttpServletRequest request) {
 		return validationBinnding(ex.getBindingResult(), request);
+	}
+
+	@ExceptionHandler(HttpServerErrorException.InternalServerError.class)
+	public ResponseEntity<ErrorMessage> handleInternalServerExceptions(RestException ex, HttpServletRequest request, Locale locale) {
+		return new ResponseEntity<>(new ErrorMessage(this.getExceptionDetails(ex, locale), request), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	private ResponseEntity<ErrorMessage> validationBinnding(BindingResult results, HttpServletRequest request) {
