@@ -85,9 +85,9 @@ public class IdempontecyFilter implements Filter {
 		}
 	}
 
-	private void excecuteRequest(FilterChain chain, HttpServletRequest request, HttpServletResponse response, String key) {
+	private void excecuteRequest(FilterChain chain, HttpServletRequest request, HttpServletResponse response, String key) throws IOException, ServletException {
 		LOGGER.info("firts Time for these request, lock key: {}", key);
-		try {
+
 			HttpServletResponseCopier responseCopier = new HttpServletResponseCopier(response);
 			LOGGER.info("Call the real controller");
 			chain.doFilter(request, responseCopier);
@@ -98,9 +98,7 @@ public class IdempontecyFilter implements Filter {
 			redisTemplate.opsForValue().set(key, storeObject);
 			LOGGER.info("set expiration - request key: {} ttl: ", key);
 			redisTemplate.expire(key, idempotencyProperties.getIdempotencyTtl(), TimeUnit.MILLISECONDS);
-		} catch (Exception e) {
-			LOGGER.error("Error to save idempotency response in redis", e);
-		}
+
 	}
 
 	private void excecuteIdempotency(HttpServletResponse response, HttpServletRequest request, String key) throws IOException {
