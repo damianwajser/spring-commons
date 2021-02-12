@@ -2,6 +2,7 @@ package com.github.damianwajser.controllers;
 
 import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
 import com.github.damianwajser.model.FooObject;
+import com.github.damianwajser.validator.annotation.number.Min;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ public class BadRequestController {
 	}
 
 	@GetMapping("/badrequest/{age}")
-	public Object badRequestWithPath(@PathVariable @Valid Integer age) {
+	public Object badRequestWithPath(@PathVariable @Valid @Min(value = 5, businessCode = "as-400", message = "{lala}") Integer age) {
 		return String.format("The number is %s", age);
 	}
 }
