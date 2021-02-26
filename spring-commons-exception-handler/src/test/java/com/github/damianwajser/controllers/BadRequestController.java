@@ -3,7 +3,6 @@ package com.github.damianwajser.controllers;
 import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
 import com.github.damianwajser.model.EnumModel;
 import com.github.damianwajser.model.FooObject;
-import com.github.damianwajser.validator.annotation.enums.Country_ISO3166;
 import com.github.damianwajser.validator.annotation.enums.MatchEnum;
 import com.github.damianwajser.validator.annotation.number.Min;
 import com.github.damianwajser.validator.constraint.enums.values.Countries;
