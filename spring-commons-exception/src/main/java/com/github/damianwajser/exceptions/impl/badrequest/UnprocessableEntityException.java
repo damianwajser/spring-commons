@@ -11,7 +11,7 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
 public class UnprocessableEntityException extends RestException {
 
-	private static final long serialVersionUID = 4468401934359095440L;
+	private static final long serialVersionUID = 6446879707729573118L;
 
 	public UnprocessableEntityException(ExceptionDetail detail) {
 		super(detail);

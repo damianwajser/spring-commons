@@ -11,7 +11,7 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
 public class MethodNotAllowedException extends RestException {
 
-	private static final long serialVersionUID = -8012762310079534874L;
+	private static final long serialVersionUID = -5646311440590405753L;
 
 	public MethodNotAllowedException(ExceptionDetail detail) {
 		super(detail);

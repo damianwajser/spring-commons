@@ -50,6 +50,7 @@ Functionality of this package is contained in Java package `com.github.damianwaj
 | UnsuportedMediaTypeException | 415
 | UnprocessableEntityException | 422|
 | LockedException | 423
+| InternalServerErrorException | 500
 
 ## License
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
