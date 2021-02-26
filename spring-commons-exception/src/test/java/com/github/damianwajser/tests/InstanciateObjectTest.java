@@ -135,6 +135,16 @@ public class InstanciateObjectTest {
 		assertThat(new LockedException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
 	}
 
+	@Test
+	public void instanciateExceptionInternalError() throws Exception {
+		//500
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.INTERNAL_SERVER_ERROR).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.INTERNAL_SERVER_ERROR, new RuntimeException()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new LockedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new LockedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new LockedException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	private ExceptionDetail getDetail() {
 		return new ExceptionDetail("", "", Optional.empty());
 	}

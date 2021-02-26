@@ -11,7 +11,7 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestException extends RestException {
 
-	private static final long serialVersionUID = 3193488927248995976L;
+	private static final long serialVersionUID = -1861606846970257672L;
 
 	public BadRequestException(ExceptionDetail detail) {
 		super(detail);

@@ -11,7 +11,7 @@ import java.util.Optional;
 @ResponseStatus(code = HttpStatus.PAYMENT_REQUIRED)
 public class PaymentRequiredException extends RestException {
 
-	private static final long serialVersionUID = 4468401934359095440L;
+	private static final long serialVersionUID = -2336079758604689029L;
 
 	public PaymentRequiredException(ExceptionDetail detail) {
 		super(detail);
