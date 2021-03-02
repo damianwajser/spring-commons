@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests.ok.http;
 
+import com.github.damianwajser.model.snake.SingletonObject;
 import com.github.damianwajser.model.timeout.TimeOutObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class TimeOutTests {
 
 	@Test
 	public void testOK() throws Exception {
+		SingletonObject.getInstance().restart();
 		LocalDateTime dataTime = LocalDateTime.now();
 		TimeOutObject request = new TimeOutObject();
 		request.setStart(new Date().getTime());
