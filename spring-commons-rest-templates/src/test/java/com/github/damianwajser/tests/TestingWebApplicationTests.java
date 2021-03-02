@@ -30,12 +30,13 @@ public class TestingWebApplicationTests {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Client-Id", "3");
 
-		HttpEntity<String> entity = new HttpEntity<>("body", headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
 		Map<String, Map<String, String>> response = this.restTemplate
 				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
 		assertThat(response.get("headers").get("X-Client-Id")).contains("3");
 	}
+
 	@Test
 	public void testPATCH_OK() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
@@ -54,7 +55,7 @@ public class TestingWebApplicationTests {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Client-Id", "4");
 
-		HttpEntity<String> entity = new HttpEntity<>("body", headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
 		Map<String, Map<String, String>> response = this.restTemplate
 				.exchange("http://localhost:" + port + "/replayheaders", HttpMethod.GET, entity, Map.class).getBody();
@@ -62,20 +63,3 @@ public class TestingWebApplicationTests {
 	}
 
 }
-//@SpringBootTest
-//@EnableAutoConfiguration
-//@ExtendWith(SpringExtension.class)
-//public class TestReplyHeader {
-//
-//	@LocalServerPort
-//	private int port;
-//
-//	@Autowired
-//	private TestRestTemplate restTemplate;
-//
-//	@Test
-//	public void testPut() throws Exception {
-//		System.out.println(this.restTemplate.getForObject("http://localhost:" + port + "/replayheaders", Object.class));
-//	}
-//
-//}
