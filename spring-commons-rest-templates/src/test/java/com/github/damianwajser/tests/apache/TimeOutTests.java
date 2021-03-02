@@ -19,6 +19,7 @@ import java.util.Date;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
 		"spring.commons.rest.template.timeout.write=300",
 		"spring.commons.rest.template.timeout.read=300",
+		"spring.commons.rest.template.timeout.connection=300",
 		"spring.commons.rest.template.implementation=HTTP_CLIENT"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
