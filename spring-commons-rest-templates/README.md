@@ -65,6 +65,14 @@ But, if you call a snake_case endpoint, you use:
 @Qualifier("snake_template")
 private RestTemplate restTemplate;
 ````
+
+Additionally, if you call PascalCase endpoint, you use:
+````java
+@Autowired
+@Qualifier("pascal_template")
+private RestTemplate restTemplate;
+````
+
 If you want consume ssl services with certificates, configure the properties and use this:
 ````java
 @Autowired
