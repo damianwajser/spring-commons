@@ -1,19 +1,22 @@
-package com.github.damianwajser.rest.configuration;
+package com.github.damianwajser.rest.configuration.apache;
 
+import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
 import com.github.damianwajser.rest.configuration.properties.TimeoutConfigurationProperties;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
+import java.net.SocketException;
 
 @Component
-public class CustomClientHttpRequestFactory {
+@ConditionalOnProperty(name = "spring.commons.rest.template.implementation", havingValue = "HTTP_CLIENT", matchIfMissing = true)
+public class ApacheClientHttpRequestFactory implements CustomHttpRequestFactory {
 
 	@Autowired
 	private TimeoutConfigurationProperties timeouts;
@@ -27,7 +30,17 @@ public class CustomClientHttpRequestFactory {
 	public ClientHttpRequestFactory getClientHttpRequestFactory(boolean configureSSl) {
 		final RequestConfig config = getConfig();
 		HttpClientBuilder builder = getHttpClientBuilder(configureSSl, config);
+		configureRetry(builder);
 		return new HttpComponentsClientHttpRequestFactory(builder.build());
+	}
+
+	private void configureRetry(HttpClientBuilder builder) {
+		builder.setRetryHandler((exception, executionCount, context) -> {
+			if (executionCount > 3) {
+				return false;
+			}
+			return exception instanceof org.apache.http.NoHttpResponseException || exception instanceof SocketException;
+		}).build();
 	}
 
 	private HttpClientBuilder getHttpClientBuilder(boolean configureSSl, RequestConfig config) {

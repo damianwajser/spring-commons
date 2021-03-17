@@ -3,8 +3,11 @@ package com.github.damianwajser.exceptions.handlers;
 import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -40,6 +43,12 @@ public class GlobalExceptionHandler {
 		return validationBinnding(ex.getBindingResult(), request);
 	}
 
+	@ExceptionHandler(NestedRuntimeException.class)
+	public ResponseEntity<ErrorMessage> handleNestedRuntimeException(NestedRuntimeException ex, HttpServletRequest request) {
+		return new ResponseEntity<>(new ErrorMessage(getExceptionDetails(ex), request),
+				HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ErrorMessage> handleValidationExceptions(ConstraintViolationException ex, HttpServletRequest request) {
 		return validationBinnding(ex.getConstraintViolations(), request);
@@ -62,6 +71,17 @@ public class GlobalExceptionHandler {
 
 	private List<ExceptionDetail> getExceptionDetails(Set<ConstraintViolation<?>> results) {
 		return results.stream().map(ExceptionDetailMapper::convert).collect(Collectors.toList());
+	}
+
+	private List<ExceptionDetail> getExceptionDetails(NestedRuntimeException ex) {
+		Throwable cause = ex.getMostSpecificCause();
+		String message = Strings.EMPTY;
+		try {
+			message = FieldUtils.readField(cause, "detailMessage", true).toString();
+		} catch (Exception e) {
+			message = cause.getLocalizedMessage();
+		}
+		return Arrays.asList(new ExceptionDetail("400", message, Optional.empty()));
 	}
 
 	private List<ExceptionDetail> getExceptionDetails(BindingResult results) {

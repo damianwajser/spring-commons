@@ -2,6 +2,7 @@ package com.github.damianwajser.emv.parser;
 
 import com.github.damianwajser.emv.exceptions.CrcValidationException;
 import com.github.damianwajser.emv.exceptions.EmvFormatException;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +33,12 @@ public class EmvCoParser {
 				int tag = Integer.parseInt(str.substring(i, tagInd));
 				int lengthValue = Integer.parseInt(str.substring(tagInd, tagInd + LENGTH));
 				String value = str.substring(tagInd + LENGTH, tagInd + LENGTH + lengthValue);
-				if (value.startsWith(EMV_STARTED) && value.length() > LENGTH) {
-					result.put(tag, convert(value));
+				if (isObject(value)) {
+					try {
+						result.put(tag, convert(value));
+					} catch (StringIndexOutOfBoundsException sioe) {
+						result.put(tag, value);
+					}
 				} else {
 					result.put(tag, value);
 				}
@@ -43,6 +48,13 @@ public class EmvCoParser {
 			throw new EmvFormatException(nfe.getMessage() + " - in field " + i, nfe);
 		}
 		return result;
+	}
+
+	private static boolean isObject(String value) {
+		int emvLength = EMV_STARTED.length();
+		return value.startsWith(EMV_STARTED) &&
+				value.length() > LENGTH &&
+				NumberUtils.isCreatable(value.substring(emvLength, emvLength + 1));
 	}
 
 	private static boolean isValidCrc(String str) {

@@ -4,6 +4,7 @@ import com.github.damianwajser.exceptions.ExceptionFactory;
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.ForbiddenException;
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.PermissionDeniedException;
 import com.github.damianwajser.exceptions.impl.badrequest.*;
+import com.github.damianwajser.exceptions.impl.servererror.InternalServerErrorException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,6 +134,16 @@ public class InstanciateObjectTest {
 		assertThat(new LockedException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
 		assertThat(new LockedException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
 		assertThat(new LockedException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.LOCKED);
+	}
+
+	@Test
+	public void instanciateExceptionInternalError() throws Exception {
+		//500
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.INTERNAL_SERVER_ERROR).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(ExceptionFactory.getException(getDetails(), HttpStatus.INTERNAL_SERVER_ERROR, new RuntimeException()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new InternalServerErrorException(getDetails()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new InternalServerErrorException(getDetail()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+		assertThat(new InternalServerErrorException("code", "message", Optional.empty()).getHttpCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	private ExceptionDetail getDetail() {

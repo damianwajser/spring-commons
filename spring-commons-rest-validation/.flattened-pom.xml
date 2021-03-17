@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.github.damianwajser</groupId>
     <artifactId>spring-commons-parent</artifactId>
-    <version>1.17.0</version>
+    <version>1.19.0-Beta</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-rest-validation</artifactId>
-  <version>1.17.0</version>
+  <version>1.19.0-Beta</version>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -17,4 +17,11 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.2</version>
+    </dependency>
+  </dependencies>
 </project>

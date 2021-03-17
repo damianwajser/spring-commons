@@ -20,6 +20,12 @@
 			<version>4.5.12</version>
 		</dependency>
 		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.9.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons-exception</artifactId>
 			<version>${project.version}</version>

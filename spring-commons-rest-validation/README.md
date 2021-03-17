@@ -49,6 +49,8 @@ Functionality of this package is contained in Java package `com.github.damianwaj
 
 **@Max** – validates that the annotated property has a value no larger than the value attribute
 
+**@Base64** – validates that the annotated property is a valid base64 encoded string
+
 **@Email** – validates that the annotated property is a valid email address
 
 **@Pattern** – validate that a string matches with regex parameter.
