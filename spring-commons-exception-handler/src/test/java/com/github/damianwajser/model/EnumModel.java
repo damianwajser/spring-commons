@@ -1,7 +1,6 @@
 package com.github.damianwajser.model;
 
 import com.github.damianwajser.validator.annotation.global.NotEmpty;
-import com.github.damianwajser.validator.constraint.enums.values.Countries;
 
 public class EnumModel {
 
