@@ -1,5 +1,6 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.apache;
 
+import com.github.damianwajser.model.snake.SingletonObject;
 import com.github.damianwajser.model.timeout.TimeOutObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +19,8 @@ import java.util.Date;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = {
 		"spring.commons.rest.template.timeout.write=300",
-		"spring.commons.rest.template.timeout.read=300"
+		"spring.commons.rest.template.timeout.read=300",
+		"spring.commons.rest.template.implementation=HTTP_CLIENT"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TimeOutTests {
@@ -30,6 +32,7 @@ public class TimeOutTests {
 
 	@Test
 	public void testOK() throws Exception {
+		SingletonObject.getInstance().restart();
 		LocalDateTime dataTime = LocalDateTime.now();
 		TimeOutObject request = new TimeOutObject();
 		request.setStart(new Date().getTime());

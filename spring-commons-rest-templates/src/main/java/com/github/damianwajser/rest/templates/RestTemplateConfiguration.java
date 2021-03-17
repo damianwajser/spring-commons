@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.github.damianwajser.rest.configuration.CustomClientHttpRequestFactory;
+import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
+import com.github.damianwajser.rest.configuration.apache.ApacheClientHttpRequestFactory;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,7 +24,7 @@ import java.util.List;
 public class RestTemplateConfiguration {
 
 	@Autowired
-	private CustomClientHttpRequestFactory clientHttpRequestFactory;
+	private CustomHttpRequestFactory clientHttpRequestFactory;
 
 	@Bean
 	@Primary

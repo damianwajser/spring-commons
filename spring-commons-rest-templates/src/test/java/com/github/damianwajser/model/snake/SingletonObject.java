@@ -23,4 +23,8 @@ public class SingletonObject {
 	public void increment() {
 		value++;
 	}
+
+	public void restart() {
+		value = 0;
+	}
 }
