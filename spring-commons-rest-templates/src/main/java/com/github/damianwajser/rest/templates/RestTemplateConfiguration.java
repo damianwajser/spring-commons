@@ -1,5 +1,6 @@
 package com.github.damianwajser.rest.templates;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -8,6 +9,7 @@ import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,6 +26,9 @@ public class RestTemplateConfiguration {
 
 	@Autowired
 	private CustomHttpRequestFactory clientHttpRequestFactory;
+
+	@Value("${spring.commons.rest.template.converter.skipnull}")
+	private boolean skipnull;
 
 	@Bean
 	@Primary
@@ -85,6 +90,9 @@ public class RestTemplateConfiguration {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.setPropertyNamingStrategy(caseStrategy);
 		mapper.registerModule(new Jdk8Module());
+		if (skipnull) {
+			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		}
 		converter.setObjectMapper(mapper);
 		return restTemplate;
 	}

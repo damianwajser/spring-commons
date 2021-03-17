@@ -85,6 +85,11 @@ private RestTemplate restTemplate;
 private RestTemplate restTemplate;
 ````
 
+#### Configuration:
+| Key | Value | Module | Reference
+|--|--|--|--
+|spring.commons.rest.template.converter.skipnull   |false     | Skip nulls in request payload
+
 ### Example
 For the example we will use an echo service, "https://httpbin.org/get", we will test it:
 ```shell script
