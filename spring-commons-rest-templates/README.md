@@ -65,6 +65,14 @@ But, if you call a snake_case endpoint, you use:
 @Qualifier("snake_template")
 private RestTemplate restTemplate;
 ````
+
+Additionally, if you call PascalCase endpoint, you use:
+````java
+@Autowired
+@Qualifier("pascal_template")
+private RestTemplate restTemplate;
+````
+
 If you want consume ssl services with certificates, configure the properties and use this:
 ````java
 @Autowired
@@ -76,6 +84,11 @@ private RestTemplate restTemplate;
 @Qualifier("ssl_snake_case_template")
 private RestTemplate restTemplate;
 ````
+
+#### Configuration:
+| Key | Value | Module | Reference
+|--|--|--|--
+|spring.commons.rest.template.converter.skipnull   |false     | Skip nulls in request payload
 
 ### Example
 For the example we will use an echo service, "https://httpbin.org/get", we will test it:

@@ -1,14 +1,15 @@
 package com.github.damianwajser.rest.templates;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
-import com.github.damianwajser.rest.configuration.apache.ApacheClientHttpRequestFactory;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -26,6 +27,9 @@ public class RestTemplateConfiguration {
 	@Autowired
 	private CustomHttpRequestFactory clientHttpRequestFactory;
 
+	@Value("${spring.commons.rest.template.converter.skipnull}")
+	private boolean skipnull;
+
 	@Bean
 	@Primary
 	@Qualifier("default_template")
@@ -36,7 +40,14 @@ public class RestTemplateConfiguration {
 	@Bean
 	@Qualifier("snake_template")
 	public RestTemplate restTemplateSnake() {
-		RestTemplate restTemplate = getSnakeRestTemplate(false);
+		RestTemplate restTemplate = getConfigureJacksonRestTemplate(false, PropertyNamingStrategy.SNAKE_CASE);
+		return restTemplate;
+	}
+
+	@Bean
+	@Qualifier("pascal_template")
+	public RestTemplate restTemplatePascal() {
+		RestTemplate restTemplate = getConfigureJacksonRestTemplate(false, PropertyNamingStrategy.UPPER_CAMEL_CASE);
 		return restTemplate;
 	}
 
@@ -49,7 +60,7 @@ public class RestTemplateConfiguration {
 	@Bean
 	@Qualifier("ssl_snake_case_template")
 	public RestTemplate restTemplateSslSnake() {
-		return getSnakeRestTemplate(true);
+		return getConfigureJacksonRestTemplate(true, PropertyNamingStrategy.SNAKE_CASE);
 	}
 
 	private RestTemplate getRestTemplate(boolean hasSslContext) {
@@ -62,7 +73,7 @@ public class RestTemplateConfiguration {
 		return Collections.singletonList(new RestTemplateInterceptor());
 	}
 
-	private RestTemplate getSnakeRestTemplate(boolean hasSSl) {
+	private RestTemplate getConfigureJacksonRestTemplate(boolean hasSSl, PropertyNamingStrategy caseStrategy) {
 		RestTemplate restTemplate = getRestTemplate(hasSSl);
 		List<HttpMessageConverter<?>> converters = restTemplate.getMessageConverters();
 
@@ -77,8 +88,11 @@ public class RestTemplateConfiguration {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+		mapper.setPropertyNamingStrategy(caseStrategy);
 		mapper.registerModule(new Jdk8Module());
+		if (skipnull) {
+			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		}
 		converter.setObjectMapper(mapper);
 		return restTemplate;
 	}
