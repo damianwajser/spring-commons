@@ -39,7 +39,8 @@ public class IdempotencyEndpoints {
 
 	private Optional<IdempotencyEndpoint> getEndpoint(HttpServletRequest request) {
 		return this.endpoints.entrySet().stream()
-				.filter(entry -> new AntPathMatcher().match(entry.getKey(), request.getRequestURI()))
+				.filter(entry -> new AntPathMatcher().match(entry.getKey(), request.getRequestURI())
+						|| new AntPathMatcher().match(entry.getKey(), request.getServletPath()))
 				.map(Map.Entry::getValue)
 				.findFirst();
 	}
