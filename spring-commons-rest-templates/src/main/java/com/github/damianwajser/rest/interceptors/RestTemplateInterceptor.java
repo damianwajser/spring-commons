@@ -36,12 +36,18 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 			while (headers.hasMoreElements()) {
 				String headerName = headers.nextElement();
 				String headerValue = servletRequest.getHeader(headerName);
-				if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
+				if (isValidHeader(request, headerName, headerValue)) {
 					LOGGER.debug("add headers: {}: {}", headerName, headerValue);
 					request.getHeaders().add(headerName, Encode.forJava(headerValue));
 				}
 			}
 		}
 		return execution.execute(request, body);
+	}
+
+	private boolean isValidHeader(HttpRequest request, String headerName, String headerValue) {
+		return headerValue != null
+				&& headerName.toUpperCase().startsWith("X-")
+				&& (request.getHeaders().get(headerName) == null || !request.getHeaders().get(headerName).contains(headerValue));
 	}
 }
