@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-parent</artifactId>
-  <version>1.19.0-Beta</version>
+  <version>1.20.2</version>
   <packaging>pom</packaging>
   <name>spring-commons-parent</name>
   <description>DESC</description>
@@ -69,9 +69,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <jedis.client.version>3.3.0</jedis.client.version>
+    <jedis.client.version>3.5.2</jedis.client.version>
     <junit.jupiter.version>5.4.0</junit.jupiter.version>
-    <revision>1.19.0-Beta</revision>
+    <revision>1.20.2</revision>
     <maven.compiler.target>1.8</maven.compiler.target>
     <logstash.version>6.4</logstash.version>
   </properties>

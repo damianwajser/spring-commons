@@ -88,16 +88,16 @@ public class IdempontecyFilter implements Filter {
 	private void excecuteRequest(FilterChain chain, HttpServletRequest request, HttpServletResponse response, String key) throws IOException, ServletException {
 		LOGGER.info("firts Time for these request, lock key: {}", key);
 
-			HttpServletResponseCopier responseCopier = new HttpServletResponseCopier(response);
-			LOGGER.info("Call the real controller");
-			chain.doFilter(request, responseCopier);
-			byte[] copy = responseCopier.getCopy();
-			String value = new String(copy);
-			StoredResponse storeObject = new StoredResponse(value, new HeadersUtil().getHeadersMap(response), response.getStatus(), false);
-			LOGGER.info("store request key: {} - value: {}", key, storeObject);
-			redisTemplate.opsForValue().set(key, storeObject);
-			LOGGER.info("set expiration - request key: {} ttl: ", key);
-			redisTemplate.expire(key, idempotencyProperties.getIdempotencyTtl(), TimeUnit.MILLISECONDS);
+		HttpServletResponseCopier responseCopier = new HttpServletResponseCopier(response);
+		LOGGER.info("Call the real controller");
+		chain.doFilter(request, responseCopier);
+		byte[] copy = responseCopier.getCopy();
+		String value = new String(copy);
+		StoredResponse storeObject = new StoredResponse(value, new HeadersUtil().getHeadersMap(response), response.getStatus(), false);
+		LOGGER.info("store request key: {} - value: {}", key, storeObject);
+		redisTemplate.opsForValue().set(key, storeObject);
+		LOGGER.info("set expiration - request key: {} ttl: ", key);
+		redisTemplate.expire(key, idempotencyProperties.getIdempotencyTtl(), TimeUnit.MILLISECONDS);
 
 	}
 
