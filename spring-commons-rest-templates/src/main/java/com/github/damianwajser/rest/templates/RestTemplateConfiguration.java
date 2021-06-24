@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
 import com.github.damianwajser.rest.interceptors.RestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class RestTemplateConfiguration {
 	private RestTemplate getRestTemplate(boolean hasSslContext) {
 		final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory.getClientHttpRequestFactory(hasSslContext));
 		restTemplate.setInterceptors(getInterceptors());
+		getConverterAndConfigure(restTemplate);
 		return restTemplate;
 	}
 
@@ -75,6 +77,14 @@ public class RestTemplateConfiguration {
 
 	private RestTemplate getConfigureJacksonRestTemplate(boolean hasSSl, PropertyNamingStrategy caseStrategy) {
 		RestTemplate restTemplate = getRestTemplate(hasSSl);
+		MappingJackson2HttpMessageConverter converter = getConverterAndConfigure(restTemplate);
+		ObjectMapper mapper = converter.getObjectMapper();
+		mapper.setPropertyNamingStrategy(caseStrategy);
+		converter.setObjectMapper(mapper);
+		return restTemplate;
+	}
+
+	private MappingJackson2HttpMessageConverter getConverterAndConfigure(RestTemplate restTemplate) {
 		List<HttpMessageConverter<?>> converters = restTemplate.getMessageConverters();
 
 		MappingJackson2HttpMessageConverter converter = (MappingJackson2HttpMessageConverter) restTemplate.getMessageConverters().stream()
@@ -86,14 +96,13 @@ public class RestTemplateConfiguration {
 			converters.add(converter);
 		}
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.setPropertyNamingStrategy(caseStrategy);
+		ObjectMapper mapper = converter.getObjectMapper();
 		mapper.registerModule(new Jdk8Module());
+		mapper.registerModule(new JavaTimeModule());
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		if (skipnull) {
 			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		}
-		converter.setObjectMapper(mapper);
-		return restTemplate;
+		return converter;
 	}
 }
