@@ -40,6 +40,7 @@ public class MDCFilter extends OncePerRequestFilter {
 			MDC.put("clientIp", request.getRemoteAddr());
 			MDC.put("appName", properties.getAppName());
 			if (HttpServletRequest.class.isAssignableFrom(request.getClass())) {
+				MDC.put("path", request.getRequestURI());
 				MDC.put("requestId", generator.getRequestId(((HttpServletRequest) request)));
 				Enumeration<String> headers = ((HttpServletRequest) request).getHeaderNames();
 				while (headers.hasMoreElements()) {
