@@ -1,8 +1,9 @@
-package com.github.damianwajser.crypto;
+package com.github.damianwajser.crypto.impl;
 
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -13,7 +14,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class CryptoUtil {
+public class PBE extends BaseCryto {
+
 
 	Cipher ecipher;
 	Cipher dcipher;
@@ -38,7 +40,8 @@ public class CryptoUtil {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-	public String encrypt(String secretKey, String plainText)
+	@Override
+	public String Encrypt(String secretKey, String plainText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
 			NoSuchPaddingException,
@@ -76,7 +79,8 @@ public class CryptoUtil {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-	public String decrypt(String secretKey, String encryptedText)
+	@Override
+	public String Decrypt(String secretKey, String encryptedText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
 			NoSuchPaddingException,
@@ -102,13 +106,16 @@ public class CryptoUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		CryptoUtil cryptoUtil = new CryptoUtil();
+		PBE cryptoUtil = new PBE();
 		String key = "123";
 		String plain = "1";
-		String enc = cryptoUtil.encrypt(key, plain);
+		String enc = cryptoUtil.Encrypt(key, plain);
 		System.out.println("Original text: " + plain);
 		System.out.println("Encrypted text: " + enc);
-		String plainAfter = cryptoUtil.decrypt(key, enc);
+		String plainAfter = cryptoUtil.Decrypt(key, enc);
 		System.out.println("Original text after decryption: " + plainAfter);
 	}
+
+
+
 }
