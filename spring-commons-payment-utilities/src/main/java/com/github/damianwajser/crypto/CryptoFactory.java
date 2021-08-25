@@ -1,5 +1,6 @@
 package com.github.damianwajser.crypto;
 
+import com.github.damianwajser.crypto.impl.PBE;
 import com.github.damianwajser.crypto.impl.RSA;
 
 public class CryptoFactory {
@@ -7,10 +8,10 @@ public class CryptoFactory {
 		ICrypto formatter = null;
 		switch (format) {
 			case RSA:
-				formatter = (ICrypto) new RSA();
+				formatter =  new RSA();
 				break;
 			default:
-				//formatter = (IEncription) new PBE();
+				formatter = new PBE();
 				break;
 		}
 		return formatter;

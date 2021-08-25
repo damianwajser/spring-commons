@@ -1,23 +1,25 @@
 package com.github.damianwajser.crypto;
 
-public class Crypto implements ICrypto {
+public class Crypto  {
 
-    @Override
-    public String Encription(String key, String textPlain) {
-        // TODO Auto-generated method stub
-        return null;
+     private ICrypto icrypto = null;
+    
+    public String Encription(String key, String textPlain, CryptoFormat cryptoFormat) {
+        icrypto= CryptoFactory.getFormatter(cryptoFormat);
+        
+        return icrypto.Encryption(key, textPlain);
     }
 
-    @Override
-    public String Description(String key, String textPlain) {
-        // TODO Auto-generated method stub
-        return null;
+
+    public String Description(String key, String textPlain, CryptoFormat cryptoFormat) {
+        icrypto= CryptoFactory.getFormatter(cryptoFormat);
+        return icrypto.Encryption(key, textPlain);
     }
 
-    @Override
-    public String Getkey(Keytype keytype) {
-        // TODO Auto-generated method stub
-        return null;
+    public String Getkey(CryptoFormat cryptoFormat) {
+        icrypto= CryptoFactory.getFormatter(cryptoFormat);
+        return icrypto.toString();
     }
+
     
 }

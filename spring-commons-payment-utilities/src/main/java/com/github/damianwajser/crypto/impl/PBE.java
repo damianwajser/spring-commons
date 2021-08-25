@@ -4,17 +4,26 @@ import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
+import com.github.damianwajser.crypto.CryptoFormat;
+import com.github.damianwajser.crypto.ICrypto;
+import com.github.damianwajser.crypto.Keytype;
+
+import org.apache.commons.lang3.NotImplementedException;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.UUID;
 
-public class PBE extends BaseCryto {
+public class PBE  implements ICrypto {
 
 
 	Cipher ecipher;
@@ -40,7 +49,7 @@ public class PBE extends BaseCryto {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-	@Override
+
 	public String Encrypt(String secretKey, String plainText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
@@ -79,7 +88,7 @@ public class PBE extends BaseCryto {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-	@Override
+
 	public String Decrypt(String secretKey, String encryptedText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
@@ -106,8 +115,9 @@ public class PBE extends BaseCryto {
 	}
 
 	public static void main(String[] args) throws Exception {
+	
 		PBE cryptoUtil = new PBE();
-		String key = "123";
+		String key = "1234";
 		String plain = "1";
 		String enc = cryptoUtil.Encrypt(key, plain);
 		System.out.println("Original text: " + plain);
@@ -115,6 +125,85 @@ public class PBE extends BaseCryto {
 		String plainAfter = cryptoUtil.Decrypt(key, enc);
 		System.out.println("Original text after decryption: " + plainAfter);
 	}
+
+	public String Encryption(String key, String textPlain) {
+		String result ="";
+		try {
+			result =Encrypt(key, textPlain);
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidAlgorithmParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public HashMap<String, String> Getkey() {
+		HashMap<String, String> arraykey = new HashMap<String, String>();
+		UUID uuid = UUID.randomUUID();
+        String uuidAsString = uuid.toString();
+		arraykey.put("Key",uuidAsString);
+
+		return arraykey;
+	}
+
+	public String Descryption(String key, String textPlain) {
+		String result = "";
+		try {
+			result=Decrypt(key, textPlain);
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidAlgorithmParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
 
 
 
