@@ -4,17 +4,12 @@ import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
-import com.github.damianwajser.crypto.CryptoFormat;
-import com.github.damianwajser.crypto.ICrypto;
-import com.github.damianwajser.crypto.Keytype;
 
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
@@ -23,7 +18,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PBE  implements ICrypto {
+public class PBE {
 
 
 	Cipher ecipher;
