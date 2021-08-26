@@ -1,108 +1,58 @@
 package com.github.damianwajser.crypto.impl;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Signature;
-import java.security.interfaces.RSAPrivateKey;
+import java.util.Base64;
+import javax.crypto.Cipher;
+import java.math.BigInteger;
+import java.security.*;
+
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
-import java.util.HashMap;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import com.github.damianwajser.crypto.ICrypto;
 
 
-public class RSA  implements ICrypto {
-    static final String KEY_ALGORITHM = "RSA";
-    static final int KEY_LENGTH = 2048;
-  
-    public String Encrypt(PublicKey secretKey, String plainText)
-    throws NoSuchAlgorithmException,
-    InvalidKeySpecException,
-    NoSuchPaddingException,
-    InvalidKeyException, 
-    InvalidAlgorithmParameterException,
-    UnsupportedEncodingException,
-    IllegalBlockSizeException,
-    BadPaddingException,
-    IOException {
-           
-        //Creating KeyPair generator object
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        
-        //Initializing the key pair generator
-        keyPairGen.initialize(KEY_LENGTH);
-        
-        //Getting the public key from the key pair
-        PublicKey publicKey = secretKey; 
-  
-        //Creating a Cipher object
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-  
-        //Initializing a Cipher object
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        
-        //Add data to the cipher
-        byte[] input = plainText.getBytes();	  
-        cipher.update(input);
-        
-        //encrypting the data
-        byte[] cipherText = cipher.doFinal();
-        return new String(cipherText, "UTF8");
-    }
-  
-    public String Decrypt(PrivateKey secretKey, String plainText) 
-    throws NoSuchAlgorithmException,
-    InvalidKeySpecException,
-    NoSuchPaddingException,
-    InvalidKeyException,
-    InvalidAlgorithmParameterException,
-    UnsupportedEncodingException, 
-    IllegalBlockSizeException,
-    BadPaddingException, 
-    IOException {
 
-        //Creating KeyPair generator object
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        
-        //Initializing the key pair generator
-        keyPairGen.initialize(2048);        
-         
-        //Creating a Cipher object
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+
+
+import java.util.Arrays;
+
+
+public class RSA {    
   
-        //Initializing a Cipher object
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        
-        //Add data to the cipher
-        byte[] input = plainText.getBytes();	  
-        cipher.update(input);
-        
-        //encrypting the data
-        byte[] cipherText = cipher.doFinal();
-        return new String(cipherText, "UTF8");
+   PublicKey publicKey;
+   PrivateKey privateKey;
+   static final String KEY_ALGORITHM = "RSA";
+   static final int KEY_LENGTH = 2048;
+
+   public RSA() 
+   throws NoSuchAlgorithmException{
+    KeyPairGenerator keyGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+    keyGen.initialize(KEY_LENGTH);
+    KeyPair pair = keyGen.generateKeyPair();
+    this.privateKey = pair.getPrivate();
+    this.publicKey = pair.getPublic();
     }
 
-    private PublicKey GetPublicKeyfromString(String base64PublicKey){
+
+    /*
+    GetPublickeyFromString
+    
+    */
+    
+    public PublicKey GetPublickeyFromString(String base64PublicKey){
+        base64PublicKey=base64PublicKey
+        .replace("-----BEGIN PUBLIC KEY-----\n", "")
+        .replace("\n-----END PUBLIC KEY-----", "");
         PublicKey publicKey = null;
         try{
-            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64PublicKey.getBytes()));
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getMimeDecoder().decode(base64PublicKey.getBytes()));
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
             publicKey = keyFactory.generatePublic(keySpec);
             return publicKey;
@@ -113,10 +63,13 @@ public class RSA  implements ICrypto {
         }
         return publicKey;
     }
+    public PrivateKey GetPrivatekeyFromString(String base64PrivateKey){
+        base64PrivateKey=base64PrivateKey
+        .replace("-----BEGIN PRIVATE KEY-----\n", "")
+        .replace("\n-----END PRIVATE KEY-----", "");
 
-    private PrivateKey GetPrivateKeyfromString(String base64PrivateKey){
         PrivateKey privateKey = null;
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(base64PrivateKey.getBytes()));
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(Base64.getMimeDecoder().decode(base64PrivateKey.getBytes()));
         KeyFactory keyFactory = null;
         try {
             keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -130,99 +83,18 @@ public class RSA  implements ICrypto {
         }
         return privateKey;
     }
-
-    public String Encryption(String key, String textPlain) {
-
-        String encriptResult="";
-        PublicKey publicKey =GetPublicKeyfromString(key);
-        try {
-            encriptResult=  Encrypt(publicKey, textPlain);
-        } catch (InvalidKeyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return encriptResult;
+    public PrivateKey GetPrivateKey() {
+        return privateKey;
+    }
+    public PublicKey GetPublicKey() {
+        return publicKey;
     }
 
-    public String Descryption(String key, String textPlain) {  
-        String encriptResult="";
-        PrivateKey publicKey =GetPrivateKeyfromString(key);
-        try {
-            encriptResult=  Decrypt(publicKey, textPlain);
-        } catch (InvalidKeyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return encriptResult;
-    }
-  
-    public HashMap<String, String> Getkey() {
-        HashMap<String, String> arraykey = new HashMap<String, String>();
 
-        try {
-       
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        
-        //Initializing the key pair generator
-        keyPairGen.initialize(KEY_LENGTH);
+    public String GetPublickeyAsXml(){
+        String public_Xml ="";
     
-        //Generate the pair of keys
-        KeyPair pair = keyPairGen.generateKeyPair();   
-        
-        //Getting the public key from the key pair
-        PublicKey publicKey = pair.getPublic();  
-        PrivateKey privateKey = pair.getPrivate();
-
-        RSAPrivateKey rSAPrivateKey = (RSAPrivateKey)privateKey;
-        RSAPublicKey rSAPublicKey = (RSAPublicKey)publicKey;
+        RSAPublicKey rSAPublicKey = (RSAPublicKey) GetPublicKey();
         byte[] mod_Bytes_Extra =null;
 
         BigInteger mod_IntPublic = rSAPublicKey.getModulus();
@@ -230,35 +102,121 @@ public class RSA  implements ICrypto {
 
 
         mod_Bytes_Extra = mod_IntPublic.toByteArray();
-        byte[] mod_Bytes = new byte[128];
-
-        System.arraycopy(mod_Bytes_Extra, 1, mod_Bytes, 0, 128);
+        byte[] mod_Bytes = new byte[256];
+        System.arraycopy(mod_Bytes_Extra, 1, mod_Bytes, 0, 256);
 
 
         byte[] exp_Bytes = exp_IntPublic.toByteArray();
-        String modulus =Base64.getEncoder().encodeToString(mod_Bytes);
-        String exponent = Base64.getEncoder().encodeToString(exp_Bytes);
-        String public_Xml = "<BitStrength>0124</BitStrength><RSAKeyValue><Modulus>"+modulus+"</Modulus><Exponent>"+exponent+"</Exponent></RSAKeyValue>";
-		
-		arraykey.put("PublicKey",Base64.getEncoder().encodeToString(publicKey.getEncoded()));
-        arraykey.put("Privatekey",Base64.getEncoder().encodeToString(privateKey.getEncoded()));
-        arraykey.put("public_Xml", public_Xml);
-        //Creating a Cipher object
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        String modulus =getBase64(mod_Bytes);
+        String exponent =getBase64(exp_Bytes);
+        public_Xml = "<RSAKeyValue><Modulus>"+modulus+"</Modulus><Exponent>"+exponent+"</Exponent></RSAKeyValue>";
+      return  public_Xml;
+      //  System.out.println(GetPrivateKeyAsXml(privateKey));
+    }
+    public String GetPrivateKeyAsXml() throws Exception{
+    
+
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        RSAPrivateCrtKeySpec spec = keyFactory.getKeySpec(GetPrivateKey(), RSAPrivateCrtKeySpec.class);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<RSAKeyValue>");
+        sb.append(getElement("Modulus", spec.getModulus()));
+        sb.append(getElement("Exponent", spec.getPublicExponent()));
+        sb.append(getElement("P", spec.getPrimeP()));
+        sb.append(getElement("Q", spec.getPrimeQ()));
+        sb.append(getElement("DP", spec.getPrimeExponentP()));
+        sb.append(getElement("DQ", spec.getPrimeExponentQ()));
+        sb.append(getElement("InverseQ", spec.getCrtCoefficient()));
+        sb.append(getElement("D", spec.getPrivateExponent()));
+        sb.append("</RSAKeyValue>");
+
+        return sb.toString();
+    }
+    public String GetPrivatekeyAsString() {
+       return Base64.getMimeEncoder().encodeToString(GetPrivateKey().getEncoded());
+    }
+    public String GetPublickeyAsString() {
+        return Base64.getMimeEncoder().encodeToString(GetPublicKey().getEncoded());
+    }
+      
+    public byte[] encrypt (String plainText,PublicKey publicKey ) throws Exception
+    {
+        //Get Cipher Instance RSA With ECB Mode and OAEPWITHSHA-512ANDMGF1PADDING Padding
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         
-        return arraykey;
+        //Initialize Cipher for ENCRYPT_MODE
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        
+        //Perform Encryption
+        byte[] cipherText = cipher.doFinal(plainText.getBytes()) ;
+
+        return cipherText;
+    }
+    public String decrypt (byte[] cipherTextArray, PrivateKey privateKey) throws Exception
+    {
+        
+        //Get Cipher Instance RSA With ECB Mode and OAEPWITHSHA-512ANDMGF1PADDING Padding
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        
+        //Initialize Cipher for DECRYPT_MODE
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        
+        //Perform Decryption
+        byte[] decryptedTextArray = cipher.doFinal(cipherTextArray);
+        
+        return new String(decryptedTextArray);
     }
 
+    private  String getBase64(byte[] bytes){
+        return Base64.getMimeEncoder().encodeToString(bytes);
+    }
+    private  String getElement(String name, BigInteger bigInt) throws Exception {
+        byte[] bytesFromBigInt = getBytesFromBigInt(bigInt);
+        String elementContent = getBase64(bytesFromBigInt);
+        return String.format("  <%s>%s</%s>", name, elementContent, name);
+    }
+    private  byte[] getBytesFromBigInt(BigInteger bigInt){
+        byte[] bytes = bigInt.toByteArray();
+        int length = bytes.length;
 
+        if(length % 2 != 0 && bytes[0] == 0) {
+            bytes = Arrays.copyOfRange(bytes, 1, length);
+        }
 
-public static void main(String[] args) throws Exception {
-    RSA rsa = new RSA();   
-    System.out.println(rsa.Getkey());
+        return bytes;
+    }
+ 
 
-}
+    public static void main(String[] args) throws Exception {
+     
+        RSA app = new RSA();
+  
+        
+        String plainText = "Plain text which need to be encrypted by Java RSA Encryption in ECB Mode";
+        System.out.println ("-----BEGIN PRIVATE KEY-----");
+        System.out.println (app.GetPrivatekeyAsString());
+        System.out.println ("-----END PRIVATE KEY-----");
 
-    
+        System.out.println ("-----BEGIN PUBLIC KEY-----");
+        System.out.println (app.GetPublickeyAsString());
+        System.out.println ("-----END PUBLIC KEY-----");
+
+      
+        System.out.println (app.GetPrivateKeyAsXml());
+        System.out.println (app.GetPublickeyAsXml());
+        System.out.println("Original Text  : "+plainText);
+
+        PublicKey publickey =  app.GetPublickeyFromString(app.GetPublickeyAsString());
+        PrivateKey privatekey =  app.GetPrivatekeyFromString(app.GetPrivatekeyAsString());
+
+        byte[] cipherTextArray = app.encrypt(plainText,publickey );
+        String encryptedText = Base64.getEncoder().encodeToString(cipherTextArray);
+        System.out.println("Encrypted Text : "+encryptedText);
+        
+     
+        String decryptedText = app.decrypt(cipherTextArray, privatekey );
+        System.out.println("DeCrypted Text : "+decryptedText);
+    }
+
 }

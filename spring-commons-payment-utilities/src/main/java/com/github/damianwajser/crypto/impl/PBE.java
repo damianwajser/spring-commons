@@ -114,18 +114,6 @@ public class PBE  implements ICrypto {
 		return plainStr;
 	}
 
-	public static void main(String[] args) throws Exception {
-	
-		PBE cryptoUtil = new PBE();
-		String key = "1234";
-		String plain = "1";
-		String enc = cryptoUtil.Encrypt(key, plain);
-		System.out.println("Original text: " + plain);
-		System.out.println("Encrypted text: " + enc);
-		String plainAfter = cryptoUtil.Decrypt(key, enc);
-		System.out.println("Original text after decryption: " + plainAfter);
-	}
-
 	public String Encryption(String key, String textPlain) {
 		String result ="";
 		try {
