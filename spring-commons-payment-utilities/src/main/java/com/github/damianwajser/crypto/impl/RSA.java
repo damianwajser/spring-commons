@@ -168,28 +168,5 @@ public class RSA {
 
         return bytes;
     }public static void main(String[] args) throws Exception {
-     
-        RSA app = new RSA();        
-        String plainText = "Plain text which need to be encrypted by Java RSA Encryption in ECB Mode";
-
-        System.out.println ("-----BEGIN PRIVATE KEY-----");
-        System.out.println (app.GetPrivatekeyAsString());
-        System.out.println ("-----END PRIVATE KEY-----");
-        System.out.println ("-----BEGIN PUBLIC KEY-----");
-        System.out.println (app.GetPublickeyAsString());
-        System.out.println ("-----END PUBLIC KEY-----");      
-        System.out.println (app.GetPrivateKeyAsXml());
-        System.out.println (app.GetPublickeyAsXml());
-        System.out.println("Original Text  : "+plainText);
-
-        PublicKey publickey =  app.GetPublickeyFromString(app.GetPublickeyAsString());
-        PrivateKey privatekey =  app.GetPrivatekeyFromString(app.GetPrivatekeyAsString());
-        byte[] cipherTextArray = app.Encrypt(plainText,publickey );
-        String encryptedText = Base64.getEncoder().encodeToString(cipherTextArray);
-        System.out.println("Encrypted Text : "+encryptedText);       
-     
-        String decryptedText = app.Decrypt(cipherTextArray, privatekey );
-        System.out.println("DeCrypted Text : "+decryptedText);
     }
-
 }
