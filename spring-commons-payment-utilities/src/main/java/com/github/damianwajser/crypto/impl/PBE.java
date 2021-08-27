@@ -3,9 +3,6 @@ package com.github.damianwajser.crypto.impl;
 import javax.crypto.*;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
-
-
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -17,10 +14,7 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
-
 public class PBE {
-
-
 	Cipher ecipher;
 	Cipher dcipher;
 	// 8-byte Salt
@@ -30,7 +24,6 @@ public class PBE {
 	};
 	// Iteration count
 	int iterationCount = 19;
-
 	/**
 	 * @param secretKey Key used to encrypt data
 	 * @param plainText Text input to be encrypted
@@ -44,7 +37,6 @@ public class PBE {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-
 	public String Encrypt(String secretKey, String plainText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
@@ -69,7 +61,6 @@ public class PBE {
 		String encStr = new String(Base64.getEncoder().encode(out));
 		return encStr;
 	}
-
 	/**
 	 * @param secretKey     Key used to decrypt data
 	 * @param encryptedText encrypted text input to decrypt
@@ -83,7 +74,6 @@ public class PBE {
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
-
 	public String Decrypt(String secretKey, String encryptedText)
 			throws NoSuchAlgorithmException,
 			InvalidKeySpecException,
@@ -108,8 +98,6 @@ public class PBE {
 		String plainStr = new String(utf8, charSet);
 		return plainStr;
 	}
-
-	
 	public HashMap<String, String> Getkey() {
 		HashMap<String, String> arraykey = new HashMap<String, String>();
 		UUID uuid = UUID.randomUUID();
@@ -118,9 +106,4 @@ public class PBE {
 
 		return arraykey;
 	}
-
-
-
-
-
 }
