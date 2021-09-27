@@ -47,7 +47,7 @@ Functionality of this package is contained in Java package `com.github.damianwaj
 |spring.commons.rest.template.ssl.trustStore||any string|empty
 |spring.commons.rest.template.http.connection.pool.maxTotal|any int||100
 |spring.commons.rest.template.http.connection.pool.MaxDefaultPerRoute|any int||30
-|spring.commons.rest.template.implementation| enum (HTTP_CLIENT,OK_HTTP) | HTTP_CLIENT
+|spring.commons.rest.template.implementation| HTTP_CLIENT, OK_HTTP | real implementation of httpclient| HTTP_CLIENT
 
 
 ### RestTemplates
