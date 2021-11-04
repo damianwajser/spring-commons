@@ -7,6 +7,7 @@ Some annotations accept additional attributes like ***isNulleable***, but the me
 ***bussiness code:*** this the code that will usualle for ***spring-commons-exception-handler*** and generate a prettty message.
 
 ***isNulleable:*** this attribute indicate if the field can be nulleable.
+
 ***excludes:*** HttpMethod array indicating the http methods that have no effect from this validation.
  
 -----
