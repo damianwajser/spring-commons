@@ -29,7 +29,7 @@ public class ErrorMessage {
 	}
 
 	@JsonCreator
-	private ErrorMessage(@JsonProperty("details") List<ExceptionDetail> details, @JsonProperty("path") String path) {
+	public ErrorMessage(@JsonProperty("details") List<ExceptionDetail> details, @JsonProperty("path") String path) {
 		this.details = details;
 		this.path = path;
 		this.timestamp = LocalDateTime.now().toString();
