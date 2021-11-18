@@ -8,6 +8,8 @@ Some annotations accept additional attributes like ***isNulleable***, but the me
 
 ***isNulleable:*** this attribute indicate if the field can be nulleable.
 
+***excludes:*** HttpMethod array indicating the http methods that have no effect from this validation.
+ 
 -----
 
 ## Get it!
@@ -91,6 +93,19 @@ On the other hand some useful validations are added:
 
 ##### Examples
 
+##### @Max
+
+```java
+public class MaxObject {
+    
+    //Check max when HTTP Method not match with PUT and POST and ignore validation if value is null
+    @Max(value = 3, businessCode = "a-400", exclude={HttpMethod.PUT,HttpMethod.POST}, nulleable=true)
+    //Check max when HTTP Method not match with PATHC and check if value equals null
+    @Max(value = 3, businessCode = "a-400", exclude=HttpMethod.PATCH)
+    private Long value;
+
+}
+```
 ##### @CardToken
 
 ```java
