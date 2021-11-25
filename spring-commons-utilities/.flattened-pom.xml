@@ -8,7 +8,7 @@
     <version>1.22.4</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
-  <artifactId>spring-commons-logger-logstash</artifactId>
+  <artifactId>spring-commons-utilities</artifactId>
   <version>1.22.4</version>
   <licenses>
     <license>
@@ -20,23 +20,8 @@
   <dependencies>
     <dependency>
       <groupId>com.github.damianwajser</groupId>
-      <artifactId>spring-commons-logger</artifactId>
+      <artifactId>spring-commons-exception</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.logstash.logback</groupId>
-      <artifactId>logstash-logback-encoder</artifactId>
-      <version>${logstash.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-log4j12</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 </project>

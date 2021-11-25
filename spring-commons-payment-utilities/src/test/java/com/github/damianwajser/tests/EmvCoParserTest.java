@@ -12,7 +12,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class EmvCoParserTest {
 
 	@Test
