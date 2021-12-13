@@ -28,7 +28,7 @@ public class OptionalTest {
 	public void unWrapTest() throws Exception {
 		Optional<String> expected = Optional.of("test");
 		Optional<String> result = OptionalWrapper.of(expected).unWrap();
-		assertThat(result).isEqualTo(result);
+		assertThat(expected).isEqualTo(result);
 	}
 
 	@Test

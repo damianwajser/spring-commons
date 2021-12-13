@@ -4,9 +4,6 @@ import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
 import com.github.damianwajser.rest.configuration.properties.TimeoutConfigurationProperties;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -14,7 +11,6 @@ import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
-import java.net.SocketException;
 import java.util.concurrent.TimeUnit;
 
 @Component

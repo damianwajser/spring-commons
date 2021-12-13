@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-parent</artifactId>
-  <version>1.22.6</version>
+  <version>1.23.0</version>
   <packaging>pom</packaging>
   <name>spring-commons-parent</name>
   <description>DESC</description>
@@ -64,19 +64,22 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <spring.boot.version>2.3.0.RELEASE</spring.boot.version>
-    <junit.platform.version>1.0.0-M2</junit.platform.version>
-    <embedded.redis.version>0.7.3</embedded.redis.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <jedis.client.version>3.5.2</jedis.client.version>
-    <junit.jupiter.version>5.4.0</junit.jupiter.version>
-    <revision>1.22.6</revision>
+    <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+    <revision>1.23.0</revision>
+    <embedded.redis.version>0.7.3</embedded.redis.version>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <logstash.version>6.4</logstash.version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -198,12 +201,6 @@
               <excludes>
                 <excludes>**/test/*</excludes>
               </excludes>
-              <archive>
-                <manifest>
-                  <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                </manifest>
-              </archive>
             </configuration>
           </plugin>
           <plugin>
@@ -211,20 +208,6 @@
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>1.6.7</version>
             <extensions>true</extensions>
-            <executions>
-              <execution>
-                <id>injected-nexus-deploy</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                </goals>
-                <configuration>
-                  <serverId>ossrh</serverId>
-                  <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                  <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-              </execution>
-            </executions>
             <configuration>
               <serverId>ossrh</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
@@ -252,9 +235,6 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
-                <configuration>
-                  <source>8</source>
-                </configuration>
               </execution>
             </executions>
             <configuration>

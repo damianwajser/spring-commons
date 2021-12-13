@@ -4,8 +4,6 @@ import com.github.damianwajser.emv.exceptions.CrcValidationException;
 import com.github.damianwajser.emv.exceptions.EmvFormatException;
 import com.github.damianwajser.emv.parser.EmvCoParser;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
 
