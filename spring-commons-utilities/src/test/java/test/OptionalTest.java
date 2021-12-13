@@ -16,7 +16,7 @@ public class OptionalTest {
 	public void CheckGetTest() throws Exception {
 		String expected = "test";
 		String result = OptionalWrapper.of(Optional.of(expected)).get();
-		assertThat(result).isEqualTo(result);
+		assertThat(expected).isEqualTo(result);
 	}
 
 	@Test(expected = NullPointerException.class)
