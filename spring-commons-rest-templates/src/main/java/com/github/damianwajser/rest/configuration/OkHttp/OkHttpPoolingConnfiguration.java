@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @ConditionalOnProperty(prefix = "spring.commons.rest.template", name = "implementation", havingValue = "OK_HTTP")
 public class OkHttpPoolingConnfiguration {
-	
+
 	@Bean
 	public ConnectionPool poolingHttpClientConnectionManager(PoolConfigurationProperties poolConfigurationProperties) {
 		ConnectionPool result = new ConnectionPool(poolConfigurationProperties.getMaxTotal(), 5, TimeUnit.MINUTES);
