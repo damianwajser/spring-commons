@@ -25,6 +25,7 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -147,10 +148,12 @@ public class IdempontecyFilter implements Filter {
 		response.setStatus(message.getStatusCode());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setHeader("X-Idempotency", String.valueOf(cached));
+		Map<String, String> headers = message.getHeaders();
+		headers.remove("Transfer-Encoding");
+		headers.forEach(response::setHeader);
 		responseWriter.write(alteredContent);
 		return wrapper;
 	}
-
 
 	@Override
 	public void destroy() {

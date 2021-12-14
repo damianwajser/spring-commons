@@ -19,7 +19,7 @@ public class OptionalWrapper<T> {
 	}
 
 	public static <T> OptionalWrapper<T> of(Optional<T> value) {
-		return new OptionalWrapper<T>(value);
+		return new OptionalWrapper<>(value);
 	}
 
 	public T get() {

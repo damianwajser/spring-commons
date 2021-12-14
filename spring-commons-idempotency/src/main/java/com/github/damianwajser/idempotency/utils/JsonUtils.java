@@ -14,7 +14,7 @@ public class JsonUtils {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		String objectJson = objectMapper.writeValueAsString(message)
-				.replaceAll("\\\\", "");
+				.replace("\\\\", "");
 		if (objectJson.startsWith("\"")) {
 			objectJson = objectJson.replaceFirst("\"", "").trim();
 		}

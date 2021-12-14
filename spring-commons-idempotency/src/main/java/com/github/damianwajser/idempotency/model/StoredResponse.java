@@ -43,10 +43,6 @@ public class StoredResponse implements Serializable {
 		return lock;
 	}
 
-	public void lock() {
-		lock = true;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		return EqualsBuilder.reflectionEquals(this, o);
@@ -62,7 +58,7 @@ public class StoredResponse implements Serializable {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public void unLock() {
-		lock = false;
+	public Map<String, String> getHeaders() {
+		return headers;
 	}
 }
