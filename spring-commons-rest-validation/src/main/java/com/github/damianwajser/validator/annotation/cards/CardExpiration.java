@@ -22,6 +22,10 @@ public @interface CardExpiration {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
+	boolean isNulleable() default false;
+
 	String message();
 
 	Class<?>[] groups() default {};

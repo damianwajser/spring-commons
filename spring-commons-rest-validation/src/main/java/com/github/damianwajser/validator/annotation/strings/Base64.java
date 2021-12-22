@@ -20,22 +20,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Repeatable(Base64.List.class)
 public @interface Base64 {
 
-    HttpMethod[] excludes() default {};
+	HttpMethod[] excludes() default {};
 
-    String message();
+	HttpMethod[] onlyIn() default {};
 
-    Class<?>[] groups() default {};
+	String message();
 
-    Class<? extends Payload>[] payload() default {};
+	Class<?>[] groups() default {};
 
-    String businessCode();
+	Class<? extends Payload>[] payload() default {};
 
-    boolean isNulleable() default false;
+	String businessCode();
 
-    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-    @Retention(RUNTIME)
-    @Documented
-    @interface List {
-        Base64[] value();
-    }
+	boolean isNulleable() default false;
+
+	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+		Base64[] value();
+	}
 }

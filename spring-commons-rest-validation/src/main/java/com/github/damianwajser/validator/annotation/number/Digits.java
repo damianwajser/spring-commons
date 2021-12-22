@@ -22,7 +22,9 @@ public @interface Digits {
 
 	HttpMethod[] excludes() default {};
 
-    String message() default "{javax.validation.constraints.Digits.message}";
+	HttpMethod[] onlyIn() default {};
+
+	String message() default "{javax.validation.constraints.Digits.message}";
 
 	Class<?>[] groups() default {};
 
@@ -30,16 +32,16 @@ public @interface Digits {
 
 	String businessCode();
 
-    int integer();
+	int integer();
 
-    int fraction();
+	int fraction();
 
-    boolean isNulleable() default false;
+	boolean isNulleable() default false;
 
 	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 	@Retention(RUNTIME)
 	@Documented
 	@interface List {
-        Digits[] value();
+		Digits[] value();
 	}
 }

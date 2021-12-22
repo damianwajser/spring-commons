@@ -14,8 +14,7 @@ public class PastConstraint extends AbstractConstraint implements ConstraintVali
 
 	@Override
 	public void initialize(Past field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 	}
 
 	@Override

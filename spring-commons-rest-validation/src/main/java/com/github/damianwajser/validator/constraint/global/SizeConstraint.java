@@ -18,12 +18,11 @@ public class SizeConstraint extends AbstractConstraint implements ConstraintVali
 
 	@Override
 	public void initialize(Size field) {
-		this.initialize(field.excludes(), field.max(), field.min(), field.isNulleable());
+		this.initialize(field.excludes(), field.onlyIn(), field.max(), field.min(), field.isNulleable());
 	}
 
-	public SizeConstraint initialize(HttpMethod[] excludes, int max, int min, boolean isNulleable) {
-		super.excludes = excludes;
-		super.isNulleable = isNulleable;
+	public SizeConstraint initialize(HttpMethod[] excludes, HttpMethod[] onlyIn, int max, int min, boolean isNulleable) {
+		super.initialize(excludes, onlyIn, isNulleable);
 		this.max = max;
 		this.min = min;
 		return this;

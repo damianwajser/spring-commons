@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class EmailValidationTest {
 
 	@Test

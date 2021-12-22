@@ -13,13 +13,12 @@ public class PasswordConstraint extends AbstractConstraint implements Constraint
 
 	@Override
 	public void initialize(Password field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 	}
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		return !new PatternConstraint().initialize(this.excludes, PATTERN, super.isNulleable).isValid(field, cxt);
+		return !new PatternConstraint().initialize(this.excludes, this.onlyIn, PATTERN, super.isNulleable).isValid(field, cxt);
 	}
 
 }

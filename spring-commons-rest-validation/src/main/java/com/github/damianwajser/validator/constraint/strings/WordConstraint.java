@@ -15,8 +15,7 @@ public class WordConstraint extends AbstractConstraint implements ConstraintVali
 
 	@Override
 	public void initialize(Word field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.max = field.max();
 		this.min = field.min();
 		this.allowSpaces = field.allowSpaces();
@@ -26,7 +25,7 @@ public class WordConstraint extends AbstractConstraint implements ConstraintVali
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
 		boolean hasError = true;
 		if (String.class.isAssignableFrom(field.getClass())) {
-			hasError = !new SizeConstraint().initialize(excludes, max, min, this.isNulleable).isValid(field, cxt);
+			hasError = !new SizeConstraint().initialize(excludes, this.onlyIn, max, min, this.isNulleable).isValid(field, cxt);
 			if (!hasError) {
 				hasError = allowSpaces ? !StringUtils.isAlphaSpace((String) field) : !StringUtils.isAlpha((String) field);
 			}

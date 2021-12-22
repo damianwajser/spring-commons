@@ -22,6 +22,8 @@ public @interface CardToken {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message();
 
 	Class<?>[] groups() default {};
@@ -37,7 +39,8 @@ public @interface CardToken {
 	enum Tokenizer {
 		TOKEN_EX;
 	}
-	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+
+	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 	@Retention(RUNTIME)
 	@Documented
 	@interface List {

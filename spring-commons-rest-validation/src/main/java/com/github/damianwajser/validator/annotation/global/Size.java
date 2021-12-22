@@ -24,6 +24,8 @@ public @interface Size {
 
 	String message() default "{javax.validation.constraints.Size.message}";
 
+	HttpMethod[] onlyIn() default {};
+
 	Class<?>[] groups() default {};
 
 	int max();

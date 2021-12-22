@@ -22,6 +22,8 @@ public @interface AlphaNumeric {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message();
 
 	boolean allowSpaces() default true;

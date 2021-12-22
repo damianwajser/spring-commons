@@ -22,6 +22,8 @@ public @interface Country_ISO3166 {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message();
 
 	Class<?>[] groups() default {};

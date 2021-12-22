@@ -24,6 +24,8 @@ public @interface NotNull {
 
 	String message() default "{javax.validation.constraints.NotNull.message}";
 
+	HttpMethod[] onlyIn() default {};
+
 	Class<?>[] groups() default {};
 
 	Class<? extends Payload>[] payload() default {};

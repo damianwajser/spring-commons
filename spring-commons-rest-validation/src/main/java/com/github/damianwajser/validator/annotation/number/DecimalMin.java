@@ -22,7 +22,9 @@ public @interface DecimalMin {
 
 	HttpMethod[] excludes() default {};
 
-    String message() default "{javax.validation.constraints.DecimalMin.message}";
+	HttpMethod[] onlyIn() default {};
+
+	String message() default "{javax.validation.constraints.DecimalMin.message}";
 
 	Class<?>[] groups() default {};
 
@@ -30,16 +32,16 @@ public @interface DecimalMin {
 
 	String businessCode();
 
-    String value();
+	String value();
 
-    boolean inclusive() default true;
+	boolean inclusive() default true;
 
-    boolean isNulleable() default false;
+	boolean isNulleable() default false;
 
 	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 	@Retention(RUNTIME)
 	@Documented
 	@interface List {
-        DecimalMin[] value();
+		DecimalMin[] value();
 	}
 }

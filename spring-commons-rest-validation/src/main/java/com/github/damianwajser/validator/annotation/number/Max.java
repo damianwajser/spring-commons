@@ -22,6 +22,8 @@ public @interface Max {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message() default "{javax.validation.constraints.Max.message}";
 
 	Class<?>[] groups() default {};

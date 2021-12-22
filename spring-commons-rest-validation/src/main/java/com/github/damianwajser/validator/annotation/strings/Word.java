@@ -24,6 +24,8 @@ public @interface Word {
 
 	String message();
 
+	HttpMethod[] onlyIn() default {};
+
 	boolean allowSpaces() default true;
 
 	Class<?>[] groups() default {};

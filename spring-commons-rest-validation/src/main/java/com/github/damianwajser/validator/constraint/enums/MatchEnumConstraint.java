@@ -16,12 +16,11 @@ public class MatchEnumConstraint extends AbstractConstraint implements Constrain
 
 	@Override
 	public void initialize(MatchEnum field) {
-		this.initialize(field.excludes(), field.isNulleable(), field.enumClass());
+		this.initialize(field.excludes(), field.onlyIn(), field.isNulleable(), field.enumClass());
 	}
 
-	public MatchEnumConstraint initialize(HttpMethod[] excludes, boolean isNulleable, Class<? extends Enum<?>> enumClass) {
-		super.excludes = excludes;
-		super.isNulleable = isNulleable;
+	public MatchEnumConstraint initialize(HttpMethod[] excludes, HttpMethod[] onlyIn, boolean isNulleable, Class<? extends Enum<?>> enumClass) {
+		super.initialize(excludes, onlyIn, isNulleable);
 		this.acceptedValues = Stream.of(enumClass.getEnumConstants())
 				.map(Enum::name)
 				.collect(Collectors.toList());

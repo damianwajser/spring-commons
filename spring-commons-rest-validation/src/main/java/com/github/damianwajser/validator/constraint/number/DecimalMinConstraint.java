@@ -9,29 +9,28 @@ import java.math.BigDecimal;
 
 public class DecimalMinConstraint extends AbstractConstraint implements ConstraintValidator<DecimalMin, Object> {
 
-    BigDecimal minValue;
-    boolean inclusive;
+	private BigDecimal minValue;
+	private boolean inclusive;
 
-    @Override
-    public void initialize(DecimalMin field) {
-        try {
-            this.minValue = new BigDecimal(field.value());
-        } catch (NumberFormatException var3) {
-            throw new IllegalArgumentException(String.format("%s does not represent a valid BigDecimal format.", field.value()), var3);
-        }
-        super.excludes = field.excludes();
-        super.isNulleable = field.isNulleable();
-        this.inclusive = field.inclusive();
-    }
+	@Override
+	public void initialize(DecimalMin field) {
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
+		try {
+			this.minValue = new BigDecimal(field.value());
+		} catch (NumberFormatException var3) {
+			throw new IllegalArgumentException(String.format("%s does not represent a valid BigDecimal format.", field.value()), var3);
+		}
+		this.inclusive = field.inclusive();
+	}
 
 
-    @Override
-    protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-        int comparisonResult = this.compare((BigDecimal) field);
-        return this.inclusive ? comparisonResult < 0 : comparisonResult <= 0;
-    }
+	@Override
+	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
+		int comparisonResult = this.compare((BigDecimal) field);
+		return this.inclusive ? comparisonResult < 0 : comparisonResult <= 0;
+	}
 
-    protected int compare(BigDecimal number) {
-        return number.compareTo(this.minValue);
-    }
+	protected int compare(BigDecimal number) {
+		return number.compareTo(this.minValue);
+	}
 }

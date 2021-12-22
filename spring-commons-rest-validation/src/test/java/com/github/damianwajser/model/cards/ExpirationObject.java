@@ -18,8 +18,9 @@ public class ExpirationObject implements CardExpirable {
 		this.expirationYear = expirationYear;
 	}
 
-	public void setExpirationYear(int expirationYear) {
-		this.expirationYear = expirationYear;
+	@Override
+	public int getExpirationMonth() {
+		return this.expirationMonth;
 	}
 
 	public void setExpirationMonth(int expirationMonth) {
@@ -27,12 +28,11 @@ public class ExpirationObject implements CardExpirable {
 	}
 
 	@Override
-	public int getExpirationMonth() {
-		return this.expirationMonth;
-	}
-
-	@Override
 	public int getExpirationYear() {
 		return this.expirationYear;
+	}
+
+	public void setExpirationYear(int expirationYear) {
+		this.expirationYear = expirationYear;
 	}
 }

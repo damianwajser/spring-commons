@@ -22,6 +22,8 @@ public @interface Past {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message() default "{javax.validation.constraints.AssertTrue.message}";
 
 	Class<?>[] groups() default {};
