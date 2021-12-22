@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests.global.e2e;
 
+import com.github.damianwajser.model.especifics.NoEmptyObjectOnlyPut;
 import com.github.damianwajser.model.global.NoEmptyObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,5 +36,16 @@ public class NotEmptyValidationTest {
 		assertThat(statusCode).isEqualTo(HttpStatus.OK);
 	}
 
+	@Test(expected = BadRequest.class)
+	public void only_put_test() throws Exception {
+		HttpStatus statusCode = this.restTemplate.exchange("http://localhost:" + port + "/badrequest_only_put", HttpMethod.PUT,
+				new HttpEntity<>(new NoEmptyObjectOnlyPut("")), Object.class).getStatusCode();
+	}
 
+	@Test
+	public void only_put_test_ok() throws Exception {
+		HttpStatus statusCode = this.restTemplate.exchange("http://localhost:" + port + "/badrequest_only_put", HttpMethod.POST,
+				new HttpEntity<>(new NoEmptyObjectOnlyPut("")), Object.class).getStatusCode();
+		assertThat(statusCode).isEqualTo(HttpStatus.OK);
+	}
 }

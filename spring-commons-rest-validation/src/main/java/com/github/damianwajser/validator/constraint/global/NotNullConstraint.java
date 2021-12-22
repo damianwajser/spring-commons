@@ -11,8 +11,7 @@ public class NotNullConstraint extends AbstractConstraint implements ConstraintV
 
 	@Override
 	public void initialize(NotNull field) {
-		super.excludes = field.excludes();
-		super.isNulleable = false;
+		super.initialize(field.excludes(), field.onlyIn(), false);
 	}
 
 	@Override

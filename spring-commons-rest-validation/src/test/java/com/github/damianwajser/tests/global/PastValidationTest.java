@@ -12,7 +12,6 @@ import java.util.Date;
 import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class PastValidationTest {
 
 	@Test

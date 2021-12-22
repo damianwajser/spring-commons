@@ -9,13 +9,12 @@ import java.math.BigDecimal;
 
 public class DigitsConstraint extends AbstractConstraint implements ConstraintValidator<Digits, Object> {
 
-	int maxIntegerLength;
-	int maxFractionLength;
+	private int maxIntegerLength;
+	private int maxFractionLength;
 
 	@Override
 	public void initialize(Digits field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.maxIntegerLength = field.integer();
 		this.maxFractionLength = field.fraction();
 		this.validateParameters();

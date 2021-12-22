@@ -20,12 +20,11 @@ public class PatternConstraint extends AbstractConstraint implements ConstraintV
 
 	@Override
 	public void initialize(Pattern field) {
-		this.initialize(field.excludes(), field.regexp(), field.isNulleable());
+		this.initialize(field.excludes(), field.onlyIn(), field.regexp(), field.isNulleable());
 	}
 
-	public PatternConstraint initialize(HttpMethod[] excludes, String regex, boolean isNulleable) {
-		super.excludes = excludes;
-		super.isNulleable = isNulleable;
+	public PatternConstraint initialize(HttpMethod[] excludes, HttpMethod[] onlyIn, String regex, boolean isNulleable) {
+		super.initialize(excludes, onlyIn, isNulleable);
 		this.regex = regex;
 		return this;
 	}

@@ -13,12 +13,11 @@ public class UUIDConstraint extends AbstractConstraint implements ConstraintVali
 
 	@Override
 	public void initialize(UUID field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 	}
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		return !new PatternConstraint().initialize(this.excludes, PATTERN, this.isNulleable).isValid(field, cxt);
+		return !new PatternConstraint().initialize(this.excludes, this.onlyIn, PATTERN, this.isNulleable).isValid(field, cxt);
 	}
 }

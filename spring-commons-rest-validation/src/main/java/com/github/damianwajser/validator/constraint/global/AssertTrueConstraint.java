@@ -10,8 +10,7 @@ public class AssertTrueConstraint extends AbstractConstraint implements Constrai
 
 	@Override
 	public void initialize(AssertTrue field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 	}
 
 	@Override

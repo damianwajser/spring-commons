@@ -24,6 +24,8 @@ public @interface Min {
 
 	String message() default "{javax.validation.constraints.Min.message}";
 
+	HttpMethod[] onlyIn() default {};
+
 	Class<?>[] groups() default {};
 
 	long value();

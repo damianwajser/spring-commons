@@ -13,8 +13,7 @@ public class CardTokenConstraint extends AbstractConstraint implements Constrain
 
 	@Override
 	public void initialize(CardToken field) {
-		super.excludes = field.excludes();
-		super.isNulleable = field.isNulleable();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.provider = field.provider();
 	}
 

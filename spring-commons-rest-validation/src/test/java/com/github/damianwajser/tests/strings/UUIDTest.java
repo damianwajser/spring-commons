@@ -2,16 +2,12 @@ package com.github.damianwajser.tests.strings;
 
 import com.github.damianwajser.model.strings.UUIDObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.UUID;
 
 import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
-@RunWith(SpringJUnit4ClassRunner.class)
 public class UUIDTest {
 
 	@Test

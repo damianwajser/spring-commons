@@ -22,6 +22,8 @@ public @interface Password {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message();
 
 	Class<?>[] groups() default {};

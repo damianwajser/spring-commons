@@ -24,6 +24,8 @@ public @interface Pattern {
 
 	String message() default "{javax.validation.constraints.Pattern.message}";
 
+	HttpMethod[] onlyIn() default {};
+
 	String regexp();
 
 	Class<?>[] groups() default {};

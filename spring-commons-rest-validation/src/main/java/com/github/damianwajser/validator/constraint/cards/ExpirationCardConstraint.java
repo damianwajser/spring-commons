@@ -19,7 +19,7 @@ public class ExpirationCardConstraint extends AbstractConstraint implements Cons
 
 	@Override
 	public void initialize(CardExpiration field) {
-		super.excludes = field.excludes();
+		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.yearFormat = field.yearFormat();
 	}
 

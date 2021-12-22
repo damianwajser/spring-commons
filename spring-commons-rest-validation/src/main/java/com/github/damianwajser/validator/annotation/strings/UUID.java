@@ -22,6 +22,8 @@ public @interface UUID {
 
 	HttpMethod[] excludes() default {};
 
+	HttpMethod[] onlyIn() default {};
+
 	String message() default "{javax.validation.constraints.Email.message}";
 
 	Class<?>[] groups() default {};

@@ -5,7 +5,7 @@ import org.springframework.http.HttpMethod;
 
 public class EmailObject {
 
-	@Email(businessCode = "a-400",excludes = HttpMethod.PATCH, message = "")
+	@Email(businessCode = "a-400", excludes = HttpMethod.PATCH, message = "")
 	private Object value;
 
 	public EmailObject() {
