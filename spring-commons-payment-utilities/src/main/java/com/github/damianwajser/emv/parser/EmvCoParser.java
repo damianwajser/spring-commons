@@ -3,14 +3,21 @@ package com.github.damianwajser.emv.parser;
 import com.github.damianwajser.emv.exceptions.CrcValidationException;
 import com.github.damianwajser.emv.exceptions.EmvFormatException;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class EmvCoParser {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmvCoParser.class);
+
 	private static final int LENGTH = 2;
 	private static final String EMV_STARTED = "00";
+
+	private EmvCoParser() {
+	}
 
 	public static Map<Integer, Object> parse(String str, boolean checkCrc) throws EmvFormatException {
 		if (!checkCrc || isValidCrc(str)) {
@@ -33,19 +40,24 @@ public class EmvCoParser {
 				int tag = Integer.parseInt(str.substring(i, tagInd));
 				int lengthValue = Integer.parseInt(str.substring(tagInd, tagInd + LENGTH));
 				String value = str.substring(tagInd + LENGTH, tagInd + LENGTH + lengthValue);
-				if (isObject(value)) {
-					try {
-						result.put(tag, convert(value));
-					} catch (StringIndexOutOfBoundsException sioe) {
-						result.put(tag, value);
-					}
-				} else {
-					result.put(tag, value);
-				}
+				result.put(tag, getValue(value));
 				i = tagInd + LENGTH + lengthValue;
 			}
 		} catch (NumberFormatException nfe) {
 			throw new EmvFormatException(nfe.getMessage() + " - in field " + i, nfe);
+		}
+		return result;
+	}
+
+	private static Object getValue(String value) throws EmvFormatException {
+		Object result = value;
+		if (isObject(value)) {
+			try {
+				result = convert(value);
+			} catch (StringIndexOutOfBoundsException sioe) {
+				//donothing
+				LOGGER.debug("parser", sioe);
+			}
 		}
 		return result;
 	}

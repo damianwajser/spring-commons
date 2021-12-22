@@ -101,14 +101,4 @@ public class CryptoUtil {
 		return plainStr;
 	}
 
-	public static void main(String[] args) throws Exception {
-		CryptoUtil cryptoUtil = new CryptoUtil();
-		String key = "123";
-		String plain = "1";
-		String enc = cryptoUtil.encrypt(key, plain);
-		System.out.println("Original text: " + plain);
-		System.out.println("Encrypted text: " + enc);
-		String plainAfter = cryptoUtil.decrypt(key, enc);
-		System.out.println("Original text after decryption: " + plainAfter);
-	}
 }

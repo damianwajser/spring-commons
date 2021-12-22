@@ -2,8 +2,6 @@ package com.github.damianwajser.filter;
 
 import com.github.damianwajser.configuration.PropertiesLogger;
 import com.github.damianwajser.generators.RequestIdGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -21,8 +19,6 @@ import java.util.Enumeration;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class MDCFilter extends OncePerRequestFilter {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(MDCFilter.class);
 
 	@Autowired
 	private PropertiesLogger properties;

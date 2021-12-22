@@ -5,6 +5,9 @@ import com.github.damianwajser.printers.formatters.QrFormat;
 
 public class FormattersFactory {
 
+	private FormattersFactory() {
+	}
+
 	public static Formatter getFormatter(QrFormat format) {
 		Formatter formatter = null;
 		switch (format) {

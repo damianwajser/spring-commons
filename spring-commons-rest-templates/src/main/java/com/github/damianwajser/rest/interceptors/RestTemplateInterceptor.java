@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Optional;
 
 public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
@@ -29,13 +30,16 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
-		Optional<HttpServletRequest> currentRequest = getCurrentHttpRequest();
-		if (currentRequest.isPresent()) {
-			HttpServletRequest servletRequest = currentRequest.get();
-			Enumeration<String> headers = servletRequest.getHeaderNames();
+		// get current http call
+		Optional<HttpServletRequest> currentOptionalRequest = getCurrentHttpRequest();
+		// is in context of an http call
+		if (currentOptionalRequest.isPresent()) {
+			HttpServletRequest currentRequest = currentOptionalRequest.get();
+			Enumeration<String> headers = currentRequest.getHeaderNames();
 			while (headers.hasMoreElements()) {
 				String headerName = headers.nextElement();
-				String headerValue = servletRequest.getHeader(headerName);
+				String headerValue = currentRequest.getHeader(headerName);
+				//if current request header is valid, add to new request
 				if (isValidHeader(request, headerName, headerValue)) {
 					LOGGER.debug("add headers: {}: {}", headerName, headerValue);
 					request.getHeaders().add(headerName, Encode.forJava(headerValue));
@@ -47,7 +51,19 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 
 	private boolean isValidHeader(HttpRequest request, String headerName, String headerValue) {
 		return headerValue != null
-				&& headerName.toUpperCase().startsWith("X-")
-				&& (request.getHeaders().get(headerName) == null || !request.getHeaders().get(headerName).contains(headerValue));
+				&& isCustomHHeader(headerName)
+				&& isValidValue(headerName, headerValue, request);
+	}
+
+	private boolean isValidValue(String headerName, String headerValue, HttpRequest request) {
+		// Check that you do not want to overwrite the header,
+		// for it to be valid the current value must be null
+		// or not contain what I want to add
+		List<String> headers = request.getHeaders().get(headerName);
+		return headers == null || !headers.contains(headerValue);
+	}
+
+	private boolean isCustomHHeader(String headerName) {
+		return headerName.toUpperCase().startsWith("X-");
 	}
 }

@@ -90,15 +90,15 @@ public class ExceptionResponseTest {
 	@Test
 	public void badRequest_enum_object() throws Exception {
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		JSONObject json = new JSONObject();
+		json.put("a", "asd");
+		json.put("b", "asd");
+		HttpEntity<String> body = new HttpEntity<>(json.toString(), headers);
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			JSONObject json = new JSONObject();
-			json.put("a", "asd");
-			json.put("b", "asd");
-			HttpEntity<String> body = new HttpEntity<>(json.toString(), headers);
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/enum", HttpMethod.POST, body, Object.class);
-			Assert.fail();
+			Assert.fail("Expected an BadRequest to be thrown");
 		} catch (BadRequest e) {
 			Assert.assertEquals("Cannot deserialize value of type `com.github.damianwajser.model.EnumModel$TEST` from String \"asd\": not one of the values accepted for Enum class: [A, B]", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
 			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
@@ -109,7 +109,7 @@ public class ExceptionResponseTest {
 	public void badRequestWithParameter() throws Exception {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/1", HttpMethod.GET, null, Object.class);
-			Assert.fail();
+			Assert.fail("Expected an BadRequest to be thrown");
 		} catch (BadRequest e) {
 			Assert.assertEquals("as-400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
 		}
