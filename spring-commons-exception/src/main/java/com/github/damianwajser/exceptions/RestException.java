@@ -47,6 +47,18 @@ public abstract class RestException extends Exception {
 		this(new ExceptionDetail(errorCode, errorMessage, errorDetail), e);
 	}
 
+	protected RestException(String errorCode, String errorMessage, Object... messageArgs) {
+		this(errorCode, errorMessage, messageArgs, Optional.empty(), null);
+	}
+
+	protected RestException(String errorCode, String errorMessage, Object[] messageArgs, Optional<Object> errorDetail) {
+		this(errorCode, errorMessage, messageArgs, errorDetail, null);
+	}
+
+	protected RestException(String errorCode, String errorMessage, Object[] messageArgs, Optional<Object> errorDetail, Exception e) {
+		this(new ExceptionDetail(errorCode, errorMessage, messageArgs, errorDetail), e);
+	}
+
 	public List<ExceptionDetail> getDetails() {
 		return details;
 	}

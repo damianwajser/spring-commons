@@ -1,6 +1,7 @@
 package com.github.damianwajser.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -27,6 +28,9 @@ public class ExceptionDetail implements Serializable {
 	@JsonAlias({"error_message", "errorMessage"})
 	private String errorMessage;
 
+	@JsonIgnore
+	private Object[] messageArgs;
+
 	@JsonAlias({"meta_data", "metaData", "metadata"})
 	private Map<String, Object> metaData;
 
@@ -35,8 +39,16 @@ public class ExceptionDetail implements Serializable {
 	public ExceptionDetail(String errorCode,
 						   String errorMessage,
 						   Optional<Object> detail) {
+		this(errorCode, errorMessage, null, detail);
+	}
+
+	public ExceptionDetail(String errorCode,
+						   String errorMessage,
+							 Object[] messageArgs,
+						   Optional<Object> detail) {
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
+		this.messageArgs = messageArgs;
 		this.errorDetail = detail;
 		this.metaData = new HashMap<>();
 	}
@@ -47,6 +59,10 @@ public class ExceptionDetail implements Serializable {
 
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public Object[] getMessageArgs() {
+		return messageArgs;
 	}
 
 	public void setMetaData(String key, Object value) {

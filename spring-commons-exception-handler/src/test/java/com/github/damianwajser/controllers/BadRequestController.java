@@ -6,10 +6,13 @@ import com.github.damianwajser.model.FooObject;
 import com.github.damianwajser.validator.annotation.enums.MatchEnum;
 import com.github.damianwajser.validator.annotation.number.Min;
 import com.github.damianwajser.validator.constraint.enums.values.Countries;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +22,13 @@ public class BadRequestController {
 	@PostMapping("/badrequest")
 	private FooObject badRequest() throws BadRequestException {
 		throw new BadRequestException("400", "badrequest", Optional.empty());
+	}
+
+	@PostMapping("/badrequest/message/{one}")
+	private FooObject badRequest_message(@PathVariable String one,
+																			 @Value("${last.argument}") String lastArgument)
+		throws BadRequestException {
+		throw new BadRequestException("400", "{spring.commons.message.with.args}", one, new Date(), Instant.now().toEpochMilli(), lastArgument);
 	}
 
 	@PostMapping("/badrequest/enum/{country}")
