@@ -28,6 +28,7 @@
 		<logstash.version>6.4</logstash.version>
 		<embedded.redis.version>0.7.3</embedded.redis.version>
 		<jedis.client.version>3.5.2</jedis.client.version>
+		<sonar.cpd.exclusions>com.github.damianwajser.validator.annotation\**</sonar.cpd.exclusions>
 	</properties>
 	<modules>
 		<module>spring-commons-payment-utilities</module>
