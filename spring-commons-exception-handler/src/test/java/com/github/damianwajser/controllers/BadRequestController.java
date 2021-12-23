@@ -25,9 +25,7 @@ public class BadRequestController {
 	}
 
 	@PostMapping("/badrequest/message/{one}")
-	private FooObject badRequest_message(@PathVariable String one,
-																			 @Value("${last.argument}") String lastArgument)
-		throws BadRequestException {
+	private FooObject badRequest_message(@PathVariable String one, @Value("${last.argument}") String lastArgument) throws BadRequestException {
 		throw new BadRequestException("400", "{spring.commons.message.with.args}", one, new Date(), Instant.now().toEpochMilli(), lastArgument);
 	}
 
