@@ -37,8 +37,8 @@ public class ExceptionDetail implements Serializable {
 	public ExceptionDetail(){}
 
 	public ExceptionDetail(String errorCode,
-					String errorMessage,
-					Optional<Object> detail) {
+				String errorMessage,
+				Optional<Object> detail) {
 		this(errorCode, detail, errorMessage);
 	}
 
