@@ -37,19 +37,19 @@ public class ExceptionDetail implements Serializable {
 	public ExceptionDetail(){}
 
 	public ExceptionDetail(String errorCode,
-						   String errorMessage,
-						   Optional<Object> detail) {
-		this(errorCode, errorMessage, null, detail);
+					String errorMessage,
+					Optional<Object> detail) {
+		this(errorCode, detail, errorMessage);
 	}
 
 	public ExceptionDetail(String errorCode,
-						   String errorMessage,
-							 Object[] messageArgs,
-						   Optional<Object> detail) {
+				Optional<Object> detail,
+				String errorMessage,
+				Object... messageArgs) {
 		this.errorCode = errorCode;
+		this.errorDetail = detail;
 		this.errorMessage = errorMessage;
 		this.messageArgs = messageArgs;
-		this.errorDetail = detail;
 		this.metaData = new HashMap<>();
 	}
 

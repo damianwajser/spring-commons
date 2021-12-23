@@ -41,11 +41,12 @@ public class BadRequestException extends RestException {
 		super(errorCode, errorMessage, messageArgs);
 	}
 
-	public BadRequestException(String errorCode, String errorMessage, Object[] messageArgs, Optional<Object> errorDetail) {
-		super(errorCode, errorMessage, messageArgs, errorDetail);
+	public BadRequestException(String errorCode, Optional<Object> errorDetail, String errorMessage, Object[] messageArgs) {
+		super(errorCode, errorDetail, errorMessage, messageArgs);
 	}
 
-	public BadRequestException(String errorCode, String errorMessage, Object[] messageArgs, Optional<Object> errorDetail, Exception e) {
-		super(errorCode, errorMessage, messageArgs, errorDetail, e);
+	public BadRequestException(String errorCode, Optional<Object> errorDetail, Exception e, String errorMessage, Object[] messageArgs) {
+		super(errorCode, errorDetail, e, errorMessage, messageArgs);
 	}
+
 }
