@@ -1,5 +1,6 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.utils.TestUtils;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -73,6 +74,20 @@ public class ExceptionResponseTest {
 		} catch (BadRequest e) {
 			Assert.assertEquals("badrequest", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
 			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+		}
+	}
+
+	@Test
+	public void badRequest_message_args() throws Exception {
+		try {
+			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/message/Variable", HttpMethod.POST, null, Object.class);
+			Assert.fail();
+		} catch (BadRequest e) {
+			ExceptionDetail exceptionDetail = TestUtils.getMessage(e).getDetails().get(0);
+			String errorMessage = exceptionDetail.getErrorMessage();
+			Assert.assertEquals("400", exceptionDetail.getErrorCode());
+			Assert.assertTrue(errorMessage.contains("English message with Variable on "));
+			Assert.assertTrue(errorMessage.contains(" and final comment, for testing purpose as arguments"));
 		}
 	}
 

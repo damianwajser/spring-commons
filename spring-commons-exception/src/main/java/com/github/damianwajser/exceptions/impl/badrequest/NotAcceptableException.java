@@ -36,4 +36,17 @@ public class NotAcceptableException extends RestException {
 	public NotAcceptableException(String errorCode, String errorMessage, Optional<Object> errorDetail, Exception e) {
 		super(errorCode, errorMessage, errorDetail, e);
 	}
+
+	public NotAcceptableException(String errorCode, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorMessage, messageArgs);
+	}
+
+	public NotAcceptableException(String errorCode, Optional<Object> errorDetail, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorDetail, errorMessage, messageArgs);
+	}
+
+	public NotAcceptableException(String errorCode, Optional<Object> errorDetail, Exception e, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorDetail, e, errorMessage, messageArgs);
+	}
+
 }
