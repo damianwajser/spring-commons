@@ -61,7 +61,8 @@ public final class ExceptionDetailMapper {
 	public static ExceptionDetail internacionalizate(ExceptionDetail detail, MessageSource messageSource, Locale locale) {
 		String m = detail.getErrorMessage();
 		if (m.startsWith("{")) {
-			detail.setErrorMessage(messageSource.getMessage(StringUtils.substringBetween(m, "{", "}"), new Object[]{}, m, locale));
+			Object[] args = detail.getMessageArgs();
+			detail.setErrorMessage(messageSource.getMessage(StringUtils.substringBetween(m, "{", "}"), args, m, locale));
 			if (detail.getErrorMessage().equalsIgnoreCase(m)) {
 				detail.setMetaData(I18N_KEY, TEMPLATE_NOT_FOUND);
 			}

@@ -37,4 +37,16 @@ public class ForbiddenException extends RestException {
 		super(errorCode, errorMessage, errorDetail, e);
 	}
 
+	public ForbiddenException(String errorCode, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorMessage, messageArgs);
+	}
+
+	public ForbiddenException(String errorCode, Optional<Object> errorDetail, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorDetail, errorMessage, messageArgs);
+	}
+
+	public ForbiddenException(String errorCode, Optional<Object> errorDetail, Exception e, String errorMessage, Object... messageArgs) {
+		super(errorCode, errorDetail, e, errorMessage, messageArgs);
+	}
+
 }
