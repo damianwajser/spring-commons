@@ -1,6 +1,7 @@
 package com.github.damianwajser.tests;
 
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
+import com.github.damianwajser.model.CustomValidationFooObject;
 import com.github.damianwajser.utils.TestUtils;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -19,6 +20,8 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -80,7 +83,11 @@ public class ExceptionResponseTest {
 	@Test
 	public void badRequest_message_args() throws Exception {
 		try {
-			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/message/Variable", HttpMethod.POST, null, Object.class);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+			headers.add("Accept-Language", "en-EN");
+			HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(null, headers);
+			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/message/Variable", HttpMethod.POST, entity, Object.class);
 			Assert.fail();
 		} catch (BadRequest e) {
 			ExceptionDetail exceptionDetail = TestUtils.getMessage(e).getDetails().get(0);
