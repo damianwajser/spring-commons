@@ -7,8 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class IdempotencyEndpoints {
@@ -45,7 +43,7 @@ public class IdempotencyEndpoints {
 				.findFirst();
 	}
 
-	public String generateKey(HttpServletRequest request) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+	public String generateKey(HttpServletRequest request) {
 		return this.getEndpoint(request).map(ie -> ie.generateKey(request))
 				.orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI()));
 	}

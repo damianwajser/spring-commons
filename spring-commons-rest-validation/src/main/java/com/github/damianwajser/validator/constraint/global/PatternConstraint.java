@@ -14,7 +14,7 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class PatternConstraint extends AbstractConstraint implements ConstraintValidator<Pattern, Object> {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(PatternConstraint.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PatternConstraint.class);
 
 	private String regex;
 

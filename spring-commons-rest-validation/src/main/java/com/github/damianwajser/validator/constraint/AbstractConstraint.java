@@ -25,9 +25,9 @@ public abstract class AbstractConstraint {
 	protected abstract boolean hasError(Object field, ConstraintValidatorContext cxt);
 
 	protected Optional<HttpServletRequest> getCurrentHttpRequest() {
-		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
-						requestAttributes -> ServletRequestAttributes.class.isAssignableFrom(requestAttributes.getClass()))
-				.map(requestAttributes -> ((ServletRequestAttributes) requestAttributes))
+		return Optional.ofNullable(RequestContextHolder.getRequestAttributes())
+				.filter(requestAttributes -> ServletRequestAttributes.class.isAssignableFrom(requestAttributes.getClass()))
+				.map(ServletRequestAttributes.class::cast)
 				.map(ServletRequestAttributes::getRequest);
 	}
 
@@ -42,10 +42,10 @@ public abstract class AbstractConstraint {
 		Optional<HttpMethod> method = this.getCurrentHttpMethod();
 		List<HttpMethod> methodsList = Arrays.asList(this.onlyIn);
 		// if method is blank not exclude validation for request: return false
-		return method.isPresent() && (methodsList.isEmpty() ? is_excluded(method.get()) : !methodsList.contains(method.get()));
+		return method.isPresent() && (methodsList.isEmpty() ? isExcluded(method.get()) : !methodsList.contains(method.get()));
 	}
 
-	private boolean is_excluded(HttpMethod current) {
+	private boolean isExcluded(HttpMethod current) {
 		return Arrays.asList(this.excludes).contains(current);
 	}
 

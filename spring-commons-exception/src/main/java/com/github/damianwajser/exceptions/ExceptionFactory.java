@@ -23,13 +23,13 @@ public final class ExceptionFactory {
 
 	public static RestException getException(List<ExceptionDetail> details, HttpStatus status, Exception e) throws
 			ReflectiveOperationException {
-		Class<RestException> exception = exceptionCache.computeIfAbsent(status, k -> {
-					Class<RestException> clazz = new Reflections(RestException.class.getPackage().getName()).getTypesAnnotatedWith(ResponseStatus.class)
-							.stream().filter(c -> c.getAnnotation(ResponseStatus.class).code().equals(status)).map(c -> (Class<RestException>) c)
-							.findFirst().orElse(RestException.class);
-					return clazz;
-				}
-		);
+		Class<RestException> exception = exceptionCache.computeIfAbsent(status, k ->
+				new Reflections(RestException.class.getPackage().getName()).getTypesAnnotatedWith(ResponseStatus.class)
+						.stream()
+						.filter(c -> c.getAnnotation(ResponseStatus.class).code().equals(status))
+						.map(c -> (Class<RestException>) c)
+						.findFirst()
+						.orElse(RestException.class));
 		exceptionCache.put(status, exception);
 		return exception.getDeclaredConstructor(List.class, Exception.class).newInstance(details, e);
 	}

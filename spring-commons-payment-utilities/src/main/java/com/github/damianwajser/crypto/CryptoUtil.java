@@ -59,8 +59,7 @@ public class CryptoUtil {
 		String charSet = "UTF-8";
 		byte[] in = plainText.getBytes(charSet);
 		byte[] out = ecipher.doFinal(in);
-		String encStr = new String(Base64.getEncoder().encode(out));
-		return encStr;
+		return new String(Base64.getEncoder().encode(out));
 	}
 
 	/**
@@ -72,7 +71,6 @@ public class CryptoUtil {
 	 * @throws javax.crypto.NoSuchPaddingException
 	 * @throws java.security.InvalidKeyException
 	 * @throws java.security.InvalidAlgorithmParameterException
-	 * @throws java.io.UnsupportedEncodingException
 	 * @throws javax.crypto.IllegalBlockSizeException
 	 * @throws javax.crypto.BadPaddingException
 	 */
@@ -82,7 +80,6 @@ public class CryptoUtil {
 			NoSuchPaddingException,
 			InvalidKeyException,
 			InvalidAlgorithmParameterException,
-			UnsupportedEncodingException,
 			IllegalBlockSizeException,
 			BadPaddingException,
 			IOException {
@@ -96,9 +93,7 @@ public class CryptoUtil {
 		dcipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
 		byte[] enc = Base64.getDecoder().decode(encryptedText);
 		byte[] utf8 = dcipher.doFinal(enc);
-		String charSet = "UTF-8";
-		String plainStr = new String(utf8, charSet);
-		return plainStr;
+		return new String(utf8, "UTF-8");
 	}
 
 }

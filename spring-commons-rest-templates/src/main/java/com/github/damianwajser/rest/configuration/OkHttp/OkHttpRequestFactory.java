@@ -1,4 +1,4 @@
-package com.github.damianwajser.rest.configuration.OkHttp;
+package com.github.damianwajser.rest.configuration.okhttp;
 
 import com.github.damianwajser.rest.configuration.CustomHttpRequestFactory;
 import com.github.damianwajser.rest.configuration.properties.TimeoutConfigurationProperties;
