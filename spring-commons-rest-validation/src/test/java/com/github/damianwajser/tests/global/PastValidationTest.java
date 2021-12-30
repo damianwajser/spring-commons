@@ -2,8 +2,6 @@ package com.github.damianwajser.tests.global;
 
 import com.github.damianwajser.model.global.PastAuxObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

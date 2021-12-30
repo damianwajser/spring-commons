@@ -5,6 +5,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -93,7 +94,7 @@ public class CryptoUtil {
 		dcipher.init(Cipher.DECRYPT_MODE, key, paramSpec);
 		byte[] enc = Base64.getDecoder().decode(encryptedText);
 		byte[] utf8 = dcipher.doFinal(enc);
-		return new String(utf8, "UTF-8");
+		return new String(utf8, StandardCharsets.UTF_8);
 	}
 
 }

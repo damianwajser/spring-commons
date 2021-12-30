@@ -4,8 +4,6 @@ import com.github.damianwajser.model.enums.global.MatchEnumObject;
 import com.github.damianwajser.model.enums.global.MatchString;
 import com.github.damianwajser.validator.constraint.enums.values.Countries;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
