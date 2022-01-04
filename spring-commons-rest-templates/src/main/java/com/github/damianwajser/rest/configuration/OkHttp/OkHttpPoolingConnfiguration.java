@@ -1,4 +1,4 @@
-package com.github.damianwajser.rest.configuration.OkHttp;
+package com.github.damianwajser.rest.configuration.okhttp;
 
 import com.github.damianwajser.rest.configuration.properties.PoolConfigurationProperties;
 import okhttp3.ConnectionPool;
@@ -14,7 +14,6 @@ public class OkHttpPoolingConnfiguration {
 
 	@Bean
 	public ConnectionPool poolingHttpClientConnectionManager(PoolConfigurationProperties poolConfigurationProperties) {
-		ConnectionPool result = new ConnectionPool(poolConfigurationProperties.getMaxTotal(), 5, TimeUnit.MINUTES);
-		return result;
+		return new ConnectionPool(poolConfigurationProperties.getMaxTotal(), 5, TimeUnit.MINUTES);
 	}
 }

@@ -3,8 +3,6 @@ package com.github.damianwajser.tests.cards;
 import com.github.damianwajser.model.cards.CardTokenObject;
 import com.github.damianwajser.model.cards.ExpirationObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;

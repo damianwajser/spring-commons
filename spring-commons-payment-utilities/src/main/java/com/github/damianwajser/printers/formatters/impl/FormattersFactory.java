@@ -9,15 +9,6 @@ public class FormattersFactory {
 	}
 
 	public static Formatter getFormatter(QrFormat format) {
-		Formatter formatter = null;
-		switch (format) {
-			case BASE64:
-				formatter = new Base64Formatter();
-				break;
-			default:
-				formatter = new DefaultFormatter();
-				break;
-		}
-		return formatter;
+		return format.equals(QrFormat.BASE64) ? new Base64Formatter() : new DefaultFormatter();
 	}
 }

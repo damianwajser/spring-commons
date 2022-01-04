@@ -82,11 +82,11 @@ public class ExceptionResponseTest {
 
 	@Test
 	public void badRequest_message_args() throws Exception {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.add("Accept-Language", "en-EN");
+		HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(null, headers);
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-			headers.add("Accept-Language", "en-EN");
-			HttpEntity<CustomValidationFooObject> entity = new HttpEntity<>(null, headers);
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/message/Variable", HttpMethod.POST, entity, Object.class);
 			Assert.fail();
 		} catch (BadRequest e) {

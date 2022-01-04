@@ -37,11 +37,11 @@ public class MDCFilter extends OncePerRequestFilter {
 			MDC.put("appName", properties.getAppName());
 			if (HttpServletRequest.class.isAssignableFrom(request.getClass())) {
 				MDC.put("path", request.getRequestURI());
-				MDC.put("requestId", generator.getRequestId(((HttpServletRequest) request)));
-				Enumeration<String> headers = ((HttpServletRequest) request).getHeaderNames();
+				MDC.put("requestId", generator.getRequestId(request));
+				Enumeration<String> headers = request.getHeaderNames();
 				while (headers.hasMoreElements()) {
 					String headerName = headers.nextElement();
-					String headerValue = ((HttpServletRequest) request).getHeader(headerName);
+					String headerValue = request.getHeader(headerName);
 					if (headerValue != null && headerName.toUpperCase().startsWith("X-")) {
 						MDC.put(headerName, headerValue);
 					}

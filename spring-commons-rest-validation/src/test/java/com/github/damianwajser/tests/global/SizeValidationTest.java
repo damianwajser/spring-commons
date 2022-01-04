@@ -4,8 +4,6 @@ import com.github.damianwajser.model.global.size.SizeCollectionObject;
 import com.github.damianwajser.model.global.size.SizeMinOneStringObject;
 import com.github.damianwajser.model.global.size.SizeMinZeroStringObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;

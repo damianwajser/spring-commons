@@ -3,6 +3,7 @@ package com.github.damianwajser.tests;
 import com.github.damianwajser.exceptions.ExceptionFactory;
 import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.exceptions.impl.authentication.forbidden.ForbiddenException;
+import com.github.damianwajser.exceptions.impl.authentication.forbidden.PermissionDeniedException;
 import com.github.damianwajser.exceptions.impl.badrequest.*;
 import com.github.damianwajser.exceptions.impl.servererror.InternalServerErrorException;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
@@ -42,6 +43,7 @@ public class InstanciateObjectTest {
 			put(HttpStatus.BAD_REQUEST, BadRequestException.class);
 			put(HttpStatus.PAYMENT_REQUIRED, PaymentRequiredException.class);
 			put(HttpStatus.FORBIDDEN, ForbiddenException.class);
+			put(HttpStatus.FORBIDDEN, PermissionDeniedException.class);
 			put(HttpStatus.NOT_FOUND, NotFoundException.class);
 			put(HttpStatus.METHOD_NOT_ALLOWED, MethodNotAllowedException.class);
 			put(HttpStatus.NOT_ACCEPTABLE, NotAcceptableException.class);
@@ -51,6 +53,7 @@ public class InstanciateObjectTest {
 			put(HttpStatus.UNPROCESSABLE_ENTITY, UnprocessableEntityException.class);
 			put(HttpStatus.LOCKED, LockedException.class);
 			put(HttpStatus.INTERNAL_SERVER_ERROR, InternalServerErrorException.class);
+
 		}}.forEach((k, v) -> generiConstrunctorTest(k, v));
 	}
 
