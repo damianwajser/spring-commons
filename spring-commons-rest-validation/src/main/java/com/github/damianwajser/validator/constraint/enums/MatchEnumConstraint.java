@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,6 +30,9 @@ public class MatchEnumConstraint extends AbstractConstraint implements Constrain
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		return !acceptedValues.contains(field.toString());
+		Stream<Object> stream = field.getClass().isArray() ? Arrays.stream((Object[])field):Stream.of(field);
+		return !acceptedValues.containsAll(stream
+				.map(Object::toString)
+				.collect(Collectors.toList()));
 	}
 }
