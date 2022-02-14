@@ -1,6 +1,7 @@
 package com.github.damianwajser.controllers;
 
 import com.github.damianwajser.exceptions.impl.badrequest.BadRequestException;
+import com.github.damianwajser.model.EnumArrayOject;
 import com.github.damianwajser.model.EnumModel;
 import com.github.damianwajser.model.FooObject;
 import com.github.damianwajser.validator.annotation.enums.MatchEnum;
@@ -31,6 +32,16 @@ public class BadRequestController {
 
 	@PostMapping("/badrequest/enum/{country}")
 	public FooObject badRequest_enum(@PathVariable @Valid @MatchEnum(message = "hola", businessCode = "code", enumClass = Countries.class) Countries country) throws BadRequestException {
+		return null;
+	}
+
+	@GetMapping("/badrequest/enum_array")
+	public FooObject badRequest_enum_1(@RequestParam @Valid @MatchEnum(message = "hola", businessCode = "code", enumClass = Countries.class, isNulleable = true) Countries[] country) throws BadRequestException {
+		return null;
+	}
+
+	@GetMapping("/badrequest/enum_array_in_object")
+	public FooObject badRequest_enum_1(@Valid EnumArrayOject valid) throws BadRequestException {
 		return null;
 	}
 
