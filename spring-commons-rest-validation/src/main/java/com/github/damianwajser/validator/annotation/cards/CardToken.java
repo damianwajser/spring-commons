@@ -37,7 +37,7 @@ public @interface CardToken {
 	boolean isNulleable() default false;
 
 	enum Tokenizer {
-		TOKEN_EX;
+		TOKEN_EX, DATA_FAST;
 	}
 
 	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
