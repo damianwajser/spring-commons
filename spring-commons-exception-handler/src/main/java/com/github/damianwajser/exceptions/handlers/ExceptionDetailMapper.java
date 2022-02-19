@@ -53,7 +53,13 @@ public final class ExceptionDetailMapper {
 	}
 
 	private static void fillI18nWarnings(FieldError error, ExceptionDetail detail) {
-		fillI18nWarnings(detail, error.unwrap(ConstraintViolation.class).getMessageTemplate());
+		String errorStr = error.getDefaultMessage();
+		try {
+			errorStr= error.unwrap(ConstraintViolation.class).getMessageTemplate();
+		}catch (Exception e){
+			LOGGER.debug("mapping expeption",e);
+		}
+		fillI18nWarnings(detail, errorStr);
 	}
 
 	private static void fillI18nWarnings(ExceptionDetail detail, String templateMessage) {

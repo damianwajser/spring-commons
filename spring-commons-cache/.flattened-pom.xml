@@ -5,11 +5,11 @@
   <parent>
     <groupId>com.github.damianwajser</groupId>
     <artifactId>spring-commons-parent</artifactId>
-    <version>1.24.3</version>
+    <version>1.25.0</version>
   </parent>
   <groupId>com.github.damianwajser</groupId>
   <artifactId>spring-commons-cache</artifactId>
-  <version>1.24.3</version>
+  <version>1.25.0</version>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -17,6 +17,9 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <properties>
+    <apache.commons.pool>2.11.1</apache.commons.pool>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>redis.clients</groupId>
@@ -41,6 +44,11 @@
           <groupId>org.slf4j</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+      <version>${apache.commons.pool}</version>
     </dependency>
     <dependency>
       <groupId>it.ozimov</groupId>
