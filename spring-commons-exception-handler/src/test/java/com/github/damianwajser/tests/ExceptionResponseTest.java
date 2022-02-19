@@ -128,6 +128,21 @@ public class ExceptionResponseTest {
 	}
 
 	@Test
+	public void badRequest_enum_object_array() throws Exception {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> body = new HttpEntity<>(null, headers);
+		try {
+			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/enum_array_in_object?country=A", HttpMethod.GET, body, Object.class);
+			Assert.fail("Expected an BadRequest to be thrown");
+		} catch (BadRequest e) {
+			//Assert.assertEquals("Cannot deserialize value of type `com.github.damianwajser.model.EnumModel$TEST` from String \"asd\": not one of the values accepted for Enum class: [A, B]", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("code_333", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+		}
+	}
+
+	@Test
 	public void badRequestWithParameter() throws Exception {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/1", HttpMethod.GET, null, Object.class);

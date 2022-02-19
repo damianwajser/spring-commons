@@ -16,18 +16,19 @@
 	<url>http://github.com/damianwajser/spring-commons</url>
 
 	<properties>
-		<revision>1.24.3</revision>
+		<revision>1.25.1</revision>
 		<log4j2.version>2.17.0</log4j2.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring.boot.version>2.3.12.RELEASE</spring.boot.version>
+		<spring.boot.version>2.6.3</spring.boot.version>
 		<!--<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>-->
+		<junit5.vintage.version>5.8.2</junit5.vintage.version>
 		<logstash.version>6.4</logstash.version>
+		<jedis.client.version>3.6.0</jedis.client.version>
 		<embedded.redis.version>0.7.3</embedded.redis.version>
-		<jedis.client.version>3.5.2</jedis.client.version>
 	</properties>
 	<modules>
 		<module>spring-commons-payment-utilities</module>
@@ -108,6 +109,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring.boot.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit5.vintage.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- END TEST -->
 	</dependencies>

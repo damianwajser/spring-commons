@@ -1,16 +1,16 @@
-package com.github.damianwajser.model.cards;
+package com.github.damianwajser.model.cards.tokens;
 
 import com.github.damianwajser.validator.annotation.cards.CardToken;
 
-public class CardTokenObject {
+public class CardTokenExObject {
 
 	@CardToken(provider = CardToken.Tokenizer.TOKEN_EX, message = "some message", businessCode = "c-400")
 	private String value;
 
-	public CardTokenObject() {
+	public CardTokenExObject() {
 	}
 
-	public CardTokenObject(String value) {
+	public CardTokenExObject(String value) {
 		super();
 		this.value = value;
 	}

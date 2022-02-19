@@ -35,6 +35,15 @@ public class TestingWebApplicationTests {
 	}
 
 	@Test
+	public void testVoid() throws Exception {
+
+		assertThat(this.restTemplate
+				.exchange("http://localhost:" + port + "/delete_void", HttpMethod.DELETE, null, Object.class).getStatusCode())
+				.isEqualTo(HttpStatus.NO_CONTENT);
+
+	}
+
+	@Test
 	public void testNOK() throws Exception {
 
 		assertThat(this.restTemplate

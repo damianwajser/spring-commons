@@ -9,6 +9,15 @@ public final class TokenValidatorsFactory {
 	}
 
 	public static TokenValidator getTokenValidator(CardToken.Tokenizer tokenizer) {
-		return new TokenExValidator();
+		TokenValidator tokenValidator = null;
+		switch (tokenizer) {
+			case TOKEN_EX:
+				tokenValidator = new TokenExValidator();
+				break;
+			case DATA_FAST:
+				tokenValidator = new DataFastValidator();
+				break;
+		}
+		return tokenValidator;
 	}
 }

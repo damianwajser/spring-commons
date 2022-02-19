@@ -1,6 +1,7 @@
 package com.github.damianwajser.web.filters;
 
 import com.github.damianwajser.web.configuration.PropertiesHttpFixer;
+import org.apache.catalina.connector.ResponseFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,10 @@ public class FixHttpPostFilter implements Filter {
 		if (httpRequest.getMethod().equalsIgnoreCase("POST")) {
 			httpServletResponse.setStatus(HttpStatus.CREATED.value());
 		}
-		chain.doFilter(request, response); // continue execution of other filter chain.
+		chain.doFilter(request, response);// continue execution of other filter chain.
+		if(ResponseFacade.class.isInstance(httpServletResponse) && ResponseFacade.class.cast(httpServletResponse).getContentWritten()<1){
+			httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
+		}
 	}
 
 	@Override

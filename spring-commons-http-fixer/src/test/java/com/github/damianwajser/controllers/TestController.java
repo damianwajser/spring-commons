@@ -2,10 +2,7 @@ package com.github.damianwajser.controllers;
 
 import com.github.damianwajser.model.FooObject;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TestController {
@@ -35,5 +32,8 @@ public class TestController {
 	private Object getnok() {
 		throw new RuntimeException("error");
 	}
+
+	@DeleteMapping("/delete_void")
+	private void getvoid() {}
 
 }

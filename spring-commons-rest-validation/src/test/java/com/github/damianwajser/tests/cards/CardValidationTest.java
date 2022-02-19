@@ -1,6 +1,5 @@
 package com.github.damianwajser.tests.cards;
 
-import com.github.damianwajser.model.cards.CardTokenObject;
 import com.github.damianwajser.model.cards.ExpirationObject;
 import org.junit.Test;
 
@@ -8,15 +7,6 @@ import static com.github.damianwajser.TestUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CardValidationTest {
-
-	@Test
-	public void cardToken() throws Exception {
-		assertThat(validationFor(new CardTokenObject(), onField("value")), fails());
-		assertThat(validationFor(new CardTokenObject("1234567891234"), onField("value")), succedes());
-		assertThat(validationFor(new CardTokenObject("123456asd72340"), onField("value")), succedes());
-		assertThat(validationFor(new CardTokenObject("3456asd72340"), onField("value")), fails());
-		assertThat(validationFor(new CardTokenObject("asdasdasdasdasdasdasdasd"), onField("value")), fails());
-	}
 
 	@Test
 	public void expirationMonth() throws Exception {

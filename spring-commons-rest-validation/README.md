@@ -97,7 +97,7 @@ yoy can add that parameters (min, max). Also you can add a boolean parameter all
 
 **@Password** - Use this annotation to validate basic passwords rules.
 
-**@CardToken** - Use this annotation to validate credit card Token
+**@CardToken** - Use this annotation to validate credit card Tokens of TokenEx, DataFast and More.
 
 **@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to
 be validate with actual date.
@@ -151,18 +151,19 @@ Implements the interface **CardExpirable** and override the methods: getExpirati
 @CardExpiration(message = "{some.message}", businessCode = "c-400")
 public class ExpirationObject implements CardExpirable {
 
-	private int expirationMonth;
-	private int expirationYear;
+    private int expirationMonth;
+    private int expirationYear;
 
-	@Override
-	public int getExpirationMonth() {
-		return this.expirationMonth;
-	}
+    @Override
+    public int getExpirationMonth() {
+        return this.expirationMonth;
+    }
 
-	@Override
-	public int getExpirationYear() {
-		return this.expirationYear;
-	}
+    @Override
+    public int getExpirationYear() {
+        return this.expirationYear;
+    }
+}
 ```
 
 ## License
