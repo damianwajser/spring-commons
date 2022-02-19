@@ -150,18 +150,19 @@ Implements the interface **CardExpirable** and override the methods: getExpirati
 @CardExpiration(message = "{some.message}", businessCode = "c-400")
 public class ExpirationObject implements CardExpirable {
 
-	private int expirationMonth;
-	private int expirationYear;
+    private int expirationMonth;
+    private int expirationYear;
 
-	@Override
-	public int getExpirationMonth() {
-		return this.expirationMonth;
-	}
+    @Override
+    public int getExpirationMonth() {
+        return this.expirationMonth;
+    }
 
-	@Override
-	public int getExpirationYear() {
-		return this.expirationYear;
-	}
+    @Override
+    public int getExpirationYear() {
+        return this.expirationYear;
+    }
+}
 ```
 
 ## License
