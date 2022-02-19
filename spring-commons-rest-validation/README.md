@@ -96,7 +96,7 @@ yoy can add that parameters (min, max). Also you can add a boolean parameter all
 
 **@Password** - Use this annotation to validate basic passwords rules.
 
-**@CardToken** - Use this annotation to validate credit card Token
+**@CardToken** - Use this annotation to validate credit card Tokens of TokenEx, DataFast and More.
 
 **@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to
 be validate with actual date.
