@@ -1,8 +1,8 @@
 package com.github.damianwajser.tests;
 
 import com.github.damianwajser.exceptions.handlers.ExceptionDetailMapper;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.model.CustomValidationFooObject;
-import com.github.damianwajser.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ public class CustomValidationI18nTest {
 	@LocalServerPort
 	private int port;
 
-	private RestTemplate restTemplate = new RestTemplate();
+	private final RestTemplate restTemplate = new RestTemplate();
 
 
 	@Test
@@ -38,19 +38,19 @@ public class CustomValidationI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals("defaultCode", TestUtils.getDetail(e, "defaultCode").getErrorCode());
-			Assert.assertEquals("must not be empty", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
+			Assert.assertEquals("defaultCode", ExceptionDetail.getDetail(e, "defaultCode").getErrorCode());
+			Assert.assertEquals("must not be empty", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
-			Assert.assertEquals("Engilsh message",  TestUtils.getDetail(e, "customCode").getErrorMessage());
-			Assert.assertEquals("customCode", TestUtils.getDetail(e, "customCode").getErrorCode());
+			Assert.assertEquals("Engilsh message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
 
-			Assert.assertEquals("message", TestUtils.getDetail(e, "customStringCode").getErrorMessage());
-			Assert.assertEquals("customStringCode", TestUtils.getDetail(e, "customStringCode").getErrorCode());
-			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_FORMAT_INCORRECT, TestUtils.getDetail(e, "customStringCode").getMetaData().get("i18n"));
+			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());
+			Assert.assertEquals("customStringCode", ExceptionDetail.getDetail(e, "customStringCode").getErrorCode());
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_FORMAT_INCORRECT, ExceptionDetail.getDetail(e, "customStringCode").getMetaData().get("i18n"));
 
-			Assert.assertEquals("{spring.commons}", TestUtils.getDetail(e, "noStringMessage").getErrorMessage());
-			Assert.assertEquals("noStringMessage", TestUtils.getDetail(e, "noStringMessage").getErrorCode());
-			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_NOT_FOUND, TestUtils.getDetail(e, "noStringMessage").getMetaData().get("i18n"));
+			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "noStringMessage").getErrorMessage());
+			Assert.assertEquals("noStringMessage", ExceptionDetail.getDetail(e, "noStringMessage").getErrorCode());
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_NOT_FOUND, ExceptionDetail.getDetail(e, "noStringMessage").getMetaData().get("i18n"));
 		}
 	}
 
@@ -65,14 +65,14 @@ public class CustomValidationI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals("defaultCode", TestUtils.getDetail(e, "defaultCode").getErrorCode());
-			Assert.assertEquals("no debe estar vacío", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
+			Assert.assertEquals("defaultCode", ExceptionDetail.getDetail(e, "defaultCode").getErrorCode());
+			Assert.assertEquals("no debe estar vacío", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
-			Assert.assertEquals("customCode", TestUtils.getDetail(e, "customCode").getErrorCode());
-			Assert.assertEquals("Español message",  TestUtils.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
+			Assert.assertEquals("Español message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
 
-			Assert.assertEquals("{spring.commons}", TestUtils.getDetail(e, "noStringMessage").getErrorMessage());
-			Assert.assertEquals("message", TestUtils.getDetail(e, "customStringCode").getErrorMessage());
+			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "noStringMessage").getErrorMessage());
+			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());
 		}
 	}
 	@Test
@@ -86,14 +86,14 @@ public class CustomValidationI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals("defaultCode", TestUtils.getDetail(e, "defaultCode").getErrorCode());
-			Assert.assertEquals("ne doit pas être vide", TestUtils.getDetail(e, "defaultCode").getErrorMessage());
+			Assert.assertEquals("defaultCode", ExceptionDetail.getDetail(e, "defaultCode").getErrorCode());
+			Assert.assertEquals("ne doit pas être vide", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
-			Assert.assertEquals("customCode", TestUtils.getDetail(e, "customCode").getErrorCode());
-			Assert.assertEquals("French message",  TestUtils.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
+			Assert.assertEquals("French message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
 
-			Assert.assertEquals("{spring.commons}", TestUtils.getDetail(e, "noStringMessage").getErrorMessage());
-			Assert.assertEquals("message", TestUtils.getDetail(e, "customStringCode").getErrorMessage());
+			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "noStringMessage").getErrorMessage());
+			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());
 		}
 	}
 }

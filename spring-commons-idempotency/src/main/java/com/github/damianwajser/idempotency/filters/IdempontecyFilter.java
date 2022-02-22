@@ -81,6 +81,8 @@ public class IdempontecyFilter implements Filter {
 			}
 		} catch (ArgumentNotFoundException e) {
 			writeBadRequestMessage(response, request, e);
+		} catch (RestException e) {
+			writeErrorMessage(response, e, request);
 		} catch (Exception e) {
 			LOGGER.error("Error to parser", e);
 		}
@@ -121,20 +123,20 @@ public class IdempontecyFilter implements Filter {
 	private void writeBadRequestMessage(HttpServletResponse response, HttpServletRequest request, ArgumentNotFoundException e) throws IOException {
 		//Not key present bad request
 		RestException message = new BadRequestException(idempotencyProperties.getBadRequestCode(), e.getArgument() + " Not Found", Optional.empty());
-		writeErrorMessage(response, message, request, HttpStatus.BAD_REQUEST);
+		writeErrorMessage(response, message, request);
 	}
 
 	private void writeLockMessage(HttpServletResponse response, HttpServletRequest request) throws IOException {
 		//its locked return 409 connflict idempotency
 		RestException message = new ConflictException(idempotencyProperties.getConflictCode(), idempotencyProperties.getConflictMessage(), Optional.empty());
-		writeErrorMessage(response, message, request, HttpStatus.CONFLICT);
+		writeErrorMessage(response, message, request);
 	}
 
-	private void writeErrorMessage(HttpServletResponse response, RestException exception, HttpServletRequest request, HttpStatus status) throws IOException {
-		writeResponse(response, new StoredResponse(new JsonUtils().objectToJsonString(exception.getErrorMessage(request)), null, status.value()), false);
+	private void writeErrorMessage(HttpServletResponse response, RestException exception, HttpServletRequest request) throws IOException {
+		writeResponse(response, new StoredResponse(new JsonUtils().objectToJsonString(exception.getErrorMessage(request)), null, exception.getHttpCode().value()), false);
 	}
 
-	private String getKey(HttpServletRequest request, IdempotencyEndpoints idempotencyEndpoints) throws IOException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	private String getKey(HttpServletRequest request, IdempotencyEndpoints idempotencyEndpoints) throws RestException{
 		return idempotencyEndpoints.generateKey(request);
 	}
 

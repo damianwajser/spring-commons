@@ -3,6 +3,8 @@ package com.github.damianwajser.tests;
 import com.github.damianwajser.configuration.IdempotencyConfiguration;
 import com.github.damianwajser.configuration.RedisConfiguration;
 import com.github.damianwajser.controllers.IdempotencyController;
+import com.github.damianwajser.exceptions.model.ErrorMessage;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.idempotency.configuration.IdempotencyEndpoints;
 import com.github.damianwajser.idempotency.configuration.IdempotencyProperties;
 import com.github.damianwajser.idempotency.filters.IdempontecyFilter;
@@ -166,5 +168,23 @@ public class IdempotencyTest {
 			assertThat(conflict.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
 		}
 		Assert.assertEquals(sendIdempotency(entity, url).getValue(), IdempotencyController.value);
+	}
+
+	@Test
+	public void getPostErrorInFormatIdempotency() throws Exception {
+		String idemKey = "getPostOK";
+		HttpHeaders headers = new HttpHeaders();
+		headers.set(HEADER_IDEM, idemKey);
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+		try {
+			this.restTemplate
+					.exchange("http://localhost:" + port + "/idempotency_error_format", HttpMethod.POST, entity, FooObject.class).getBody();
+			Assert.fail("not work");
+		} catch (HttpClientErrorException.BadRequest e) {
+			Assert.assertEquals("code idempotency", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("error",  ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+		}
+
+
 	}
 }

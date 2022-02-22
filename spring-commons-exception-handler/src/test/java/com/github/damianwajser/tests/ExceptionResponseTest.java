@@ -1,8 +1,8 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.model.CustomValidationFooObject;
-import com.github.damianwajser.utils.TestUtils;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class ExceptionResponseTest {
 			Assert.fail();
 		} catch (InternalServerError e) {
 			//e.printStackTrace();
-			Assert.assertEquals("500", TestUtils.getMessage(e.getResponseBodyAsString()).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("500", ErrorMessage.getInstance(e.getResponseBodyAsString()).getDetails().get(0).getErrorCode());
 			//Assert.assertEquals("permissionDenied", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
 		}
 
@@ -52,8 +52,8 @@ public class ExceptionResponseTest {
 					Object.class);
 			Assert.fail();
 		} catch (Forbidden e) {
-			Assert.assertEquals("403", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
-			Assert.assertEquals("permissionDenied", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("403", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("permissionDenied", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
 		}
 
 	}
@@ -64,8 +64,8 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/forbbiden", HttpMethod.POST, null, Object.class);
 			Assert.fail();
 		} catch (Forbidden e) {
-			Assert.assertEquals("forbbiden", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("403", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("forbbiden", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("403", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -75,8 +75,8 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest", HttpMethod.POST, null, Object.class);
 			Assert.fail();
 		} catch (BadRequest e) {
-			Assert.assertEquals("badrequest", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("badrequest", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/message/Variable", HttpMethod.POST, entity, Object.class);
 			Assert.fail();
 		} catch (BadRequest e) {
-			ExceptionDetail exceptionDetail = TestUtils.getMessage(e).getDetails().get(0);
+			ExceptionDetail exceptionDetail = ErrorMessage.getInstance(e).getDetails().get(0);
 			String errorMessage = exceptionDetail.getErrorMessage();
 			Assert.assertEquals("400", exceptionDetail.getErrorCode());
 			Assert.assertTrue(errorMessage.contains("English message with Variable on "));
@@ -104,8 +104,8 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/enum/error", HttpMethod.POST, null, Object.class);
 			Assert.fail();
 		} catch (BadRequest e) {
-			Assert.assertEquals("No enum constant com.github.damianwajser.validator.constraint.enums.values.Countries.error", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("No enum constant com.github.damianwajser.validator.constraint.enums.values.Countries.error", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -122,8 +122,8 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/enum", HttpMethod.POST, body, Object.class);
 			Assert.fail("Expected an BadRequest to be thrown");
 		} catch (BadRequest e) {
-			Assert.assertEquals("Cannot deserialize value of type `com.github.damianwajser.model.EnumModel$TEST` from String \"asd\": not one of the values accepted for Enum class: [A, B]", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("Cannot deserialize value of type `com.github.damianwajser.model.EnumModel$TEST` from String \"asd\": not one of the values accepted for Enum class: [A, B]", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -138,7 +138,7 @@ public class ExceptionResponseTest {
 			Assert.fail("Expected an BadRequest to be thrown");
 		} catch (BadRequest e) {
 			//Assert.assertEquals("Cannot deserialize value of type `com.github.damianwajser.model.EnumModel$TEST` from String \"asd\": not one of the values accepted for Enum class: [A, B]", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("code_333", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("code_333", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -148,7 +148,7 @@ public class ExceptionResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/badrequest/1", HttpMethod.GET, null, Object.class);
 			Assert.fail("Expected an BadRequest to be thrown");
 		} catch (BadRequest e) {
-			Assert.assertEquals("as-400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("as-400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 
@@ -157,8 +157,8 @@ public class ExceptionResponseTest {
 		try {
 			this.restTemplate.exchange("http://localhost:" + port + "/notfound", HttpMethod.POST, null, Object.class);
 		} catch (NotFound e) {
-			Assert.assertEquals("notfound", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
-			Assert.assertEquals("404", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("notfound", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("404", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
 		}
 	}
 

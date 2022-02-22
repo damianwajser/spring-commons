@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class DefaultIdempotencyKeyGenerator implements IdempotencyKeyGenerator {
 
-	private static final String IDEMPOTENCY_DEFALUT_HEADER = "X-Idempotency-Key";
+	private static final String IDEMPOTENCY_DEFAULT_HEADER = "X-Idempotency-Key";
 
 	@Override
 	public String generateKey(HttpHeaders headers, HttpMethod method, String path, HttpServletRequest request) {
-		String key = getHeaderValue(headers, IDEMPOTENCY_DEFALUT_HEADER);
+		String key = getHeaderValue(headers, IDEMPOTENCY_DEFAULT_HEADER);
 		return path + "::" + key + "::" + method.toString();
 	}
 

@@ -1,8 +1,8 @@
 package com.github.damianwajser.tests;
 
 import com.github.damianwajser.exceptions.handlers.ExceptionDetailMapper;
+import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.model.CustomValidationFooObject;
-import com.github.damianwajser.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,9 +40,9 @@ public class ExceptionI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals("badrequest", TestUtils.getDetail(e, "literal").getErrorMessage());
-			Assert.assertEquals("literal", TestUtils.getDetail(e, "literal").getErrorCode());
-			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_FORMAT_INCORRECT, TestUtils.getDetail(e, "literal").getMetaData().get(I18N_KEY));
+			Assert.assertEquals("badrequest", ExceptionDetail.getDetail(e, "literal").getErrorMessage());
+			Assert.assertEquals("literal", ExceptionDetail.getDetail(e, "literal").getErrorCode());
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_FORMAT_INCORRECT, ExceptionDetail.getDetail(e, "literal").getMetaData().get(I18N_KEY));
 		}
 	}
 
@@ -57,9 +57,9 @@ public class ExceptionI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals("{spring.commons}", TestUtils.getDetail(e, "notfound").getErrorMessage());
-			Assert.assertEquals("notfound", TestUtils.getDetail(e, "notfound").getErrorCode());
-			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_NOT_FOUND, TestUtils.getDetail(e, "notfound").getMetaData().get(I18N_KEY));
+			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "notfound").getErrorMessage());
+			Assert.assertEquals("notfound", ExceptionDetail.getDetail(e, "notfound").getErrorCode());
+			Assert.assertEquals(ExceptionDetailMapper.TEMPLATE_NOT_FOUND, ExceptionDetail.getDetail(e, "notfound").getMetaData().get(I18N_KEY));
 		}
 	}
 
@@ -88,9 +88,9 @@ public class ExceptionI18nTest {
 					Object.class);
 			Assert.fail();
 		} catch (HttpClientErrorException.BadRequest e) {
-			Assert.assertEquals(assertMessage, TestUtils.getDetail(e, "withproperties").getErrorMessage());
-			Assert.assertEquals("withproperties", TestUtils.getDetail(e, "withproperties").getErrorCode());
-			Assert.assertNull(TestUtils.getDetail(e, "withproperties").getMetaData().get(I18N_KEY));
+			Assert.assertEquals(assertMessage, ExceptionDetail.getDetail(e, "withproperties").getErrorMessage());
+			Assert.assertEquals("withproperties", ExceptionDetail.getDetail(e, "withproperties").getErrorCode());
+			Assert.assertNull(ExceptionDetail.getDetail(e, "withproperties").getMetaData().get(I18N_KEY));
 		}
 	}
 }

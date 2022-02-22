@@ -1,7 +1,7 @@
 package com.github.damianwajser.tests;
 
+import com.github.damianwajser.exceptions.model.ErrorMessage;
 import com.github.damianwajser.model.FooObject;
-import com.github.damianwajser.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,8 +37,8 @@ public class ExceptionValidationResponseTest {
 			this.restTemplate.exchange("http://localhost:" + port + "/validation/badrequest", HttpMethod.POST, entity,
 					Object.class);
 		} catch (BadRequest e) {
-			Assert.assertEquals("400", TestUtils.getMessage(e).getDetails().get(0).getErrorCode());
-			Assert.assertEquals("must not be empty", TestUtils.getMessage(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
+			Assert.assertEquals("must not be empty",  ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
 		}
 	}
 }

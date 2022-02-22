@@ -1,5 +1,6 @@
 package com.github.damianwajser.idempotency.configuration;
 
+import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.utils.HeadersUtil;
 import org.owasp.encoder.Encode;
@@ -20,12 +21,12 @@ public class IdempotencyEndpoint {
 		Assert.notNull(generator, "Genenerator cant be null");
 	}
 
-	public String generateKey(HttpServletRequest request) {
+	public String generateKey(HttpServletRequest request) throws RestException {
 		return generator.generateKey(new HeadersUtil().getHeaders(request),
 				HttpMethod.valueOf(request.getMethod()), Encode.forJava(request.getRequestURI()), request);
 	}
 
 	public boolean isAppicable(HttpMethod httpMethod) {
-		return this.methods.contains(httpMethod);
+		return this.methods.contains(httpMethod) || this.methods.isEmpty();
 	}
 }

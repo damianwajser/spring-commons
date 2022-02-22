@@ -14,11 +14,17 @@ public class IdempotencyController {
 
 	public static String value = "match";
 
-	@Cacheable
+	//@Cacheable
 	@PostMapping("/idempotency")
 	private FooObject test_post() {
 		return new FooObject(value);
 	}
+
+	@PostMapping("/idempotency_error_format")
+	private FooObject idempotency_error_format() {
+		return new FooObject(value);
+	}
+
 
 	@PostMapping("/idempotency_bad_request")
 	private FooObject test_post_bad() throws BadRequestException {
