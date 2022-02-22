@@ -16,6 +16,7 @@ public class IdempotencyConfiguration {
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency/*");
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency/**/regex2/**");
 		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_bad_request");
+		idempotencyEndpoints.addIdempotencyEndpoint("/idempotency_error_format", new IdempotencyValidatorKeyGenerator());
 		return idempotencyEndpoints;
 	}
 }

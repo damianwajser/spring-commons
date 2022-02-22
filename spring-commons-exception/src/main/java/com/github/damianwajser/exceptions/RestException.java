@@ -71,7 +71,7 @@ public abstract class RestException extends Exception {
 		return this.getHttpCode(this.getClass());
 	}
 
-	private HttpStatus getHttpCode(Class<? extends RestException> ex) {
+	public HttpStatus getHttpCode(Class<? extends RestException> ex) {
 		ResponseStatus rs = ex.getAnnotation(ResponseStatus.class);
 		if (rs != null) {
 			return rs.code();

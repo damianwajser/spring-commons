@@ -1,5 +1,6 @@
 package com.github.damianwajser.idempotency.configuration;
 
+import com.github.damianwajser.exceptions.RestException;
 import com.github.damianwajser.idempotency.exception.ArgumentNotFoundException;
 import com.github.damianwajser.idempotency.generators.DefaultIdempotencyKeyGenerator;
 import com.github.damianwajser.idempotency.generators.IdempotencyKeyGenerator;
@@ -43,9 +44,8 @@ public class IdempotencyEndpoints {
 				.findFirst();
 	}
 
-	public String generateKey(HttpServletRequest request) {
-		return this.getEndpoint(request).map(ie -> ie.generateKey(request))
-				.orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI()));
+	public String generateKey(HttpServletRequest request) throws RestException {
+		return this.getEndpoint(request).orElseThrow(() -> new ArgumentNotFoundException(request.getRequestURI())).generateKey(request);
 	}
 
 	public boolean isApplicable(HttpServletRequest request) {

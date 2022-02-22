@@ -2,10 +2,12 @@ package com.github.damianwajser.exceptions.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,18 +36,19 @@ public class ExceptionDetail implements Serializable {
 	@JsonAlias({"meta_data", "metaData", "metadata"})
 	private Map<String, Object> metaData;
 
-	public ExceptionDetail(){}
+	public ExceptionDetail() {
+	}
 
 	public ExceptionDetail(String errorCode,
-				String errorMessage,
-				Optional<Object> detail) {
+						   String errorMessage,
+						   Optional<Object> detail) {
 		this(errorCode, detail, errorMessage);
 	}
 
 	public ExceptionDetail(String errorCode,
-				Optional<Object> detail,
-				String errorMessage,
-				Object... messageArgs) {
+						   Optional<Object> detail,
+						   String errorMessage,
+						   Object... messageArgs) {
 		this.errorCode = errorCode;
 		this.errorDetail = detail;
 		this.errorMessage = errorMessage;
@@ -116,4 +119,10 @@ public class ExceptionDetail implements Serializable {
 		// fields
 		aOutputStream.defaultWriteObject();
 	}
+
+	public static ExceptionDetail getDetail(HttpClientErrorException e, String code) throws JsonProcessingException {
+		ErrorMessage message = ErrorMessage.getInstance(e);
+		return message.getDetails().stream().filter((detail) -> detail.getErrorCode().equalsIgnoreCase(code)).findAny().get();
+	}
+
 }
