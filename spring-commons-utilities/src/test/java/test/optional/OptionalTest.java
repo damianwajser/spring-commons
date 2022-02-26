@@ -1,4 +1,4 @@
-package test;
+package test.optional;
 
 
 import com.github.damianwajser.exceptions.RestException;

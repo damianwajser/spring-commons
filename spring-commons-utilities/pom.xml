@@ -10,7 +10,15 @@
 		<artifactId>spring-commons-parent</artifactId>
 		<version>${revision}</version>
 	</parent>
+	<properties>
+		<com.jayway.jsonpath>2.6.0</com.jayway.jsonpath>
+	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${com.jayway.jsonpath}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.github.damianwajser</groupId>
 			<artifactId>spring-commons-exception</artifactId>
