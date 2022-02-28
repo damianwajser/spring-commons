@@ -15,9 +15,7 @@ message.
 
 ***excludes:*** HttpMethod array indicating the http methods that have no effect from this validation.
 
-***
-onlyIn:*** HttpMethod array indicating the only http methods that have effect from this validation, leaving without effect excludes property.
------
+***onlyIn:*** HttpMethod array indicating the only http methods that have effect from this validation, leaving without effect excludes property.
 
 ## Get it!
 
