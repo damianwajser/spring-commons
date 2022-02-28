@@ -58,7 +58,10 @@ public class ExceptionDetail implements Serializable {
 
 	public static ExceptionDetail getDetail(HttpClientErrorException e, String code) throws JsonProcessingException {
 		ErrorMessage message = ErrorMessage.getInstance(e);
-		return message.getDetails().stream().filter((detail) -> detail.getErrorCode().equalsIgnoreCase(code)).findAny().get();
+		return message.getDetails().stream()
+				.filter(detail -> detail.getErrorCode().equalsIgnoreCase(code))
+				.findAny()
+				.orElse(new ExceptionDetail());
 	}
 
 	public String getErrorCode() {

@@ -37,7 +37,7 @@ public class FixHttpPostFilter implements Filter {
 			httpServletResponse.setStatus(HttpStatus.CREATED.value());
 		}
 		chain.doFilter(request, response);// continue execution of other filter chain.
-		if (ResponseFacade.class.isInstance(httpServletResponse) && ResponseFacade.class.cast(httpServletResponse).getContentWritten() < 1) {
+		if (httpServletResponse instanceof ResponseFacade && ResponseFacade.class.cast(httpServletResponse).getContentWritten() < 1) {
 			httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
 		}
 	}
