@@ -1,6 +1,7 @@
 package com.github.damianwajser.factories.jsonbased;
 
 import com.github.damianwajser.factories.jsonbased.criteria.Criteria;
+import com.github.damianwajser.factories.jsonbased.criteria.Criterion;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
@@ -16,7 +17,10 @@ public class FactoryCriteriaJsonBased<T> {
 	}
 
 	public Collection<T> find(DocumentContext json) {
-		Collection<T> result = criteria.getAllCriterion().stream().filter(c -> c.match(json)).map(c -> c.getResult()).collect(Collectors.toList());
+		Collection<T> result = criteria.getAllCriterion().stream()
+				.filter(c -> c.match(json))
+				.map(Criterion::getResult)
+				.collect(Collectors.toList());
 		if (result.isEmpty() && criteria.getDefaultResult() != null) {
 			result.add(criteria.getDefaultResult());
 		}

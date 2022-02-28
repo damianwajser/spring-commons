@@ -210,12 +210,6 @@
               <excludes>
                 <excludes>**/test/*</excludes>
               </excludes>
-              <archive>
-                <manifest>
-                  <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                </manifest>
-              </archive>
             </configuration>
           </plugin>
           <plugin>
@@ -223,20 +217,6 @@
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>1.6.8</version>
             <extensions>true</extensions>
-            <executions>
-              <execution>
-                <id>injected-nexus-deploy</id>
-                <phase>deploy</phase>
-                <goals>
-                  <goal>deploy</goal>
-                </goals>
-                <configuration>
-                  <serverId>ossrh</serverId>
-                  <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                  <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-              </execution>
-            </executions>
             <configuration>
               <serverId>ossrh</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
@@ -264,9 +244,6 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
-                <configuration>
-                  <source>8</source>
-                </configuration>
               </execution>
             </executions>
             <configuration>

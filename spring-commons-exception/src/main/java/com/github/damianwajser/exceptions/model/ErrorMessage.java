@@ -43,13 +43,13 @@ public class ErrorMessage {
 	}
 
 	public static ErrorMessage getInstance(String body) throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper()
+		return new ObjectMapper()
 				.registerModule(new Jdk8Module())
 				.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
 				.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-				.setVisibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.ANY);
-		ErrorMessage message = objectMapper.readValue(body, ErrorMessage.class);
-		return message;
+				.setVisibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.ANY)
+				.readValue(body, ErrorMessage.class);
+
 	}
 
 	public static ErrorMessage getInstance(HttpClientErrorException e) throws JsonProcessingException {

@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -24,12 +25,14 @@ public class JsonToObjectConverter {
 		this.mapper = mapper;
 	}
 
-	public <T> T convert(String s, Class<T> clazz) throws InstantiationException, IllegalAccessException {
+	public <T> T convert(String s, Class<T> clazz) throws Exception {
+
 		return this.convert(JsonPath.parse(s), clazz);
 	}
 
-	public <T> T convert(DocumentContext json, Class<T> clazz) throws InstantiationException, IllegalAccessException {
-		T result = clazz.newInstance();
+	public <T> T convert(DocumentContext json, Class<T> clazz) throws Exception {
+
+		T result = clazz.getDeclaredConstructor(null).newInstance();
 		for (Map.Entry<String, String> entry : this.mapper.getMappings().entrySet()) {
 			this.setField(result, entry.getKey(), getValue(json, entry.getValue()));
 		}

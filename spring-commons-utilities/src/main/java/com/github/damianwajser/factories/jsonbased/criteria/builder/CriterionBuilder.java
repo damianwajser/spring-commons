@@ -12,17 +12,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class CriterionBuilder {
+public final class CriterionBuilder {
 
 	private static final Pattern pattern = Pattern.compile("[\\$\\.A-z0-9]+|[\\=]");
 
+	private CriterionBuilder(){
+		//private constructor
+	}
+
 	public static <T> Criterion<T> build(String criterion, T result) {
-		return new Criterion<T>(getConditions(criterion), result);
+		return new Criterion<>(getConditions(criterion), result);
 	}
 
 	private static Collection<Condition> getConditions(String criterion) {
 		Collection<String> terms = Arrays.asList(criterion.split("AND"));
-		return terms.stream().map(t -> getConditionByString(t)).collect(Collectors.toList());
+		return terms.stream().map(CriterionBuilder::getConditionByString).collect(Collectors.toList());
 	}
 
 	private static Condition getConditionByString(String t) {

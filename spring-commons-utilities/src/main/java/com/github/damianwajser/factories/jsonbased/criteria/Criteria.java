@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Criteria<T> {
 
-	private Collection<Criterion<T>> criteria;
+	private Collection<Criterion<T>> criterionCollection;
 	private T defaultResult;
 
 	public Criteria() {
@@ -22,11 +22,11 @@ public class Criteria<T> {
 
 	public Criteria(T defaultResult, Collection<Criterion<T>> criteria) {
 		this.defaultResult = defaultResult;
-		this.criteria = criteria != null ? criteria : new ArrayList<>();
+		this.criterionCollection = criteria != null ? criteria : new ArrayList<>();
 	}
 
 	public Collection<Criterion<T>> getAllCriterion() {
-		return criteria;
+		return criterionCollection;
 	}
 
 	public T getDefaultResult() {
@@ -34,7 +34,7 @@ public class Criteria<T> {
 	}
 
 	public Criterion<T> addCriterion(Criterion<T> criterion) {
-		this.criteria.add(criterion);
+		this.criterionCollection.add(criterion);
 		return criterion;
 	}
 
