@@ -11,32 +11,30 @@ import java.util.Arrays;
 
 public class FactoryJsonBasedWithBuilderTest {
 
+	private void execute(String criterionStr, String result) {
+		Criterion<String> criterion = CriterionBuilder.build(criterionStr, result);
+		FactoryCriteriaJsonBased<String> factory = new FactoryCriteriaJsonBased<>(new Criteria("default", Arrays.asList(criterion)));
+		TestUtils.checkResult(factory.find(getJson()), result);
+	}
+
 	@Test
 	public void returnMatchStringOneMatch() {
-		Criterion<String> criterion = CriterionBuilder.build("$.origin=damian", "damianResult");
-		FactoryCriteriaJsonBased<String> factory = new FactoryCriteriaJsonBased<>(new Criteria("default", Arrays.asList(criterion)));
-		TestUtils.checkResult(factory.find(getJson()), "damianResult");
+		execute("$.origin=damian", "damianResult");
 	}
 
 	@Test
 	public void returnMatchStringOneMatchWithSpaces() {
-		Criterion<String> criterion = CriterionBuilder.build("$.origin =damian", "damianResult");
-		FactoryCriteriaJsonBased<String> factory = new FactoryCriteriaJsonBased<>(new Criteria("default", Arrays.asList(criterion)));
-		TestUtils.checkResult(factory.find(getJson()), "damianResult");
+		execute("$.origin =damian", "damianResult");
 	}
 
 	@Test
 	public void returnMatchStringOneMatchWithTwoSpaces() {
-		Criterion<String> criterion = CriterionBuilder.build("$.origin = damian", "damianResult");
-		FactoryCriteriaJsonBased<String> factory = new FactoryCriteriaJsonBased<>(new Criteria("default", Arrays.asList(criterion)));
-		TestUtils.checkResult(factory.find(getJson()), "damianResult");
+		execute("$.origin = damian", "damianResult");
 	}
 
 	@Test
 	public void returnMatchStringManyMatches() {
-		Criterion<String> criterion = CriterionBuilder.build("$.origin = damian AND $.amount=5 AND $.destination=owen", "damianResult");
-		FactoryCriteriaJsonBased<String> factory = new FactoryCriteriaJsonBased<>(new Criteria("default", Arrays.asList(criterion)));
-		TestUtils.checkResult(factory.find(getJson()), "damianResult");
+		execute("$.origin = damian AND $.amount=5 AND $.destination=owen", "damianResult");
 	}
 
 	@Test
