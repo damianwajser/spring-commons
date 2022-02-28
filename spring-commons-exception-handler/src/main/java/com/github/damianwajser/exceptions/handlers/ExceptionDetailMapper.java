@@ -15,10 +15,10 @@ import java.util.Optional;
 
 public final class ExceptionDetailMapper {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionDetailMapper.class);
 	public static final String TEMPLATE_FORMAT_INCORRECT = "non compatible, the message not is a template";
 	public static final String TEMPLATE_NOT_FOUND = "warning, template message no was changed";
 	public static final String I18N_KEY = "i18n";
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionDetailMapper.class);
 
 	private ExceptionDetailMapper() {
 	}
@@ -41,8 +41,8 @@ public final class ExceptionDetailMapper {
 			if (attributes != null) {
 				code = attributes.getOrDefault("businessCode", "400").toString();
 			}
-		}catch (Exception e){
-			LOGGER.debug("mapping expeption",e);
+		} catch (Exception e) {
+			LOGGER.debug("mapping expeption", e);
 		}
 		ExceptionDetail detail = new ExceptionDetail(code, error.getDefaultMessage(), Optional.of(error.getField()));
 		detail.setMetaData("rejectedValue", error.getRejectedValue());
@@ -55,9 +55,9 @@ public final class ExceptionDetailMapper {
 	private static void fillI18nWarnings(FieldError error, ExceptionDetail detail) {
 		String errorStr = error.getDefaultMessage();
 		try {
-			errorStr= error.unwrap(ConstraintViolation.class).getMessageTemplate();
-		}catch (Exception e){
-			LOGGER.debug("mapping expeption",e);
+			errorStr = error.unwrap(ConstraintViolation.class).getMessageTemplate();
+		} catch (Exception e) {
+			LOGGER.debug("mapping expeption", e);
 		}
 		fillI18nWarnings(detail, errorStr);
 	}

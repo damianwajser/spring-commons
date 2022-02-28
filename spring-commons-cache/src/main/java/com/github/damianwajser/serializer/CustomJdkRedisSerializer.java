@@ -9,7 +9,7 @@ public class CustomJdkRedisSerializer extends JdkSerializationRedisSerializer {
 
 	@Override
 	public byte[] serialize(Object source) {
-		if(source instanceof String || source instanceof Number) {
+		if (source instanceof String || source instanceof Number) {
 			return stringRedisSerializer.serialize(source.toString());
 		}
 		return super.serialize(source);
@@ -19,7 +19,7 @@ public class CustomJdkRedisSerializer extends JdkSerializationRedisSerializer {
 	public Object deserialize(byte[] source) {
 		try {
 			return super.deserialize(source);
-		} catch(SerializationException sex) {
+		} catch (SerializationException sex) {
 			return stringRedisSerializer.deserialize(source);
 		}
 	}

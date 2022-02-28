@@ -17,8 +17,6 @@ message.
 
 ***onlyIn:*** HttpMethod array indicating the only http methods that have effect from this validation, leaving without effect excludes property.
 
------
-
 ## Get it!
 
 ### Install

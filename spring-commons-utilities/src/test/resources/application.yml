@@ -1,0 +1,19 @@
+notifications:
+  send_money:
+    condition: $.type = p2p
+    sender:
+      chanel: push
+    mapping:
+      userid: $.origin.user_id
+      title: ${user.name} le mandaste  ${tx.amount} a $.destinatiion.user_name
+      subtitle: ${user.name} asdasd ${asdasd}
+      footer: ${user.name} asdasd ${asdasd}
+  recived_money:
+    condition: $.type = p2p
+    sender:
+      chanel: push
+    mapping:
+      userid: $.origin.user_id
+      title: ${user.name} le mandaste  ${tx.amount} a $.destinatiion.user_name
+      subtitle: ${user.name} asdasd ${asdasd}
+      footer: ${user.name} asdasd ${asdasd}

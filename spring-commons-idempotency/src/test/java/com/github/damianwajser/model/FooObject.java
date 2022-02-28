@@ -9,7 +9,8 @@ public class FooObject {
 		this.value = value;
 	}
 
-	public FooObject(){ }
+	public FooObject() {
+	}
 
 	public String getValue() {
 		return value;

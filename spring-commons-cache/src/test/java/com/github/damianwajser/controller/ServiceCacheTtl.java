@@ -17,6 +17,7 @@ public class ServiceCacheTtl {
 	public String generateUUID2() {
 		return UUID.randomUUID().toString();
 	}
+
 	@Cacheable(value = "cache-ttl3")
 	public String generateUUID3() {
 		return UUID.randomUUID().toString();

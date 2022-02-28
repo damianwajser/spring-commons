@@ -2,6 +2,8 @@ package com.github.damianwajser.model.snake;
 
 public class RequestToController {
 
+	private String someValue;
+
 	public String getSomeValue() {
 		return someValue;
 	}
@@ -9,7 +11,5 @@ public class RequestToController {
 	public void setSomeValue(String someValue) {
 		this.someValue = someValue;
 	}
-
-	private String someValue;
 
 }

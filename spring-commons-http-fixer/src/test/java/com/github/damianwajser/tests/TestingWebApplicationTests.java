@@ -27,7 +27,7 @@ public class TestingWebApplicationTests {
 
 		assertThat(this.restTemplate
 				.exchange("http://localhost:" + port + "/postok", HttpMethod.POST, null, Object.class).getStatusCode())
-						.isEqualTo(HttpStatus.CREATED);
+				.isEqualTo(HttpStatus.CREATED);
 		System.err.println("termino test 1");
 		assertThat(this.restTemplate.exchange("http://localhost:" + port + "/getok", HttpMethod.GET, null, Object.class)
 				.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -48,11 +48,11 @@ public class TestingWebApplicationTests {
 
 		assertThat(this.restTemplate
 				.exchange("http://localhost:" + port + "/postnok", HttpMethod.POST, null, Object.class).getStatusCode())
-						.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+				.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 		System.err.println("termino test 1");
 		assertThat(this.restTemplate
 				.exchange("http://localhost:" + port + "/getnok", HttpMethod.GET, null, Object.class).getStatusCode())
-						.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+				.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 

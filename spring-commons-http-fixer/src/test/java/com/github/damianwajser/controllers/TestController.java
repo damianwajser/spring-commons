@@ -34,6 +34,7 @@ public class TestController {
 	}
 
 	@DeleteMapping("/delete_void")
-	private void getvoid() {}
+	private void getvoid() {
+	}
 
 }

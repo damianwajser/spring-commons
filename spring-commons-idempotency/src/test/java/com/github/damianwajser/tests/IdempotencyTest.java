@@ -4,7 +4,6 @@ import com.github.damianwajser.configuration.IdempotencyConfiguration;
 import com.github.damianwajser.configuration.RedisConfiguration;
 import com.github.damianwajser.controllers.IdempotencyController;
 import com.github.damianwajser.exceptions.model.ErrorMessage;
-import com.github.damianwajser.exceptions.model.ExceptionDetail;
 import com.github.damianwajser.idempotency.configuration.IdempotencyEndpoints;
 import com.github.damianwajser.idempotency.configuration.IdempotencyProperties;
 import com.github.damianwajser.idempotency.filters.IdempontecyFilter;
@@ -182,7 +181,7 @@ public class IdempotencyTest {
 			Assert.fail("not work");
 		} catch (HttpClientErrorException.BadRequest e) {
 			Assert.assertEquals("code idempotency", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
-			Assert.assertEquals("error",  ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("error", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
 		}
 
 

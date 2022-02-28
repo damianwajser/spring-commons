@@ -38,7 +38,7 @@ public class ExceptionValidationResponseTest {
 					Object.class);
 		} catch (BadRequest e) {
 			Assert.assertEquals("400", ErrorMessage.getInstance(e).getDetails().get(0).getErrorCode());
-			Assert.assertEquals("must not be empty",  ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
+			Assert.assertEquals("must not be empty", ErrorMessage.getInstance(e).getDetails().get(0).getErrorMessage());
 		}
 	}
 }

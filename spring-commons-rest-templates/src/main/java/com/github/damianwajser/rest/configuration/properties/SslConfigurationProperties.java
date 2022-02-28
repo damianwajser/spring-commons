@@ -28,20 +28,20 @@ public class SslConfigurationProperties {
 		return trustStore;
 	}
 
-	public char[] getTrustStorePassword() {
-		return trustStorePassword;
-	}
-
-	public String getProtocol() {
-		return protocol;
-	}
-
 	public void setTrustStore(String trustStore) {
 		this.trustStore = trustStore;
 	}
 
+	public char[] getTrustStorePassword() {
+		return trustStorePassword;
+	}
+
 	public void setTrustStorePassword(char[] trustStorePassword) {
 		this.trustStorePassword = trustStorePassword;
+	}
+
+	public String getProtocol() {
+		return protocol;
 	}
 
 	public void setProtocol(String protocol) {
