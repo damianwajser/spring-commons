@@ -1,16 +1,23 @@
 # spring-commons-actuator
+
 ## Overview
 
 This module add developers functionality.
 
 It contains different functionalities:
+
 - Inspect the Caches
 
 -----
+
 ## Get it!
+
 ### Install
+
 #### Maven
-Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following Maven dependency:
+
+Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following
+Maven dependency:
 
 ```xml
 ...
@@ -31,10 +38,13 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ...
 </dependencies>
  ```
- #### Gradle
+
+#### Gradle
+
  ```xml
  compile 'com.github.damianwajser:spring-commons-cache:{lastVersion}'
  ```
+
 Exopose endpoints:
 
 1) curl /actuator/caches/{cacheName}/detail
@@ -43,4 +53,5 @@ Exopose endpoints:
 4) curl -X DELETE /actuator/cache-keys/{key}
 
 ## License
+
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

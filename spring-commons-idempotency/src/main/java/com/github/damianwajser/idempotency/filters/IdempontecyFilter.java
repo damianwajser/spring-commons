@@ -14,7 +14,6 @@ import com.github.damianwajser.idempotency.writers.HttpServletResponseCopier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.Assert;
 
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -136,7 +134,7 @@ public class IdempontecyFilter implements Filter {
 		writeResponse(response, new StoredResponse(new JsonUtils().objectToJsonString(exception.getErrorMessage(request)), null, exception.getHttpCode().value()), false);
 	}
 
-	private String getKey(HttpServletRequest request, IdempotencyEndpoints idempotencyEndpoints) throws RestException{
+	private String getKey(HttpServletRequest request, IdempotencyEndpoints idempotencyEndpoints) throws RestException {
 		return idempotencyEndpoints.generateKey(request);
 	}
 

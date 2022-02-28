@@ -1,7 +1,6 @@
 package com.github.damianwajser.tests.cards.tokens;
 
 import com.github.damianwajser.model.cards.tokens.CardDataFastTokenObject;
-import com.github.damianwajser.model.cards.tokens.CardTokenExObject;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -19,7 +18,7 @@ public class DataFastValidationTest {
 		assertThat(validationFor(new CardDataFastTokenObject("3456asd72340"), onField("value")), fails());
 		assertThat(validationFor(new CardDataFastTokenObject("asdasdasdasdasdasdasdasdasdasdasdasdasd"), onField("value")), fails());
 		assertThat(validationFor(new CardDataFastTokenObject("8ac7a4a07ef7c8ba017f0387416e2521"), onField("value")), succedes());
-		assertThat(validationFor(new CardDataFastTokenObject(UUID.randomUUID().toString().replaceAll("-","")), onField("value")), succedes());
+		assertThat(validationFor(new CardDataFastTokenObject(UUID.randomUUID().toString().replaceAll("-", "")), onField("value")), succedes());
 	}
 
 }

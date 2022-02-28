@@ -13,13 +13,13 @@ public class OptionalWrapper<T> {
 		this.value = Objects.requireNonNull(value);
 	}
 
+	public static <T> OptionalWrapper<T> of(Optional<T> value) {
+		return new OptionalWrapper<>(value);
+	}
+
 	public void ifPresent(ConsumerWrapper<T> consumer) throws RestException {
 		if (value.isPresent())
 			consumer.acceptWithException(value.get());
-	}
-
-	public static <T> OptionalWrapper<T> of(Optional<T> value) {
-		return new OptionalWrapper<>(value);
 	}
 
 	public T get() {

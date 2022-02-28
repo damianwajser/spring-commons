@@ -1,36 +1,44 @@
 package com.github.damianwajser.factories.jsonbased.criteria;
 
-import com.github.damianwajser.factories.jsonbased.conditions.Condition;
-import com.jayway.jsonpath.DocumentContext;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Criteria<T> {
 
-	private Collection<Condition> conditions;
-	private T result;
+	private Collection<Criterion<T>> criteria;
+	private T defaultResult;
 
-	public Criteria(T result) {
-		this(null, result);
+	public Criteria() {
+		this(null, null);
 	}
 
-	public Criteria(Collection<Condition> conditions, T result) {
-		this.conditions = conditions != null ? conditions : new ArrayList<>();
-		this.result = result;
+	public Criteria(T defaultResult) {
+		this(defaultResult, null);
 	}
 
-	public Criteria<T> and(Condition condition) {
-		this.conditions.add(condition);
-		return this;
+	public Criteria(Collection<Criterion<T>> criteria) {
+		this(null, criteria);
 	}
 
-	public T getResult() {
-		return this.result;
+	public Criteria(T defaultResult, Collection<Criterion<T>> criteria) {
+		this.defaultResult = defaultResult;
+		this.criteria = criteria != null ? criteria : new ArrayList<>();
 	}
 
-	public boolean match(DocumentContext json) {
-		return this.conditions.stream().allMatch(c->c.match(json));
+	public Collection<Criterion<T>> getAllCriterion() {
+		return criteria;
 	}
 
+	public T getDefaultResult() {
+		return defaultResult;
+	}
+
+	public Criterion<T> addCriterion(Criterion<T> criterion) {
+		this.criteria.add(criterion);
+		return criterion;
+	}
+
+	public Criterion<T> addCriterion(T defaultResult) {
+		return this.addCriterion(new Criterion<>(defaultResult));
+	}
 }

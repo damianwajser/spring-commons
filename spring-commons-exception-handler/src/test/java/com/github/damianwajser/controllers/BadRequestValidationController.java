@@ -18,6 +18,7 @@ public class BadRequestValidationController {
 	private FooObject badRequest(@Valid FooObject object) throws BadRequestException {
 		throw new BadRequestException("400", "badrequest", Optional.empty());
 	}
+
 	@PostMapping("/custom")
 	private FooObject badRequest(@Valid CustomValidationFooObject object) throws BadRequestException {
 		throw new BadRequestException("400", "badrequest", Optional.empty());

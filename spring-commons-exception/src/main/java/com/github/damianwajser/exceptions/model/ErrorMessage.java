@@ -30,6 +30,18 @@ public class ErrorMessage {
 	@JsonProperty("path")
 	private String path;
 
+	public ErrorMessage(List<ExceptionDetail> details, HttpServletRequest request) {
+		this(details, Encode.forJava(request.getRequestURI()));
+	}
+
+	@JsonCreator
+	public ErrorMessage(@JsonProperty("details") List<ExceptionDetail> details, @JsonProperty("path") String path) {
+		this.details = details;
+		this.path = path;
+		this.timestamp = LocalDateTime.now().toString();
+		LOGGER.debug("Create Error Message: {}", this);
+	}
+
 	public static ErrorMessage getInstance(String body) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper()
 				.registerModule(new Jdk8Module())
@@ -42,18 +54,6 @@ public class ErrorMessage {
 
 	public static ErrorMessage getInstance(HttpClientErrorException e) throws JsonProcessingException {
 		return getInstance(e.getResponseBodyAsString());
-	}
-
-	public ErrorMessage(List<ExceptionDetail> details, HttpServletRequest request) {
-		this(details, Encode.forJava(request.getRequestURI()));
-	}
-
-	@JsonCreator
-	public ErrorMessage(@JsonProperty("details") List<ExceptionDetail> details, @JsonProperty("path") String path) {
-		this.details = details;
-		this.path = path;
-		this.timestamp = LocalDateTime.now().toString();
-		LOGGER.debug("Create Error Message: {}", this);
 	}
 
 	public List<ExceptionDetail> getDetails() {

@@ -22,7 +22,7 @@ public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
 
 	private Optional<HttpServletRequest> getCurrentHttpRequest() {
 		return Optional.ofNullable(RequestContextHolder.getRequestAttributes()).filter(
-				requestAttributes -> ServletRequestAttributes.class.isAssignableFrom(requestAttributes.getClass()))
+						requestAttributes -> ServletRequestAttributes.class.isAssignableFrom(requestAttributes.getClass()))
 				.map(requestAttributes -> ((ServletRequestAttributes) requestAttributes))
 				.map(ServletRequestAttributes::getRequest);
 	}

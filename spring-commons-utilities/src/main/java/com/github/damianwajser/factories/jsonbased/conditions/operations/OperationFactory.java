@@ -4,7 +4,7 @@ import com.github.damianwajser.factories.jsonbased.conditions.operations.impl.Eq
 
 public class OperationFactory {
 
-	public static synchronized OperationStrategy getOperation(Operation operation){
+	public static synchronized OperationStrategy getOperation(Operation operation) {
 		return new EqualsStrategy();
 	}
 

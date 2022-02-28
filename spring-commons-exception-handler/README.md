@@ -1,17 +1,27 @@
 # spring-commons-exception-handler
+
 ## Overview
-This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
 
-On the other hand, the internationalization option is enabled, for which in all the exceptions found in ***spring-commons-exceptions*** or the validations found in ***spring-commons-rest-validation*** We can enter placeholders when we talk about errors.
+This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface
+for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
 
-The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take it from the corresponding message.properties.
+On the other hand, the internationalization option is enabled, for which in all the exceptions found in ***
+spring-commons-exceptions*** or the validations found in ***spring-commons-rest-validation*** We can enter placeholders
+when we talk about errors.
+
+The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take
+it from the corresponding message.properties.
 
 -----
 
 ## Get it!
+
 ### Install
+
 #### Maven
-Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following Maven dependency:
+
+Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following
+Maven dependency:
 
 ```xml
 ...
@@ -32,26 +42,37 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ...
 </dependencies>
  ```
- #### Gradle
+
+#### Gradle
+
  ```xml
  compile 'com.github.damianwajser:spring-commons-exception-handler:{lastVersion}'
  ```
+
 ### Steps
+
 Firts we create the i18n files in `src/main/resources`:
 
 - messages_en.properties
+
 ```properties
 spring.commons.validation.constraints.NotEmpty.message=Engilsh message
 ```
+
 - messages_es.properties
+
 ```properties
 spring.commons.validation.constraints.NotEmpty.message=Spanish message
 ```
+
 - messages_fr.properties
+
 ```properties
 spring.commons.validation.constraints.NotEmpty.message=French message
 ```
+
 Example in Rest Validation:
+
 ```java
 public class FooObject {
 
@@ -60,6 +81,7 @@ public class FooObject {
 
 }
 ```
+
 ```java
 @RestController
 public class BadRequestValidationController {
@@ -70,7 +92,9 @@ public class BadRequestValidationController {
 	}
 }
 ```
+
 Example in Rest Exception:
+
 ```java
 @RestController
 @RequestMapping("/i18n")
@@ -83,8 +107,10 @@ public class I18nBadRequestController {
 
 }
 ```
+
 request: `curl -X POST {domain}/i18n/withproperties -H Accpet-Lenguaje:FR-fr`<br/>
 response:
+
 ```json
 {
    "details":[
@@ -101,8 +127,10 @@ response:
    "timestamp":"2020-06-08T17:47:32.988"
 }
 ```
+
 request: `curl -X POST {domain}/i18n/withproperties -H Accpet-Lenguaje:ES-es`<br/>
 response:
+
 ```json
 {
    "details":[
@@ -119,16 +147,24 @@ response:
    "timestamp":"2020-06-08T17:47:32.988"
 }
 ```
-Also, it's possible to add arguments from multiple sources to error message, based on [MessageSource](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html)
+
+Also, it's possible to add arguments from multiple sources to error message, based
+on [MessageSource](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html)
+
 - messages_en.properties
+
 ```properties
 spring.commons.message.with.args=English message with {0} on {1,date} at {2,time} and {3} as arguments
 ```
+
 - application.properties
+
 ```properties
 last.argument=final comment, for testing purpose
 ```
+
 Example in Rest Exception:
+
 ```java
 @RestController
 @RequestMapping("/badrequest")
@@ -144,8 +180,10 @@ public class BadRequestController {
 
 }
 ```
+
 request: `curl -X POST {domain}/badrequest/message/Variable`<br/>
 response:
+
 ```json
 {
   "details":
@@ -161,5 +199,7 @@ response:
   "timestamp": "2021-12-23T18:30:39.420240"
 }
 ```
+
 ## License
+
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

@@ -15,6 +15,15 @@ public class CustomValidationFooObject {
 	@NotEmpty(businessCode = "customStringCode", message = "message")
 	private String cusotmStringMessage;
 
+	public CustomValidationFooObject() {
+	}
+
+	public CustomValidationFooObject(String defaultMessage, String cusotmMessage) {
+		super();
+		this.defaultMessage = defaultMessage;
+		this.cusotmMessage = cusotmMessage;
+	}
+
 	public String getNoStringMessage() {
 		return noStringMessage;
 	}
@@ -44,15 +53,6 @@ public class CustomValidationFooObject {
 	}
 
 	public void setCusotmMessage(String cusotmMessage) {
-		this.cusotmMessage = cusotmMessage;
-	}
-
-	public CustomValidationFooObject() {
-	}
-
-	public CustomValidationFooObject(String defaultMessage, String cusotmMessage) {
-		super();
-		this.defaultMessage = defaultMessage;
 		this.cusotmMessage = cusotmMessage;
 	}
 

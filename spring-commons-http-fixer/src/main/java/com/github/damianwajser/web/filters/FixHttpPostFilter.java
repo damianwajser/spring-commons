@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@ConditionalOnProperty(name = "spring.commons.http.fixer.enabled", havingValue ="true", matchIfMissing = true)
+@ConditionalOnProperty(name = "spring.commons.http.fixer.enabled", havingValue = "true", matchIfMissing = true)
 public class FixHttpPostFilter implements Filter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FixHttpPostFilter.class);
@@ -37,7 +37,7 @@ public class FixHttpPostFilter implements Filter {
 			httpServletResponse.setStatus(HttpStatus.CREATED.value());
 		}
 		chain.doFilter(request, response);// continue execution of other filter chain.
-		if(ResponseFacade.class.isInstance(httpServletResponse) && ResponseFacade.class.cast(httpServletResponse).getContentWritten()<1){
+		if (ResponseFacade.class.isInstance(httpServletResponse) && ResponseFacade.class.cast(httpServletResponse).getContentWritten() < 1) {
 			httpServletResponse.setStatus(HttpStatus.NO_CONTENT.value());
 		}
 	}

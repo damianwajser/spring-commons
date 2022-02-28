@@ -21,11 +21,9 @@ import java.util.Collections;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomValidationI18nTest {
+	private final RestTemplate restTemplate = new RestTemplate();
 	@LocalServerPort
 	private int port;
-
-	private final RestTemplate restTemplate = new RestTemplate();
-
 
 	@Test
 	public void withDefaultMessage() throws Exception {
@@ -41,7 +39,7 @@ public class CustomValidationI18nTest {
 			Assert.assertEquals("defaultCode", ExceptionDetail.getDetail(e, "defaultCode").getErrorCode());
 			Assert.assertEquals("must not be empty", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
-			Assert.assertEquals("Engilsh message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("Engilsh message", ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
 			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
 
 			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());
@@ -69,12 +67,13 @@ public class CustomValidationI18nTest {
 			Assert.assertEquals("no debe estar vacío", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
 			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
-			Assert.assertEquals("Español message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("Español message", ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
 
 			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "noStringMessage").getErrorMessage());
 			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());
 		}
 	}
+
 	@Test
 	public void withI18NMessage_French() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
@@ -90,7 +89,7 @@ public class CustomValidationI18nTest {
 			Assert.assertEquals("ne doit pas être vide", ExceptionDetail.getDetail(e, "defaultCode").getErrorMessage());
 
 			Assert.assertEquals("customCode", ExceptionDetail.getDetail(e, "customCode").getErrorCode());
-			Assert.assertEquals("French message",  ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
+			Assert.assertEquals("French message", ExceptionDetail.getDetail(e, "customCode").getErrorMessage());
 
 			Assert.assertEquals("{spring.commons}", ExceptionDetail.getDetail(e, "noStringMessage").getErrorMessage());
 			Assert.assertEquals("message", ExceptionDetail.getDetail(e, "customStringCode").getErrorMessage());

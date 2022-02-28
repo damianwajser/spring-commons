@@ -12,10 +12,10 @@ import java.util.Set;
 
 public class IdempotencyEndpoint {
 
-	private Set<HttpMethod> methods;
 	private final IdempotencyKeyGenerator generator;
+	private Set<HttpMethod> methods;
 
-	public IdempotencyEndpoint( Set<HttpMethod> methods, IdempotencyKeyGenerator generator) {
+	public IdempotencyEndpoint(Set<HttpMethod> methods, IdempotencyKeyGenerator generator) {
 		this.methods = methods;
 		this.generator = generator;
 		Assert.notNull(generator, "Genenerator cant be null");

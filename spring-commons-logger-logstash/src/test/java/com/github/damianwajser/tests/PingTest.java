@@ -20,7 +20,7 @@ public class PingTest {
 
 	@Test
 	public void contextLoad() throws Exception {
-		String result = this.restTemplate.getForEntity("http://localhost:"+port+"/ping",String.class).getBody();
+		String result = this.restTemplate.getForEntity("http://localhost:" + port + "/ping", String.class).getBody();
 		Assert.assertThat(result, Matchers.equalTo("pong"));
 	}
 }

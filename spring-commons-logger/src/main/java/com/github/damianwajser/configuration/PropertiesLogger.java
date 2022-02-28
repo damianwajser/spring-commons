@@ -13,9 +13,8 @@ import java.util.Map;
 @PropertySource("classpath:spring-commons-logger.properties")
 public class PropertiesLogger {
 
-	private static final Map<String, String> propertiesToShow = new HashMap<>();
 	public static final String APP_NAME = "APP_NAME";
-
+	private static final Map<String, String> propertiesToShow = new HashMap<>();
 	@Value("${spring.commons.logger.trace.id}")
 	private String traceId;
 

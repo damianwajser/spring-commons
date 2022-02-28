@@ -8,7 +8,7 @@ public class Mapper {
 	private Map<String, String> mappings;
 	private boolean skipPathNotFound;
 
-	public Mapper(){
+	public Mapper() {
 		this.skipPathNotFound = true;
 	}
 
@@ -17,10 +17,10 @@ public class Mapper {
 	}
 
 	public void addMapping(String field, String template) {
-		if(this.mappings==null){
+		if (this.mappings == null) {
 			this.mappings = new HashMap<>();
 		}
-		this.mappings.put(field,template);
+		this.mappings.put(field, template);
 	}
 
 	public boolean isSkipPathNotFound() {

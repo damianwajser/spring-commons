@@ -14,18 +14,22 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JsonParser {
+public class JsonToObjectConverter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JsonParser.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonToObjectConverter.class);
 	private static Pattern pattern = Pattern.compile("(\\$\\.\\S+)", Pattern.MULTILINE);
 	private Mapper mapper;
 
-	public JsonParser(Mapper mapper){
+	public JsonToObjectConverter(Mapper mapper) {
 		this.mapper = mapper;
 	}
-	public <T> T parse(String s, Class<T> clazz) throws InstantiationException, IllegalAccessException {
+
+	public <T> T convert(String s, Class<T> clazz) throws InstantiationException, IllegalAccessException {
+		return this.convert(JsonPath.parse(s), clazz);
+	}
+
+	public <T> T convert(DocumentContext json, Class<T> clazz) throws InstantiationException, IllegalAccessException {
 		T result = clazz.newInstance();
-		DocumentContext json = JsonPath.parse(s);
 		for (Map.Entry<String, String> entry : this.mapper.getMappings().entrySet()) {
 			this.setField(result, entry.getKey(), getValue(json, entry.getValue()));
 		}
@@ -61,8 +65,8 @@ public class JsonParser {
 		try {
 			replacement = json.read(path);
 		} catch (Exception e) {
-			LOGGER.warn("Error with replace",e);
-			if (!mapper.isSkipPathNotFound()){
+			LOGGER.debug("Error with replace", e);
+			if (!mapper.isSkipPathNotFound()) {
 				throw e;
 			}
 		}

@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class TestUtils {
 
-	public static void checkResult(Collection<String> actual, String... expected){
+	public static void checkResult(Collection<String> actual, String... expected) {
 		assertThat(actual, hasItems(expected));
 		assertThat(actual, hasSize(expected.length));
 	}

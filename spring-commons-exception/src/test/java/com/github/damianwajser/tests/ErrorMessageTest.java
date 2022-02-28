@@ -40,7 +40,7 @@ public class ErrorMessageTest {
 			throw new BadRequestException("a", "b", Optional.of("asd"));
 		} catch (BadRequestException e) {
 			e.printStackTrace();
-		}catch (Exception e){
+		} catch (Exception e) {
 			Assert.fail("error in exception create");
 		}
 	}

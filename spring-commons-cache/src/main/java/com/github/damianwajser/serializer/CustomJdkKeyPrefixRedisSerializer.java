@@ -5,9 +5,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 public class CustomJdkKeyPrefixRedisSerializer extends JdkSerializationRedisSerializer {
 
-	private StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-
 	private final String prefix;
+	private StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
 	public CustomJdkKeyPrefixRedisSerializer(String prefix) {
 		this.prefix = prefix;

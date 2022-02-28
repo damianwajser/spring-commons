@@ -9,7 +9,7 @@ notifications:
       subtitle: ${user.name} asdasd ${asdasd}
       footer: ${user.name} asdasd ${asdasd}
   recived_money:
-    condition: $.type = P2M
+    condition: $.type = p2p
     sender:
       chanel: push
     mapping:

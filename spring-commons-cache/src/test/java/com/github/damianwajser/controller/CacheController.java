@@ -25,8 +25,8 @@ public class CacheController {
 	@GetMapping("/cache_all/{id}")
 	private Integer getById(@PathVariable Integer id) {
 
-		Integer customer = servicet.getId(1,id);
-		if(customer==null){
+		Integer customer = servicet.getId(1, id);
+		if (customer == null) {
 			throw new RuntimeException("asdasd");
 		}
 		return customer;
@@ -34,12 +34,12 @@ public class CacheController {
 
 	@PutMapping("/cache_all/{id}")
 	private Integer put(@PathVariable Integer id) {
-		return servicet.update(1,id);
+		return servicet.update(1, id);
 	}
 
 	@DeleteMapping("/cache_all/{id}")
 	private void delete(@PathVariable Integer id) {
-		servicet.delete(1,id);
+		servicet.delete(1, id);
 	}
 
 	@DeleteMapping("/cache")

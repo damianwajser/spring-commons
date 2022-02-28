@@ -9,14 +9,14 @@ public enum Operation {
 	private static final Map<String, Operation> BY_OPERATION = new HashMap<>();
 
 	static {
-		for (Operation e: values()) {
+		for (Operation e : values()) {
 			BY_OPERATION.put(e.value, e);
 		}
 	}
 
 	private String value;
 
-	Operation(String value){
+	Operation(String value) {
 		this.value = value;
 	}
 

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public final class CacheUtilities {
 
-	private CacheUtilities(){
+	private CacheUtilities() {
 		// static class
 	}
 

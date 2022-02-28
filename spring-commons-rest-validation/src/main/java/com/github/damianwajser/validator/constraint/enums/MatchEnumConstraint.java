@@ -30,7 +30,7 @@ public class MatchEnumConstraint extends AbstractConstraint implements Constrain
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		Stream<Object> stream = field.getClass().isArray() ? Arrays.stream((Object[])field):Stream.of(field);
+		Stream<Object> stream = field.getClass().isArray() ? Arrays.stream((Object[]) field) : Stream.of(field);
 		return !acceptedValues.containsAll(stream
 				.map(Object::toString)
 				.collect(Collectors.toList()));

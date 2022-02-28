@@ -2,9 +2,8 @@ package com.github.damianwajser.model.snake;
 
 public class SingletonObject {
 
-	private int value;
-
 	private static SingletonObject instance;
+	private int value;
 
 	private SingletonObject() {
 	}

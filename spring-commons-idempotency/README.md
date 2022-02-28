@@ -1,13 +1,24 @@
 # spring-commons-idempotency
+
 ## Overview
-This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
- 1. The first request finished executing, which returns the same response that was obtained in the first call.
- 2. In case the first request is still running, a message will be returned indicating the conflict.
+
+This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain
+of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an
+idempotence key. When another request is made two things can happen:
+
+1. The first request finished executing, which returns the same response that was obtained in the first call.
+2. In case the first request is still running, a message will be returned indicating the conflict.
+
 -----
+
 ## Get it!
+
 ### Install
+
 #### Maven
-Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following Maven dependency:
+
+Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following
+Maven dependency:
 
 ```xml
 ...
@@ -28,7 +39,9 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ...
 </dependencies>
  ```
- #### Gradle
+
+#### Gradle
+
  ```xml
  compile 'com.github.damianwajser:spring-commons-idempotency:{lastVersion}'
  ```
@@ -36,14 +49,12 @@ Functionality of this package is contained in Java package `com.github.damianwaj
 This configuration is done by registering some beans and properties, you can see the following example:
 
 #### Properties
-| Key | Posible Value | Reference | Default Value
-|--|--|--|--
-spring.commons.idempotency.enabled | true/false | Enable the module | false
-spring.commons.idempotency.message | Any String | |
-spring.commons.idempotency.ttl | Any nunmber ||
-spring.commons.idempotency.badrequest.code| Any String | | 400
-spring.commons.idempotency.conflict.code| Any String | | 409
-spring.commons.idempotency.conflict.mesasge| Any String | |idempotency key is bussy
+
+| Key | Posible Value | Reference | Default Value |--|--|--|-- spring.commons.idempotency.enabled | true/false | Enable
+the module | false spring.commons.idempotency.message | Any String | | spring.commons.idempotency.ttl | Any nunmber ||
+spring.commons.idempotency.badrequest.code| Any String | | 400 spring.commons.idempotency.conflict.code| Any String | |
+409 spring.commons.idempotency.conflict.mesasge| Any String | |idempotency key is bussy
+
 ```java
 @Configuration
 public class IdempotencyConfiguration {
@@ -60,11 +71,15 @@ public class IdempotencyConfiguration {
   }
 }
 ```
+
 Eneable the module
+
 ```properties
 spring.commons.idempotency.enabled=true
 ```
-Remember that this module works with cache, with which you should first configure your ***spring-commons-cache***, for which I leave you an example:
+
+Remember that this module works with cache, with which you should first configure your ***spring-commons-cache***, for
+which I leave you an example:
 
 ```java
                                                                            import javax.servlet.http.HttpServletRequest;//very important
@@ -92,5 +107,7 @@ public class FooIdempotencyKeyGenerator implements IdempotencyKeyGenerator {
    }
 }
 ```
+
 ## License
+
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

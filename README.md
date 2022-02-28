@@ -1,18 +1,29 @@
 # spring-commons
+
 ## Overview
-This project contains the general-purpose tools to spring.  Project is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+This project contains the general-purpose tools to spring. Project is licensed
+under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 [![Build Status](https://api.travis-ci.com/damianwajser/spring-commons.svg?branch=master)](https://travis-ci.com/damianwajser/spring-commons) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.damianwajser/spring-commons) [![Maintainability](https://api.codeclimate.com/v1/badges/b3439fa46cd3387eebff/maintainability)](https://codeclimate.com/github/damianwajser/spring-commons/maintainability)
 [![alert_status](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=alert_status)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons) [![coverage](https://sonarcloud.io/api/project_badges/measure?project=damian_wajser-spring-commons&metric=coverage)](https://sonarcloud.io/dashboard?id=damian_wajser-spring-commons)
 
 -----
+
 ## Roadmap
-Consult the proyect for details on the current [spring-commons roadmap]([https://github.com/damianwajser/spring-commons/projects/1](https://github.com/damianwajser/spring-commons/projects/1)).
+
+Consult the proyect for details on the
+current [spring-commons roadmap]([https://github.com/damianwajser/spring-commons/projects/1](https://github.com/damianwajser/spring-commons/projects/1))
+.
 
 ## Get it!
+
 ### Install
+
 #### Maven
-Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following Maven dependency:
+
+Functionality of this package is contained in Java package `com.github.damianwajser`, and can be used using following
+Maven dependency:
 
 ```xml
 <parent>
@@ -53,11 +64,15 @@ Functionality of this package is contained in Java package `com.github.damianwaj
  ...
 </dependencies>
  ```
- #### Gradle
+
+#### Gradle
+
  ```xml
  compile 'com.github.damianwajser:spring-commons:{lastVersion}'
  ```
- ## Usage Create a spring-boot application.
+
+## Usage Create a spring-boot application.
+
 ```java
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -68,58 +83,68 @@ public class Application {
    }
 }
 ```
+
 #### General configuration:
-| Key | Value | Module | Reference
-|--|--|--|--
-|spring.jackson.property-naming-strategy|PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response when Object is return in a controller
-|spring.commons.app.name|${spring.commons.app.name}|All spring-commons| the name of microservice
+
+| Key | Value | Module | Reference |--|--|--|--
+|spring.jackson.property-naming-strategy|PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response
+when Object is return in a controller |spring.commons.app.name|${spring.commons.app.name}|All spring-commons| the name
+of microservice
+
 ## Modules
+
 ## 1 [spring-commons-exception](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception "spring-commons-exception")
 
 Collection of exceptions for the most common cases when rest apis are built, and override the http code.
 
 In addition, they request additional information for errors.
 
-They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to generate a nice error message.
+They can be used on their own, or they are caught by spring-commons-exception-handler and this information is used to
+generate a nice error message.
 
 For example:
-|Exception|Http Code |
-|--|--|
-| BadRequestException | 400
-| PaymentRequiredException | 402
-| ForbiddenException | 403
-| PermissionDeniedException | 403
-| NotFoundException | 404
+|Exception|Http Code | |--|--| | BadRequestException | 400 | PaymentRequiredException | 402 | ForbiddenException | 403 |
+PermissionDeniedException | 403 | NotFoundException | 404
 
 ## 2 [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
 
 This project override all annotations for standard JSR annotations.
 
-Some annotations accept additional attributes like ***isNulleable***, but the message and the ***bussisnessCode*** attributes are common to all of them.
+Some annotations accept additional attributes like ***isNulleable***, but the message and the ***bussisnessCode***
+attributes are common to all of them.
 
 Message: This is the message that will usually be rendered when the value of the respective property fails validation.
 
 ## 3 [spring-commons-exception-handler](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-exception-handler "spring-commons-exception-handler")
-This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
 
-On the other hand, the internationalization option is enabled, for which in all the exceptions found in ***spring-commons-exceptions*** or the validations found in ***spring-commons-rest-validation*** We can enter placeholders when we talk about errors.
+This module is responsible for generating error messages (REST) when an exception occurs, generating a unique interface
+for these occurrences. It is also in charge of correctly setting the HTTP codes in the message.
 
-The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take it from the corresponding message.properties.
+On the other hand, the internationalization option is enabled, for which in all the exceptions found in ***
+spring-commons-exceptions*** or the validations found in ***spring-commons-rest-validation*** We can enter placeholders
+when we talk about errors.
+
+The language is selected by the client based on the header ***Accept-Lenguage: $ {locale}*** and this module will take
+it from the corresponding message.properties.
 
 ## 4 [spring-commons-http-fixer](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-http-fixer "spring-commons-http-fixer")
-This project is in charge of solving the most common problems related to http codes in spring-mvc REST responses.
-Among other things, set the default http 201 code in the response when we are using the POST verb.
+
+This project is in charge of solving the most common problems related to http codes in spring-mvc REST responses. Among
+other things, set the default http 201 code in the response when we are using the POST verb.
 
 ## 5 [spring-commons-rest-templates](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-templates "spring-commons-rest-templates")
 
 This project registers the RestTemplates to be used by the application.
 
-At the same time, it incorporates an Interceptor to add custom headers (those that start with "X-"), to generate traceability between the microservices.
+At the same time, it incorporates an Interceptor to add custom headers (those that start with "X-"), to generate
+traceability between the microservices.
 
 ## 6 [spring-commons-logger](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-logger "spring-commons-logger")
+
 This module generates useful tools for logging.
 
 Among its features we find:
+
 - StatsFilter (generates a log with the duration for each request)
 - MDCFilter (it incorporates parameters in the MDC to be used in the loggin.pattern)
 - RequestIdGenerator (a UUID is generated for each request in order to have traceability)
@@ -130,17 +155,21 @@ This module configures the connector to logstash async way.
 
 ## 8 [spring-commons-cache](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-cache "spring-commons-cache")
 
-This module tries to solve the typical problems that we encounter when we use Redis as Cache in spring.
-Configure:
+This module tries to solve the typical problems that we encounter when we use Redis as Cache in spring. Configure:
+
 - CacheManager
 - RedisTemplate
 
 It also improves the lifetime of the keys when we use @Cacheable.
 
 ## 9 [spring-commons-idempotency](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-idempotency "spring-commons-idempotency")
-This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an idempotence key. When another request is made two things can happen:
- 1. The first request finished executing, which returns the same response that was obtained in the first call.
- 2. In case the first request is still running, a message will be returned indicating the conflict.
+
+This module tries to solve the problems associated with idempotence. For them, create a filter within the spring chain
+of responsibilities. When the first request is made, it saves in redis the request sent by the client associated with an
+idempotence key. When another request is made two things can happen:
+
+1. The first request finished executing, which returns the same response that was obtained in the first call.
+2. In case the first request is still running, a message will be returned indicating the conflict.
 
 ## 10 [spring-commons-actuator](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-actuator "spring-commons-actuator")
 
@@ -166,11 +195,15 @@ This module tries to solve the problems associated with idempotence. For them, c
     </configuration>
 </plugin>
 ````
+
 ## 11 [spring-commons-payment-utilities](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-payment-utilities "spring-commons-payment-utilities")
 
 ## Commons Issues:
+
 ### DynamoDb
+
 DynamoDb generate some issues connfiguring JPA:
+
 ```java
 @SpringBootApplication
 @EnableDynamoDBRepositories(
@@ -186,5 +219,7 @@ public class Application {
    }
 }
 ```
+
 ## License
+
 The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).

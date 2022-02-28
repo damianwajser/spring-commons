@@ -56,12 +56,21 @@ public class ExceptionDetail implements Serializable {
 		this.metaData = new HashMap<>();
 	}
 
+	public static ExceptionDetail getDetail(HttpClientErrorException e, String code) throws JsonProcessingException {
+		ErrorMessage message = ErrorMessage.getInstance(e);
+		return message.getDetails().stream().filter((detail) -> detail.getErrorCode().equalsIgnoreCase(code)).findAny().get();
+	}
+
 	public String getErrorCode() {
 		return errorCode;
 	}
 
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	public void setErrorMessage(String message) {
+		this.errorMessage = message;
 	}
 
 	public Object[] getMessageArgs() {
@@ -78,10 +87,6 @@ public class ExceptionDetail implements Serializable {
 
 	public Optional<Object> getErrorDetail() {
 		return errorDetail;
-	}
-
-	public void setErrorMessage(String message) {
-		this.errorMessage = message;
 	}
 
 	@Override
@@ -118,11 +123,6 @@ public class ExceptionDetail implements Serializable {
 		// perform the default serialization for all non-transient, non-static
 		// fields
 		aOutputStream.defaultWriteObject();
-	}
-
-	public static ExceptionDetail getDetail(HttpClientErrorException e, String code) throws JsonProcessingException {
-		ErrorMessage message = ErrorMessage.getInstance(e);
-		return message.getDetails().stream().filter((detail) -> detail.getErrorCode().equalsIgnoreCase(code)).findAny().get();
 	}
 
 }

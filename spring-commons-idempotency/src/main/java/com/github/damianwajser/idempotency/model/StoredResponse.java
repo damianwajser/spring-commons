@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class StoredResponse implements Serializable {
 
-	private String body;
 	private final Map<String, String> headers;
+	private String body;
 	private int statusCode;
 	private boolean lock;
 

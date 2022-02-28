@@ -27,6 +27,6 @@ public class Condition {
 
 	@Override
 	public String toString() {
-		return "Condition("+ field + " " + operation + " " + match + ')';
+		return "Condition(" + field + " " + operation + " " + match + ')';
 	}
 }
