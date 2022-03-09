@@ -86,10 +86,10 @@ public class Application {
 
 #### General configuration:
 
-| Key | Value | Module | Reference |--|--|--|--
-|spring.jackson.property-naming-strategy|PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON response
-when Object is return in a controller |spring.commons.app.name|${spring.commons.app.name}|All spring-commons| the name
-of microservice
+| Key | Value | Module | Reference |
+| -- | -- | -- | -- |
+| spring.jackson.property-naming-strategy | PropertyNamingStrategy.SnakeCaseStrategy | Spring web | format JSON responsewhen Object is return in a controller | 
+| spring.commons.app.name | ${spring.commons.app.name} | All spring-commons | the name of microservice
 
 ## Modules
 
@@ -103,8 +103,13 @@ They can be used on their own, or they are caught by spring-commons-exception-ha
 generate a nice error message.
 
 For example:
-|Exception|Http Code | |--|--| | BadRequestException | 400 | PaymentRequiredException | 402 | ForbiddenException | 403 |
-PermissionDeniedException | 403 | NotFoundException | 404
+|Exception|Http Code | 
+|--|--| 
+| BadRequestException | 400 
+| PaymentRequiredException | 402 
+| ForbiddenException | 403 
+| PermissionDeniedException | 403 
+| NotFoundException | 404
 
 ## 2 [spring-commons-rest-validation](https://github.com/damianwajser/spring-commons/tree/master/spring-commons-rest-validation "spring-commons-rest-validation")
 
