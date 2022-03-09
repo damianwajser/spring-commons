@@ -44,8 +44,9 @@ Maven dependency:
 
 ## Properties
 
-| Key | Posible Value | Reference | Default Value |--|--|--|-- |spring.commons.http.fixer.enabled|boolean|enable the
-module|true
+| Key | Posible Value | Reference | Default Value 
+|--|--|--|--  
+| spring.commons.http.fixer.enabled | boolean | enable the module | true
 
 ## License
 

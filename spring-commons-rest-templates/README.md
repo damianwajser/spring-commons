@@ -46,15 +46,18 @@ Maven dependency:
 
 #### Properties
 
-| Key | Posible Value | Reference | Default Value |--|--|--|-- |spring.commons.rest.template.timeout.connection | any
-int | timeout connection | -1 |spring.commons.rest.template.timeout.write | any int | timeout connection | -1
-|spring.commons.rest.template.timeout.read | any int | timeout connection | -1
-|spring.commons.rest.template.ssl.enable|boolean|enable ssl certificate in ssl_restTemplate|false
-|spring.commons.rest.template.ssl.protocol||any string|TLSv1.2 |spring.commons.rest.template.ssl.trustStorePassword||any
-string|empty |spring.commons.rest.template.ssl.trustStore||any string|empty
-|spring.commons.rest.template.http.connection.pool.maxTotal|any int||100
-|spring.commons.rest.template.http.connection.pool.MaxDefaultPerRoute|any int||30
-|spring.commons.rest.template.implementation| HTTP_CLIENT, OK_HTTP | real implementation of httpclient| HTTP_CLIENT
+| Key | Posible Value | Reference | Default Value 
+|--|--|--|-- 
+| spring.commons.rest.template.timeout.connection | any int | timeout connection | -1 
+| spring.commons.rest.template.timeout.write | any int | timeout connection | -1
+| spring.commons.rest.template.timeout.read | any int | timeout connection | -1
+| spring.commons.rest.template.ssl.enable | boolean | enable ssl certificate in ssl_restTemplate | false
+| spring.commons.rest.template.ssl.protocol | any string | TLSv1.2 
+| spring.commons.rest.template.ssl.trustStorePassword || any string | empty |spring.commons.rest.template.ssl.trustStore||any string|empty
+| spring.commons.rest.template.http.connection.pool.maxTotal|any int||100
+| spring.commons.rest.template.http.connection.pool.MaxDefaultPerRoute|any int||30
+| spring.commons.rest.template.implementation| HTTP_CLIENT, OK_HTTP | real implementation of httpclient| HTTP_CLIENT
+| spring.commons.rest.template.converter.skipnull | true/false | Skip nulls in request payload | false
 
 ### RestTemplates
 
@@ -96,11 +99,6 @@ private RestTemplate restTemplate;
 @Qualifier("ssl_snake_case_template")
 private RestTemplate restTemplate;
 ````
-
-#### Configuration:
-
-| Key | Value | Module | Reference |--|--|--|-- |spring.commons.rest.template.converter.skipnull |false | Skip nulls in
-request payload
 
 ### Example
 

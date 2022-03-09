@@ -49,12 +49,13 @@ Maven dependency:
 
 #### Properties
 
-| Key | Posible Value | Reference | Default Value |--|--|--|-- |logging.pattern. level | [%-5level] AppName: %X{appName}
-Request ID: %X{requestId} Client IP: %X{clientIp} | log pattern | Empty |spring.commons.logger.app.name | ms-x | the
-name of microservice | ${spring.commons.app.name} |spring.commons.logger.trace.id | any string | Header key from get the
-request Id if is empty generate a new UUID to replace RequestId | X-Trace-Id
-|spring.commons.logger.duration.request.enabled| true/false | For each request log the duration.| false
-|spring.commons.logger.payload.max|Any integer | size of the max payload in the log | 16000
+| Key | Posible Value | Reference | Default Value |
+|--|--|--|-- |
+| logging.pattern.level | [%-5level] AppName: %X{appName} Request ID: %X{requestId} | log pattern | Empty |
+| spring.commons.logger.app.name | ms-x | the name of microservice | ${spring.commons.app.name} |
+| spring.commons.logger.trace.id | any string | Header key from get the request Id if is empty generate a new UUID to replace RequestId | X-Trace-Id
+| spring.commons.logger.duration.request.enabled | true/false | For each request log the duration. | false
+| spring.commons.logger.payload.max | Any integer | size of the max payload in the log | 16000
 
 ***Recommendation:*** spring.commons.logger.trace.id is the key header so it should be a custom header (X- {header})
 since if we are in a microservices environment this header generates traceability thanks to the module ***

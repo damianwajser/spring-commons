@@ -46,10 +46,21 @@ Maven dependency:
 
 ### Exceptions
 
-|Exception|Http Code | |--|--| | BadRequestException | 400 | PaymentRequiredException | 402 | ForbiddenException | 403 |
-PermissionDeniedException | 403 | NotFoundException | 404 | MethodNotAllowedException | 405 | NotAcceptableException|406
-| ConflictException | 409 | PreconditionFailedException | 412 | UnsuportedMediaTypeException | 415 |
-UnprocessableEntityException | 422| | LockedException | 423 | InternalServerErrorException | 500
+|Exception|Http Code | 
+|--|--| 
+| BadRequestException | 400 
+| PaymentRequiredException | 402 
+| ForbiddenException | 403 
+| PermissionDeniedException | 403 
+| NotFoundException | 404 
+| MethodNotAllowedException | 405 
+| NotAcceptableException|406
+| ConflictException | 409 
+| PreconditionFailedException | 412 
+| UnsuportedMediaTypeException | 415 
+| UnprocessableEntityException | 422
+| LockedException | 423 
+| InternalServerErrorException | 500
 
 ## License
 

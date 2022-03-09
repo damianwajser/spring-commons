@@ -43,9 +43,10 @@ Maven dependency:
 
 #### Properties
 
-| Key | Posible Value | Reference | Default Value |--|--|--|-- |spring.commons.logstash.destinationn | localhost:5000 |
-host and port of logstash server| localhost:5000 |spring.commons.logstash.enabled| true/false | Enable the Module.|
-false
+| Key | Posible Value | Reference | Default Value | 
+|--|--|--|-- |
+| spring.commons.logstash.destination | localhost:5000 | host and port of logstash server | localhost:5000 |
+| spring.commons.logstash.enabled | true/false | Enable the Module. | false |
 
 ***Recommendation:*** spring.commons.logger.trace.id is the key header so it should be a custom header (X- {header})
 since if we are in a microservices environment this header generates traceability thanks to the module ***

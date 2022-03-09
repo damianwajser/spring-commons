@@ -54,12 +54,13 @@ Maven dependency:
 
 #### Properties
 
-| Key | Posible Value | Reference | Default Value |--|--|--|-- |spring.commons.cache.enabled | true/false| enable the
-module| false |spring.commons.cache.prefix.enabled | true/false | When you use a shared redis between different
-applications and you want to do a division on the domain of the keys, you can use a prefix to do this manually. | true
-|spring.commons.cache.prefix.value | Any String | value of prefix | ${spring.commons.app.name}
-|spring-commons.cache.ttl.all=2| Any int | default time to @Cacheable|86400 (one day)
-| spring-commons.cache.ttl.name.{name}| Any int | ttl value for each cache name| ${spring-commons.cache.ttl.all}
+| Key | Posible Value | Reference | Default Value 
+|--|--|--|-- 
+|spring.commons.cache.enabled | true/false| enable the module | false 
+|spring.commons.cache.prefix.enabled | true/false | When you use a shared redis between different applications and you want to do a division on the domain of the keys, you can use a prefix to do this manually. | true
+| spring.commons.cache.prefix.value | Any String | value of prefix | ${spring.commons.app.name}
+| spring-commons.cache.ttl.all | Any int | default time to @Cacheable | 86400 (one day)
+| spring-commons.cache.ttl.name.{name} | Any int | ttl value for each cache name | ${spring-commons.cache.ttl.all}
 
 1. Set a Redis Properties in application.properties file
 
