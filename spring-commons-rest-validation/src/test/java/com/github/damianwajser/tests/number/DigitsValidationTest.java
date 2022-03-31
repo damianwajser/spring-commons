@@ -1,6 +1,9 @@
 package com.github.damianwajser.tests.number;
 
 import com.github.damianwajser.model.number.DigitsDecimalObject;
+import com.github.damianwajser.model.number.DigitsWithoutDecimalAndMultiplyObject;
+import com.github.damianwajser.model.number.DigitsWithoutDecimalAndMultiplyObjectInt;
+import com.github.damianwajser.model.number.DigitsWithoutDecimalObject;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -22,6 +25,20 @@ public class DigitsValidationTest {
 		assertThat(validationFor(new DigitsDecimalObject(new BigDecimal("111.999"))), fails());
 		assertThat(validationFor(new DigitsDecimalObject(new BigDecimal("1111.999"))), fails());
 		assertThat(validationFor(new DigitsDecimalObject(new BigDecimal("11.999"))), fails());
+
+		assertThat(validationFor(new DigitsWithoutDecimalObject(new BigDecimal("1"))), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalObject(new BigDecimal("1.0"))), fails());
+
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObjectInt(10)), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObjectInt(100)), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObjectInt(1000)), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObjectInt(11)), fails());
+
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObject(new BigDecimal("10"))), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObject(new BigDecimal("100"))), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObject(new BigDecimal("1000"))), succedes());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObject(new BigDecimal("11"))), fails());
+		assertThat(validationFor(new DigitsWithoutDecimalAndMultiplyObject(new BigDecimal("11.10"))), fails());
 
 	}
 }

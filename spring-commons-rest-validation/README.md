@@ -109,6 +109,18 @@ be validate with actual date.
 **@Digits** - Use this annotation to validate integer and fraction, that for specifying the number of allowed digits in
 the integral part and fraction part of the number.
 
+```java
+import com.github.damianwajser.validator.annotation.number.Digits;
+
+import java.math.BigDecimal;
+
+public class DigitObject {
+
+    @Digits(integer = 4, fraction = 0, multipleOf = 10, businessCode = "a-400")    
+    private BigDecimal value;
+
+}
+```
 **@DecimalMin** - Use this annotation to validate a number whose value is higher or equal to the specified minimum.
 
 ##### Examples

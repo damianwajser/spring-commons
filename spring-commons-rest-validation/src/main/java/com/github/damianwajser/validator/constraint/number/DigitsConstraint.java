@@ -6,35 +6,51 @@ import com.github.damianwajser.validator.constraint.AbstractConstraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Optional;
 
 public class DigitsConstraint extends AbstractConstraint implements ConstraintValidator<Digits, Object> {
 
 	private int maxIntegerLength;
 	private int maxFractionLength;
+	private int multileOf;
 
 	@Override
 	public void initialize(Digits field) {
 		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.maxIntegerLength = field.integer();
 		this.maxFractionLength = field.fraction();
+		this.multileOf = field.multipleOf();
 		this.validateParameters();
 	}
 
 	@Override
 	protected boolean hasError(Object field, ConstraintValidatorContext cxt) {
-		BigDecimal bigNum;
+		return getBigDecimal(field).map(d->this.errorInPrecision(d) || this.hasErrorInReminder(d)).orElse(true);
+	}
+
+	private boolean hasErrorInReminder(BigDecimal bigDecimal) {
+		boolean hasError = this.multileOf == 0 ? false : !bigDecimal.remainder(new BigDecimal(this.multileOf)).equals(BigDecimal.ZERO);
+		System.out.println("hay error en reminder " + hasError);
+		return hasError;
+	}
+
+	private boolean errorInPrecision(BigDecimal bigDecimal) {
+		int integerPartLength = bigDecimal.precision() - bigDecimal.scale();
+		int fractionPartLength = bigDecimal.scale() < 0 ? 0 : bigDecimal.scale();
+		boolean hasError =  this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
+		System.out.println("hay error en presiosion " + hasError);
+		return hasError;
+	}
+
+	private Optional<BigDecimal> getBigDecimal(Object field) {
+		BigDecimal bigNum = null;
 		if (field != null && field.getClass().isAssignableFrom(BigDecimal.class)) {
 			bigNum = (BigDecimal) field;
 		} else if (field != null) {
-			bigNum = (new BigDecimal(field.toString())).stripTrailingZeros();
-		} else {
-			return true;
+			bigNum = new BigDecimal(field.toString());
 		}
-
-		int integerPartLength = bigNum.precision() - bigNum.scale();
-		int fractionPartLength = bigNum.scale() < 0 ? 0 : bigNum.scale();
-		return this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
-
+		return Optional.ofNullable(bigNum);
 	}
 
 	private void validateParameters() {
