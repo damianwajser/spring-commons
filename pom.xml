@@ -16,13 +16,13 @@
 	<url>http://github.com/damianwajser/spring-commons</url>
 
 	<properties>
-		<revision>1.27.5</revision>
+		<revision>1.28.0</revision>
 		<log4j2.version>2.17.0</log4j2.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring.boot.version>2.6.3</spring.boot.version>
+		<spring.boot.version>2.6.6</spring.boot.version>
 		<!--<junit.jupiter.version>5.4.0</junit.jupiter.version>
 		<junit.platform.version>1.0.0-M2</junit.platform.version>-->
 		<junit5.vintage.version>5.8.2</junit5.vintage.version>
