@@ -6,21 +6,20 @@ import com.github.damianwajser.validator.constraint.AbstractConstraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Optional;
 
 public class DigitsConstraint extends AbstractConstraint implements ConstraintValidator<Digits, Object> {
 
 	private int maxIntegerLength;
 	private int maxFractionLength;
-	private int multileOf;
+	private int multipleOf;
 
 	@Override
 	public void initialize(Digits field) {
 		super.initialize(field.excludes(), field.onlyIn(), field.isNulleable());
 		this.maxIntegerLength = field.integer();
 		this.maxFractionLength = field.fraction();
-		this.multileOf = field.multipleOf();
+		this.multipleOf = field.multipleOf();
 		this.validateParameters();
 	}
 
@@ -30,8 +29,7 @@ public class DigitsConstraint extends AbstractConstraint implements ConstraintVa
 	}
 
 	private boolean hasErrorInReminder(BigDecimal bigDecimal) {
-		boolean hasError = this.multileOf == 0 ? false : !bigDecimal.remainder(new BigDecimal(this.multileOf)).equals(BigDecimal.ZERO);
-		System.out.println("hay error en reminder " + hasError);
+		boolean hasError = this.multipleOf == 0 ? false : !bigDecimal.remainder(new BigDecimal(this.multipleOf)).equals(BigDecimal.ZERO);
 		return hasError;
 	}
 
@@ -39,7 +37,6 @@ public class DigitsConstraint extends AbstractConstraint implements ConstraintVa
 		int integerPartLength = bigDecimal.precision() - bigDecimal.scale();
 		int fractionPartLength = bigDecimal.scale() < 0 ? 0 : bigDecimal.scale();
 		boolean hasError =  this.maxIntegerLength < integerPartLength || this.maxFractionLength < fractionPartLength;
-		System.out.println("hay error en presiosion " + hasError);
 		return hasError;
 	}
 
