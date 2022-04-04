@@ -97,7 +97,7 @@ yoy can add that parameters (min, max). Also you can add a boolean parameter all
 
 **@CardToken** - Use this annotation to validate credit card Tokens of TokenEx, DataFast and More.
 
-**@CardExpiration** - Use this annnotation to validate an Object Expirable, when expiration month and expiration year to
+**@CardExpiration** - Use this annotation to validate an Object Expirable, when expiration month and expiration year to
 be validate with actual date.
 
 **@MatchEnum**
@@ -109,6 +109,18 @@ be validate with actual date.
 **@Digits** - Use this annotation to validate integer and fraction, that for specifying the number of allowed digits in
 the integral part and fraction part of the number.
 
+```java
+import com.github.damianwajser.validator.annotation.number.Digits;
+
+import java.math.BigDecimal;
+
+public class DigitObject {
+
+    @Digits(integer = 4, fraction = 0, multipleOf = 10, businessCode = "a-400")    
+    private BigDecimal value;
+
+}
+```
 **@DecimalMin** - Use this annotation to validate a number whose value is higher or equal to the specified minimum.
 
 ##### Examples

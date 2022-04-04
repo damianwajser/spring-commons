@@ -34,7 +34,9 @@ public @interface Digits {
 
 	int integer();
 
-	int fraction();
+	int fraction() default 0;
+
+	int multipleOf() default 0;
 
 	boolean isNulleable() default false;
 
