@@ -6,18 +6,22 @@ import javax.crypto.spec.PBEParameterSpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class CryptoUtil {
 
-	Cipher ecipher;
-	Cipher dcipher;
+	private static final String CIPHER_SERVICE_NAME = "Cipher";
+	private static final String DEFAULT_ALGORITHM = "PBEWithMD5AndDES";
+
+	private Cipher ecipher;
+	private Cipher dcipher;
 	// 8-byte Salt
 	byte[] salt = {
 			(byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32,
@@ -48,9 +52,33 @@ public class CryptoUtil {
 			UnsupportedEncodingException,
 			IllegalBlockSizeException,
 			BadPaddingException {
+		return encrypt(secretKey, plainText, DEFAULT_ALGORITHM);
+	}
+	/**
+	 * @param secretKey Key used to encrypt data
+	 * @param plainText Text input to be encrypted
+	 * @return Returns encrypted text
+	 * @throws java.security.NoSuchAlgorithmException
+	 * @throws java.security.spec.InvalidKeySpecException
+	 * @throws javax.crypto.NoSuchPaddingException
+	 * @throws java.security.InvalidKeyException
+	 * @throws java.security.InvalidAlgorithmParameterException
+	 * @throws java.io.UnsupportedEncodingException
+	 * @throws javax.crypto.IllegalBlockSizeException
+	 * @throws javax.crypto.BadPaddingException
+	 */
+	public String encrypt(String secretKey, String plainText, String algorithm)
+			throws NoSuchAlgorithmException,
+			InvalidKeySpecException,
+			NoSuchPaddingException,
+			InvalidKeyException,
+			InvalidAlgorithmParameterException,
+			UnsupportedEncodingException,
+			IllegalBlockSizeException,
+			BadPaddingException {
 		//Key generation for enc and desc
 		KeySpec keySpec = new PBEKeySpec(secretKey.toCharArray(), salt, iterationCount);
-		SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES").generateSecret(keySpec);
+		SecretKey key = SecretKeyFactory.getInstance(algorithm).generateSecret(keySpec);
 		// Prepare the parameter to the ciphers
 		AlgorithmParameterSpec paramSpec = new PBEParameterSpec(salt, iterationCount);
 
@@ -82,11 +110,32 @@ public class CryptoUtil {
 			InvalidKeyException,
 			InvalidAlgorithmParameterException,
 			IllegalBlockSizeException,
-			BadPaddingException,
-			IOException {
+			BadPaddingException {
+		return decrypt(secretKey,encryptedText, DEFAULT_ALGORITHM);
+	}
+	/**
+	 * @param secretKey     Key used to decrypt data
+	 * @param encryptedText encrypted text input to decrypt
+	 * @return Returns plain text after decryption
+	 * @throws java.security.NoSuchAlgorithmException
+	 * @throws java.security.spec.InvalidKeySpecException
+	 * @throws javax.crypto.NoSuchPaddingException
+	 * @throws java.security.InvalidKeyException
+	 * @throws java.security.InvalidAlgorithmParameterException
+	 * @throws javax.crypto.IllegalBlockSizeException
+	 * @throws javax.crypto.BadPaddingException
+	 */
+	public String decrypt(String secretKey, String encryptedText, String algorithm)
+			throws NoSuchAlgorithmException,
+			InvalidKeySpecException,
+			NoSuchPaddingException,
+			InvalidKeyException,
+			InvalidAlgorithmParameterException,
+			IllegalBlockSizeException,
+			BadPaddingException {
 		//Key generation for enc and desc
 		KeySpec keySpec = new PBEKeySpec(secretKey.toCharArray(), salt, iterationCount);
-		SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES").generateSecret(keySpec);
+		SecretKey key = SecretKeyFactory.getInstance(algorithm).generateSecret(keySpec);
 		// Prepare the parameter to the ciphers
 		AlgorithmParameterSpec paramSpec = new PBEParameterSpec(salt, iterationCount);
 		//Decryption process; same key will be used for decr
@@ -97,4 +146,11 @@ public class CryptoUtil {
 		return new String(utf8, StandardCharsets.UTF_8);
 	}
 
+	public Collection<String> getAlgorithms(){
+		return Arrays.stream(Security.getProviders())
+				.flatMap(provider -> provider.getServices().stream())
+				.filter(service -> CIPHER_SERVICE_NAME.equals(service.getType()))
+				.map(Provider.Service::getAlgorithm)
+				.collect(Collectors.toList());
+	}
 }
