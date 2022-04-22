@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -35,7 +36,8 @@ public class SslDefaultBeanConfiguration {
 		if(StringUtils.isNotBlank(properties.getProtocol())){
 			builder.setProtocol(properties.getProtocol());
 		}
+		SSLContext context = builder.build();
 
-		return builder.build();
+		return context;
 	}
 }

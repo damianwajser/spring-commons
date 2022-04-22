@@ -41,7 +41,7 @@ public class OkHttpRequestFactory implements CustomHttpRequestFactory {
 
 		if (configureSSl == true && sslContext != null) {
 			//TODO: resolver ssl
-			builder.sslSocketFactory(sslContext.getSocketFactory(), null);
+			//builder.sslSocketFactory(sslContext.getSocketFactory(), null);
 		}
 		return builder;
 	}
