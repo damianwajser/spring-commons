@@ -66,7 +66,7 @@ public class JsonToObjectConverter {
 	private String getReplacement(DocumentContext json, String path) {
 		String replacement = StringUtils.EMPTY;
 		try {
-			replacement = json.read(path);
+			replacement = json.read(path).toString();
 		} catch (Exception e) {
 			LOGGER.debug("Error with replace", e);
 			if (!mapper.isSkipPathNotFound()) {

@@ -45,6 +45,20 @@ public class JsonConverterTest {
 		assertThat(result.getFooter()).isEqualTo("Regards!");
 	}
 
+	@Test
+	public void completeMapperNumeric() throws Exception {
+		String json = getJsonNumeric();
+		Mapper mapper = new Mapper();
+		mapper.addMapping("body", "$.destination, $.origin sent you $$.amount dollars");
+		mapper.addMapping("title", "Congrats! $.destination sent you $$.amount dollars");
+		mapper.addMapping("footer", "Regards!");
+		JsonToObjectConverter parser = new JsonToObjectConverter(mapper);
+		NotificationMapperModel result = parser.convert(json, NotificationMapperModel.class);
+		assertThat(result.getBody()).isEqualTo("owen, damian sent you $5 dollars");
+		assertThat(result.getTitle()).isEqualTo("Congrats! owen sent you $5 dollars");
+		assertThat(result.getFooter()).isEqualTo("Regards!");
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void errorFieldNotExist() throws Exception {
 		String json = getJson();
@@ -78,6 +92,9 @@ public class JsonConverterTest {
 
 	private String getJson() {
 		return "{'amount':'5','origin':'damian','destination':'owen'}";
+	}
+	private String getJsonNumeric() {
+		return "{'amount':5,'origin':'damian','destination':'owen'}";
 	}
 
 }
