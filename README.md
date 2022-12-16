@@ -12,7 +12,7 @@ under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## Roadmap
 
-Consult the proyect for details on the
+Consult the project for details on the
 current [spring-commons roadmap]([https://github.com/damianwajser/spring-commons/projects/1](https://github.com/damianwajser/spring-commons/projects/1))
 .
 
