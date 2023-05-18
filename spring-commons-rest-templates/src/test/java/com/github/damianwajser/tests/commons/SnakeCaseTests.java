@@ -1,7 +1,9 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.commons;
 
+import com.github.damianwajser.tests.AbstractHttpTest;
 import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +15,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.Map;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SnakeCaseTests {
+public class SnakeCaseTests extends AbstractHttpTest {
 	@LocalServerPort
 	private int port;
-
 	@Autowired
 	private RestTemplate restTemplate;
 

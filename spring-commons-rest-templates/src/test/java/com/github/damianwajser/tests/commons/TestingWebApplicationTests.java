@@ -1,5 +1,11 @@
-package com.github.damianwajser.tests;
+package com.github.damianwajser.tests.commons;
 
+import com.github.damianwajser.tests.AbstractHttpTest;
+import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +17,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TestingWebApplicationTests {
+public class TestingWebApplicationTests extends AbstractHttpTest {
 	@LocalServerPort
 	private int port;
-
 	@Autowired
 	private RestTemplate restTemplate;
 
