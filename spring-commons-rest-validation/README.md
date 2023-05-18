@@ -106,6 +106,33 @@ be validate with actual date.
 
 **@UUID**
 
+**OneNotNull** - Use this annotation to validate that at least one of a list of fields is not null
+
+You can use this annotation for different groups of fields
+
+```java
+@OneNotNull(
+fields = {"idCommerce","idContact"},
+message="{commercefile.onenotnull.required}",
+businessCode = "commercefile.onenotnull.required"
+)
+@OneNotNull(
+        fields = {"email","phone"},
+        message="{commercefile.onenotnull.contact.required}",
+        businessCode = "commercefile.onenotnull.contact.required"
+)
+public class ObjectDto implements Serializable {
+    
+    private String idCommerce;
+    
+    private String idContact;
+
+    private String email;
+
+    private String phone;
+}
+```
+
 **@Digits** - Use this annotation to validate integer and fraction, that for specifying the number of allowed digits in
 the integral part and fraction part of the number.
 
