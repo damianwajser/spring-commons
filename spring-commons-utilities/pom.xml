@@ -11,7 +11,7 @@
 		<version>${revision}</version>
 	</parent>
 	<properties>
-		<com.jayway.jsonpath>2.6.0</com.jayway.jsonpath>
+		<com.jayway.jsonpath>2.9.0</com.jayway.jsonpath>
 	</properties>
 	<dependencies>
 		<dependency>
